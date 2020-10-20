@@ -8,9 +8,18 @@ import clsx from "clsx";
 
 //components
 import SidebarItemsList from './SidebarItemList'
+import SidebarProfile from './SidebarProfile'
+import { Divider } from '@material-ui/core';
+
+const user={
+  avatar:'logo192.png',
+  firstname: 'Yassice',
+  lastname: 'Djebarri'
+}
 
 export default function index(props) {
     const {classes,open,handleDrawerClose}=props;
+   
     return (
         <Drawer
         variant="permanent"
@@ -24,7 +33,12 @@ export default function index(props) {
             <ChevronLeftIcon />
           </IconButton>
         </div>
-        <SidebarItemsList/>
+        {open && <SidebarProfile user={user} style={{marginBottom: "50%"}} />}
+        <div className={classes.toolbarIcon}>
+         
+        </div>
+        <Divider/>
+        <SidebarItemsList props  />
        
       </Drawer>
     )

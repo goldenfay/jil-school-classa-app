@@ -1,17 +1,12 @@
 import React from "react";
+import { BrowserRouter as  Router } from "react-router-dom";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import Auth from "./Admin/auth/pages/Auth";
-import Dashboard from "./Admin/dashboard/pages/Dashboard";
+import AppAdmin from './AppAdmin';
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact  component={Auth} />
-        <Route path="/dashboard" exact  component={Dashboard} />
-      </Switch>
+      <AppAdmin/>
     </Router>
   );
 }

@@ -82,14 +82,13 @@ export default function SignIn(props) {
             color="primary"
             className={classes.submit}
             component={RouteLink}
-            to={'/admin/dashboard'}
+            to={'/dashboard'}
 
             
 
           >
             Sign In
           </Button>
-          <RouteLink to="/dashboard">kjdfhsdkfjhdsjkfhgskjdfhgdfkjh</RouteLink>
           <Grid container>
             <Link
               component="button"

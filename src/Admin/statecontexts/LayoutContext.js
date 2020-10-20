@@ -10,6 +10,8 @@ function layoutReducer(state, action) {
   switch (action.type) {
     case "TOGGLE_SIDEBAR":
       return { ...state, isSidebarOpened: !state.isSidebarOpened };
+    case "CHANGE_SELECTED_LINK":
+      return { ...state, selectedLink: action.payload.link };
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -19,6 +21,8 @@ function layoutReducer(state, action) {
 function LayoutProvider({ children }) {
   var [state, dispatch] = React.useReducer(layoutReducer, {
     isSidebarOpened: true,
+    selectedLink:'/'
+    
   });
   return (
     <LayoutStateContext.Provider value={state}>
@@ -50,5 +54,13 @@ function toggleSidebar(dispatch) {
     type: "TOGGLE_SIDEBAR",
   });
 }
-export { LayoutProvider, useLayoutState, useLayoutDispatch, toggleSidebar };
+function changeLink(dispatch,link) {
+  dispatch({
+    type: "CHANGE_SELECTED_LINK",
+    payload:{
+      link:link
+    } 
+  });
+}
+export { LayoutProvider, useLayoutState, useLayoutDispatch, toggleSidebar,changeLink };
 

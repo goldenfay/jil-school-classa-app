@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import List from "@material-ui/core/List";
 
 import PeopleIcon from "@material-ui/icons/People";
@@ -11,6 +11,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 //components
 import SidebarItem from './SidebarItem'
+// import {useLayoutState,useLayoutDispatch,changeLink } from "../../../statecontexts/LayoutContext";
+
 
 const navItems=[
     {
@@ -29,12 +31,12 @@ const navItems=[
         label:'Eleves'
     },
     {
-        link:'/ads',
+        link:'/pubs',
         ItemIcon:GradientIcon,
         label:'Pubs'
     },
     {
-        link:'/admindashboard',
+        link:'/dashboard',
         ItemIcon:BarChartIcon,
         label:'Statistiques'
     },
@@ -43,7 +45,7 @@ const navItems=[
      
     },
     {
-        link:'/adminprofile',
+        link:'/profile',
         ItemIcon:PersonIcon,
         label:'Profile'
     },
@@ -55,12 +57,17 @@ const navItems=[
 
 ]
 
-function SidebarItemList(propos) {
+function SidebarItemList(props) {
+    const [mylabel,setLabel]=useState('hello');
+     // global
+//   var { selectedLink } = useLayoutState();
+//   var layoutDispatch = useLayoutDispatch();
     
     return (
         <List>
             {navItems.map((item,key)=>
-                <SidebarItem key={key} item={item}/>
+                // <SidebarItem key={key} item={item} handleClick={()=>changeLink(layoutDispatch,item.link)} />
+                <SidebarItem key={key} item={item} handleClick={()=>setLabel(item.link) }  label={mylabel} />
 
             )}
             
