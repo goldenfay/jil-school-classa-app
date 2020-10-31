@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, {createRef, useEffect, useRef} from "react";
 import PropTypes from 'prop-types';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import {  MenuItem } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Formik } from "formik";
 
 
@@ -19,16 +19,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomForm=(props)=> {
-  //   const [state, setState] = useState(prop);
+const CustomForm=React.forwardRef((props,ref)=> {
   const classes = useStyles();
-  const { validationSchema, fieldsHiearchy } = props;
+  const submitBtnRef=useRef();
+
+  useEffect(()=>{
+    if(props.submitRefTracker) props.submitRefTracker(submitBtnRef);
+  },[submitBtnRef])
+ 
   return (
     <Formik
       initialValues={props.initialState}
-      validationSchema={validationSchema}
+      validationSchema={props.validationSchema}
+      enableReinitialize={props.reset?props.reset:true}
       onSubmit={props.onSubmit}
-      // onChange={props.onChange}
     >
       {({
         errors,
@@ -39,14 +43,14 @@ const CustomForm=(props)=> {
         touched,
         values,
       }) => (
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className={classes.form}  onSubmit={(e)=>{e.preventDefault(); handleSubmit(e); }} ref={ref}>
           <Grid container spacing={2}>
-            {fieldsHiearchy.map((gridRow,rowidx) => {
+            {props.fieldsHiearchy && props.fieldsHiearchy.map((gridRow,rowidx) => {
               if (!(gridRow instanceof Array)) {
                 gridRow = [gridRow];
               }
-              return gridRow.map((field) => (
-                <Grid item xs={12} sm={Math.floor(12 / gridRow.length)} key={field.props.name}>
+              return gridRow.map((field,columnidx) => (
+                <Grid item xs={12} sm={Math.floor(12 / gridRow.length)} key={`${rowidx}-${columnidx}`}>
                   {field.type === "input" && (
                     <TextField
                     key={field.props.name}
@@ -80,13 +84,14 @@ const CustomForm=(props)=> {
                         ))}
                     </TextField>
                   )}
+                  {field.type === "formControl" && (<>{field.children}</>)}
                 </Grid>
               ));
             })}
 
             
           </Grid>
-          <Grid container justify="flex-end">
+          {!props.noSubmit && (<Grid container justify="flex-end">
             <Grid item xs={12} sm={4}>
               <Button
                 type="submit"
@@ -94,16 +99,17 @@ const CustomForm=(props)=> {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                ref={submitBtnRef}
               >
                 {props.submitLabel}
               </Button>
             </Grid>
-          </Grid>
+          </Grid>)}
         </form>
       )}
     </Formik>
   );
-}
+})
 
 CustomForm.propTypes = {
     submitLabel: PropTypes.string,

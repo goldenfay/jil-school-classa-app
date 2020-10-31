@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
 import Login from "./Login";
 import Signup from "./Signup";
-const Auth = () => {
+const Auth = (props) => {
   const [authMode, setAuthMode] = useState(true);
+  
+  
+  
 
   const switchAuthMode = () => {
     setAuthMode((prevMode) => !prevMode);
@@ -11,9 +15,9 @@ const Auth = () => {
   return (
     <div>
       {authMode ? (
-        <Login switchAuthMode={switchAuthMode} />
+        <Login switchAuthMode={switchAuthMode} {...props} />
       ) : (
-        <Signup switchAuthMode={switchAuthMode} />
+        <Signup switchAuthMode={switchAuthMode} {...props}/>
       )}
     </div>
   );

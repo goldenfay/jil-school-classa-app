@@ -1,35 +1,36 @@
+import {combineReducers} from "redux"
+
 const layoutState={
-    theme: 'main'
+    theme: 'main',
+    selectedLink: 'dashboard'
 }
 const userState={
-    user: {
-       
-            avatar:'logo192.png',
-            nom: 'Yassice',
-            prenom: 'Djebarri',
-            email: 'yassinedjebari@gmail.com',
-            phone: '0555101010',
-            jobTitle: "graphic Designer",
-         
-
-    }
+    user: JSON.parse(localStorage.getItem('teacher')) || {}
 }
 
 function managerReducer(state=userState,action){
-    if(!action.payload) return state;
     switch(action.type){
         case "UPDATE_PROFILE":
-            // state={...state,...action.payload}
-            console.log('new state',state);
-            return Object.assign({}, state, action.payload);
+            console.log('yuuuha')
+            return {user:{...state.user, ...action.payload}};
 
-        default: throw Error('Invalid action!');
+        default: return state//throw Error('Invalid action!');
+    }   
+}
+
+function managerLayoutReducer(state=layoutState,action){
+    switch(action.type){
+        case "UPDATE_SELECTED_NAVLINK":
+            return {...state, selectedLink:action.payload.selectedLink};
+
+        default: return state//throw Error('Invalid action!');
     }   
 }
 
 
-const exports={
-    managerReducer
-}
+const combined=combineReducers({
+    managerReducer,
+    managerLayoutReducer
+})
 
-export default exports
+export default combined

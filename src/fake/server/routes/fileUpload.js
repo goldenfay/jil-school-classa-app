@@ -8,19 +8,18 @@ const crypto = require('crypto')
 router.post('/coursefile', (req, res) => {
   console.log(req);
   if (req.files === null) {
-    console.log('kdjshfkjdshfjkdshf')
-    return res.status(400).json({ message: 'No file uploaded' });
+    return res.status(400).json({ message: 'Aucun fichier chargé' });
   }
   
   const file = req.files.file;
   // Check if file extension validity
   const fileExtension=path.extname(file.name)
   if(['.png','.jpg','.jpeg'].indexOf(fileExtension.toLowerCase())===-1){
-    console.log('76576765765756765')
     
     return res.status(400).json({message: 'Type de fichier invalide'}).status(400);
     
   }
+    // Hash the filename with SHA1 encryption
   const shasum = crypto.createHash('sha1')
 shasum.update(`${path.basename(file.name).replace(fileExtension,'')}_${new Date().getTime()}`)
 const fileName=shasum.digest('hex')

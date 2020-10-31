@@ -104,7 +104,7 @@ export default function EnhancedTable({
   withActions = false,
   actionButtons,
   customtheme,
-  innerTheme,
+  ...props
 }) {
   const classes = useStyles();
   const inheritTheme=useTheme ();
@@ -112,7 +112,7 @@ export default function EnhancedTable({
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -252,13 +252,13 @@ export default function EnhancedTable({
 
                                       if (column.usesInnerTheme)
                                         return (
-                                          <MuiThemeProvider theme={innerTheme}>
+                                          <MuiThemeProvider theme={props.innerTheme}>
                                             {vals.map((el,index) => (
                                               <Chip
                                                 key={index}
                                                 className={classes.chip}
                                                 {...el}
-                                                color={el.color || "primary"}
+                                                color={el.color || (index%3===0?"primary":index%3===1?"secondary":"default")}
                                                 label={el.label}
                                                 size="small"
                                               />
@@ -272,7 +272,7 @@ export default function EnhancedTable({
                                           key={index}
                                             className={`${classes.chip}`}
                                             {...el}
-                                            color={el.color || "primary"}
+                                            color={el.color || (index%3===0?"primary":index%3===1?"secondary":"default")}
                                             style={{color:el.variant!=="outlined"?"white":"inherit"}}
                                             label={el.label}
                                             size="small"
@@ -374,7 +374,7 @@ export default function EnhancedTable({
         </Paper>
         <FormControlLabel
           control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Condenser"
+          label={dense?"Condensé":"Condenser"}
         />
       </div>
   );

@@ -5,9 +5,10 @@ import AppAdmin from './AppAdmin';
 
 function App() {
   return (
-    <Router>
+    // <Router>
+    <div>
       <AppAdmin/>
-    </Router>
+    </div>
   );
 }
 

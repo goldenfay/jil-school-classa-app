@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     cursor: 'pointer',
     width: 64,
-    height: 64
+    height: 64,
+    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.main
   }
 }));
 
@@ -32,7 +34,7 @@ function ProfileAvatar(props) {
           <Avatar
             className={props.classes? props.classes.avatar : classes.avatar}
             src={avatar}
-            color={"primary"}
+            color={"secondary"}
           > {getInitials(`${firstname} ${lastname}`)}
             </Avatar>
           <Typography

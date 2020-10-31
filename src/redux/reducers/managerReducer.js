@@ -5,23 +5,20 @@ const layoutState={
     selectedLink: 'dashboard'
 }
 const userState={
-    user: {
-       
-            avatar:'assets/Dummy/Avatars/avatar_4.png',
-            nom: 'Yassice',
-            prenom: 'Djebarri',
-            email: 'yassinedjebari@gmail.com',
-            phone: '0555101010',
-            jobTitle: "graphic Designer",
-         
-
-    }
+    user: JSON.parse(localStorage.getItem('manager')) || {}
+    
 }
 
 function managerReducer(state=userState,action){
     switch(action.type){
         case "UPDATE_PROFILE":
             return {user:{...state.user, ...action.payload}};
+        case "SET_CURRENT_MANAGER":
+            return {...state,user:{...state.user, ...action.payload}};
+        case "MANAGER_LOGIN_FAILED":
+            return {loginStatus:{success: false, message: action.payload}};
+        case "LOGOUT":
+            return userState
 
         default: return state//throw Error('Invalid action!');
     }   

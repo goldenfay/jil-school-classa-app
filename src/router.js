@@ -1,48 +1,128 @@
-// import React from "react";
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-// import Auth from "./Admin/auth/pages/Auth";
-// import Dashboard from "./Admin/dashboard/pages/Dashboard";
-
-// const renderer =(props,view)=><Dashboard {...props} view={view}/>
-// export default function router() {
-//   return (
-//     <Router>
-//       <Switch>
-//         <Route path="/" exact component={Auth} />
-//         <Route path="/dashboard" exact render={(props)=>renderer(props,'/') }/>
-//         <Route path="/enseignants" exact render={(props)=>renderer(props,'enseignants') } />
-//       </Switch>
-//     </Router>
-//   );
-// }
-
-import React from 'react';
+import React from "react";
+import { Route, BrowserRouter as Router, Routes,Navigate } from "react-router-dom";
 
 // View
 import Auth from "./Admin/auth/pages/Auth";
-import DashboardLayout from './Admin/dashboard/pages/Dashboard';
-import Enseignants from './Admin/dashboard/pages/enseignants/Enseignants';
-import Abonnes from './Admin/dashboard/pages/Abonnes';
-import Eleves from './Admin/dashboard/pages/Eleves';
-import Profile from './Admin/dashboard/pages/Profile';
-import Pubs from './Admin/dashboard/pages/Pubs';
+import Logout from "./Admin/auth/pages/Logout";
+import ManagerDashboardLayout from "./Admin/Manager/dashboard/pages/DashboardLayout";
+import TeacherDashboardLayout from "./Admin/Teacher/dashboard/pages/Dashboard";
+// Manager's views
+import Dashboard from "./Admin/Manager/dashboard/pages/dashboard/Dashboard";
+import Enseignants from "./Admin/Manager/dashboard/pages/enseignants/Enseignants";
+import Abonnes from "./Admin/Manager/dashboard/pages/Abonnes";
+import Eleves from "./Admin/Manager/dashboard/pages/Eleves";
+import Profile from "./Admin/Manager/dashboard/pages/Profile";
+import Pubs from "./Admin/Manager/dashboard/pages/Pubs";
 
-const routes = [
-  {
-    path: '/',
-    element: <DashboardLayout />,
-    children: [
-      { path: 'enseignants', element: <Enseignants /> },
-      { path: 'abonnes', element: <Abonnes /> },
-      { path: 'eleves', element: <Eleves /> },
-      { path: 'profile', element: <Profile /> },
-      { path: 'pubs', element: <Pubs /> },
-      // { path: 'settings', element: <SettingsView /> },
-      // { path: '*', element: <Route to="/404" /> }
-    ]
-  },
+// Teacher's views
+import Contenu from "./Admin/Teacher/dashboard/pages/contenu/Contenu";
+import ElevesClasse from "./Admin/Teacher/dashboard/pages/Eleves";
+import TeacherProfile from "./Admin/Teacher/dashboard/pages/Profile";
+import { Provider } from "react-redux";
+import {ManagerStore,TeacherStore} from './redux/stores/';
+
+
+const isLoggedIn = (adminType) => {
+  const admin = localStorage.getItem(
+    adminType === "manager" ? "manager" : "teacher"
+  );
+  return admin !== null;
+};
+
+
+
+function PrivateRoute({ component: Component, adminType,from,...rest }) {
+// const navigate=useNavigate();
   
-];
+//   !isLoggedIn(adminType) && navigate(from);
+  console.log(rest)
+  return (
+    <Provider store={from==="/"?ManagerStore:TeacherStore} >
+    <Route
+      {...rest}
+      element={((props) =>
+        isLoggedIn(adminType) ? (
+          <Component {...props} />
+        ) : (
+          <Navigate
+          
+            to={{ pathname: "/login", state: { from: from } }}
+          />
+        )
+      )()
+      }
+    />
+    </Provider>
+  );
+}
+const routes = (null
+  
+);
+// const routes = [
+//   {
+//     path: '/login',
+//     element: <Auth />,
+//   },
+//   {
+//     path: '/',
+//     element: privateRoute('manager',ManagerDashboardLayout),
+//     children: [
+//       { path: 'enseignants', element: privateRoute('manager',Enseignants) },
+//       { path: 'abonnes', element: privateRoute('manager',Abonnes) },
+//       { path: 'eleves', element: privateRoute('manager',Eleves) },
+//       { path: 'profile', element: privateRoute('manager',Profile) },
+//       { path: 'pubs', element:privateRoute('manager',Pubs) },
+//       // { path: 'settings', element: <SettingsView /> },
+//       // { path: '*', element: <Route to="/404" /> }
+//     ]
+//   },
+//   {
+//     path: '/teacher',
+//     element: <Provider store={TeacherStore}><TeacherDashboardLayout /></Provider>,
+//     children: [
+//       { path: 'contenu', element: <Contenu /> },
+//       { path: 'eleves', element: <ElevesClasse /> },
+//       { path: 'profile', element: <TeacherProfile /> },
+//       // { path: 'settings', element: <SettingsView /> },
+//       // { path: '*', element: <Route to="/404" /> }
+//     ]
+//   },
 
-export default routes;
+// ];
+
+function router(props) {
+
+  // const navigator=useNavigate();
+  return (
+    <Router>
+    <Routes>
+    
+      <Route path='/login' element={<Auth /> } />
+      <Route path='/logout' element={<Logout /> } />
+      <Route path="/"   element={<PrivateRoute component={ManagerDashboardLayout} adminType='manager' from='/' path='/'/>}>
+       
+        <Route path="" element={<Dashboard />} />
+        <Route path="enseignants" element={<Enseignants />} />
+        <Route path="abonnes" element={<Abonnes />} />
+        <Route path="eleves" element={<Eleves/>} />
+        <Route path="profile" element={<Profile/>} />
+        <Route path="pubs" element={<Pubs/>} />
+      </Route> 
+      <Route path="/teacher"   element={<PrivateRoute component={TeacherDashboardLayout} adminType='teacher' from='/teacher' path='/teacher'/>}>
+       
+        <Route path="contenu" element={<Contenu />} />
+        <Route path="eleves" element={<ElevesClasse/>} />
+        <Route path="profile" element={<TeacherProfile/>} />
+      </Route> 
+    </Routes>
+  </Router>
+  )
+}
+
+router.propTypes = {
+
+}
+
+export default router
+
+

@@ -1,7 +1,7 @@
 import {combineReducers} from "redux"
 import ManagerReducers from './managerReducer'
-import TeacherReducer from './managerReducer'
+import TeacherReducer from './teacherReducer'
 
 
-const teacherReducer=TeacherReducer.managerReducer
-export {ManagerReducers,teacherReducer}
+// const teacherReducer=TeacherReducer.managerReducer
+export {ManagerReducers,TeacherReducer}
