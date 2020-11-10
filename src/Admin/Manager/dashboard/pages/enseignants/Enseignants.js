@@ -13,7 +13,17 @@ import {
   SvgIcon,
   Grid,
   Paper,
+  Typography,
 } from "@material-ui/core";
+import Timeline from '@material-ui/lab/Timeline';
+import TimelineItem from '@material-ui/lab/TimelineItem';
+import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
+import TimelineConnector from '@material-ui/lab/TimelineConnector';
+import {TimelineContent,TimelineOppositeContent}  from '@material-ui/lab';
+import TimelineDot from '@material-ui/lab/TimelineDot';
+
+
+import {red,indigo,deepPurple} from "@material-ui/core/colors"
 import { Search as SearchIcon } from "react-feather";
 import AddIcon from "@material-ui/icons/Add";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
@@ -26,6 +36,8 @@ import CustomTable from "../../../../shared/tables/CustomTable";
 import AddEnseignantsForm from "./Add";
 import Page from "../../../../shared/Page";
 import LoadingComponent from '../../../../shared/LoadingComponent' 
+import Modal from '../../../../shared/Modal' 
+import InforCard from './InfoCard' 
 
 // Data
 import { headCells } from "../../../../../fake/fakeProfs";
@@ -41,7 +53,7 @@ const actions = [
   },
   {
     color: "secondary",
-    label: "Decontracter",
+    label: "Résilier",
     clickHandler: (id) => console.log(id),
     startIcon: RemoveIcon,
   },
@@ -53,6 +65,13 @@ const successtheme = createMuiTheme({
     secondary: {
       main: "#f44336",
     },
+  },
+});
+const cyclesTheme = createMuiTheme({
+  palette: {
+    primary: red,
+    secondary: deepPurple,
+    error: indigo,
   },
 });
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +89,8 @@ export default function Enseignants(props) {
   const [profsRows, setProfsRows] = useState([]); //the original rows
   const [filtredProfsRows, setFiltredProfsRows] = useState([]); // The filtered rows after searching changes
   const [isLoading, setisLoading] = useState(false); // Loading spinners controller
+  const [showAddForm, setShowAddForm] = useState(false); // Loading spinners controller
+  const [popupOpen, setPopupOpen] = useState(false); // info card modal controller
 
     // On component did mount, fetch teachers infos
   useEffect(()=>{
@@ -79,8 +100,19 @@ export default function Enseignants(props) {
       res=>{
         setisLoading(false);
         console.log('Suceess Fetch profs',res);
-        setFiltredProfsRows(res);
-        setProfsRows(res);
+        const rows=res.enseignants.map((ens)=>({
+          ...ens,
+          matiere: ens.matiere.titre,
+          classes: ens.classes.map(cl=>({
+      
+            // avatar: <Avatar alt={eleve.username}  src={eleve.avatar} />,
+            label:cl.codeCl,
+            // variant:"outlined" ,
+            clickable : true
+          }))
+        }))
+        setFiltredProfsRows(rows);
+        setProfsRows(rows);
 
       },
       err=>{
@@ -92,10 +124,10 @@ export default function Enseignants(props) {
 
   },[])
 
+  const [popupBody,setpopupBody]=useState((<></>));
 
   // SearcheBar handle changes
   const handleSearchInputChange = (e) => {
-    console.log(e.target.value);
 
     if (e.target.value.length < 4) {
       setFiltredProfsRows(profsRows);
@@ -111,10 +143,72 @@ export default function Enseignants(props) {
     );
   };
 
+  const rowClickHandler=(profId)=>{
+    const prof=profsRows.find(ens=>ens.id===profId);
+    if(!prof) {
+      console.error("Le prof clciké n'a pas été trouvé");
+      return;
+    }
+    const {nom,prenom,image}=prof;
+    setPopupOpen(true);
+    setpopupBody(
+      (
+        <Container >
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={5}>
+        <InforCard 
+        nom={nom}
+        prenom={prenom}
+        image={image}
+        jobTitle={`Enseignant en ${prof.matiere}`}
+
+        />
+
+      </Grid>
+      <Grid item xs={12} sm={7}>
+
+    <Paper elevation={3} style={{padding: "1rem"}}>
+      <Typography color="textPrimary" variant="h6">
+        Derniers cours ajoutés
+      </Typography>
+      <Timeline align="alternate">
+      {prof.cours.map((cours,index)=> 
+      <TimelineItem>
+        <TimelineOppositeContent>
+            <Typography color="textSecondary">09:30 am</Typography>
+          </TimelineOppositeContent>
+          <TimelineSeparator>
+            <TimelineDot color={index%2===0?"primary":"secondary"} />
+            <TimelineConnector />
+          </TimelineSeparator>
+          <TimelineContent>
+            <Typography>{cours.titre}</Typography>
+          </TimelineContent>
+      </TimelineItem>)}
+      
+    </Timeline>
+    </Paper>
+
+      </Grid>
+
+    </Grid>
+
+  </Container>
+      )
+    )
+
+  }
+
   return (
     <Page className={classes.root} title="Enseignants">
       <MuiThemeProvider theme={defaultTheme}>
         <Container maxWidth="lg" className={classes.container}>
+          <Modal 
+          open={popupOpen}
+          title={"Carte Informative"}
+          body={popupBody}
+          handleClose={()=>setPopupOpen(false)}
+           />
           <Grid container spacing={3}>
             {/* Liste des enseignants */}
             <Grid container justify="flex-end"></Grid>
@@ -151,6 +245,7 @@ export default function Enseignants(props) {
                     className={classes.button}
                     startIcon={<AddIcon />}
                     color="primary"
+                    onClick={(e)=>setShowAddForm(true)}
                   >
                     Ajouter
                   </Button>
@@ -165,10 +260,11 @@ export default function Enseignants(props) {
                     tableTitle={"Liste des enseignants"}
                     headCells={headCells}
                     rows={filtredProfsRows}
+                    rowClickHandler={rowClickHandler}
                     indexName={"id"}
                     withActions={true}
                     actionButtons={actions}
-                    // customtheme={bootstraptheme}
+                    innerTheme={cyclesTheme}
                   />}
                   controller={isLoading}
 
@@ -176,13 +272,13 @@ export default function Enseignants(props) {
                 </MuiThemeProvider>
               </Paper>
             </Grid>
-            <Grid item xs={12}>
+            {showAddForm && (<Grid item xs={12}>
               <Paper className={classes.paper}>
                 <MuiThemeProvider theme={defaultTheme}>
                   <AddEnseignantsForm />
                 </MuiThemeProvider>
               </Paper>
-            </Grid>
+            </Grid>)}
           </Grid>
         </Container>
       </MuiThemeProvider>

@@ -20,12 +20,16 @@ const login =(username,password,adminType)=>{
         // login successful if there's a jwt token in the response
         if (res.token) {
           // store user details and jwt token in local storage to keep user logged 
-          localStorage.setItem(adminType==='manager'?'manager':'teacher', JSON.stringify(adminObj))
+          localStorage.setItem(adminType==='manager'?'manager':'enseignant', JSON.stringify(adminObj))
           localStorage.setItem('token', JSON.stringify(res.token))
         }
   
         return adminObj
+      },
+      err=>{
+        return Promise.reject("Impossible de contacter le serveur")
       }
+   
       )  
 
 
@@ -69,7 +73,7 @@ function handleResponse (response) {
         if (response.status === 401) {
           // auto logout if 401 response returned from api
         //   logout()
-          window.location.reload()
+          // window.location.reload()
 
         }
   

@@ -92,7 +92,8 @@ const validationSchema = Yup.object({
     .required("Champs Obligatoire"),
   cycle: Yup.number().required("Champs Obligatoire"),
   matiere: Yup.string().required("Champs Obligatoire"),
-  matieresIds: Yup.array().required("Champs Obligatoire"),
+  // matieresIds: Yup.array().required("Champs Obligatoire"),
+  classes: Yup.array().required("Champs Obligatoire"),
   commune: Yup.string().required("Champs Obligatoire"),
   wilaya: Yup.string().required("Champs Obligatoire"),
 });
@@ -131,6 +132,7 @@ export default function AddEnseignant(props) {
     commune: "",
     cycle: "",
     matieresIds: [],
+    classes: [],
     matiere: "",
     email: "",
     phone: "",
@@ -209,23 +211,25 @@ export default function AddEnseignant(props) {
           },
         ];
           // Fetch cycles, years, & matieres
-          ManagerService.getAllClasses({adminType:"manager"})
+          ManagerService.getAllClassesMatieres({adminType:"manager"})
           .then((dataResp) => {
-            console.log(dataResp)
+            console.log("Server response for classes :",dataResp)
             const ItemsAnnes=[],listeAnnes=[];
-            const ItemsMatieres=[],listeMatieres=[];
-            dataResp.forEach((classe) => {
+            const ItemsMatieres=[];
+            dataResp.classes.forEach((classe) => {
                   listeAnnes.push(classe);
                   // listeAnnes.push({...classe,id: `${classe.codeCl}#${classe.codeCl}#${classe.codeCl}`}); // To be replaced by the above after Backend implemented
 
                 classe.matieres.forEach((matiere, index) => {
                   // listeMatieres.push({...matiere,cycle: classe.cycle,annee: classe.annee,abrv: `${matiere.titre}-${classe.codeCl}`});
                     // To be replaced by the above after Backend implemented
-                  listeMatieres.push({...matiere,cycle: classe.cycle,annee: classe.annee,abrv: `${matiere.titre}-${classe.codeCl}`}); 
-                  // listeMatieres.push({...matiere,cycle: classe.cycle,annee: classe.annee,abrv: `${matiere.titre}-${classe.codeCl}`, id: `${matiere.titre}-${classe.codeCl}`}); 
+                  // listeMatieres.push({...matiere,cycle: classe.cycle,annee: classe.annee,abrv: `${matiere.titre}-${classe.codeCl}`}); 
+                    // New changes by mahdi
+                    if(!ItemsMatieres.find(el=>el.titre===matiere.titre)) ItemsMatieres.push({...matiere}); 
                 });
          
             });
+            const listeMatieres=ItemsMatieres;
             const cycles = {
               type: "select",
               props: {
@@ -234,14 +238,16 @@ export default function AddEnseignant(props) {
                 select: true,
                 multiple: true,
                 label: "Cycle",
-                value: state.formState.cycle,
+                value: ""
+                // value: state.formState.cycle,
                 
               },
-              children: [1,2,3].map((codeCycle)=>({
-                key: codeCycle,
-                value: codeCycle,
-                label: codeCycle===1?"Primaire":codeCycle===2?"Moyen":"Lycé",
-                }))
+              children:[]
+              // children: [1,2,3].map((codeCycle)=>({
+              //   key: codeCycle,
+              //   value: codeCycle,
+              //   label: codeCycle===1?"Primaire":codeCycle===2?"Moyen":"Lycé",
+              //   }))
             };
             const matieres = {
               type: "select",
@@ -253,29 +259,38 @@ export default function AddEnseignant(props) {
                 value: state.formState.matiere,
                 
               },
-              children: ItemsMatieres
+              // children: listeMatieres,
+                // New changes by mahdi
+              children: listeMatieres.map((matiere)=>({
+                key: matiere.id,
+                value: matiere.id,
+                label: matiere.titre,
+              }))
             };
          
             const years = {
               type: "select",
               props: {
-                name: "matieresIds",
+                // name: "matieresIds",
+                name: "classes",
                 required: true,
                 select: true,
                 multiple: true,
                 label: "Classes enseignés",
-                value: state.formState.matieresIds,
+                value: [],
+                // value: state.formState.matieresIds,
+                // value: state.formState.classes,
                 SelectProps: {
                   multiple: true
                 }
               },
-              children: ItemsAnnes
+              children: []
             };
             const defaultForm=[
               ...state.formStructure,
               [username],
               [nom, prenom],
-              [cycles,matieres,years],
+              [matieres,cycles,years],
               hiearchy,
               [email],
               [phone],
@@ -289,11 +304,14 @@ export default function AddEnseignant(props) {
               listeMatieres: listeMatieres,
               formStructure: defaultForm,
             });
+          },
+          err=>{
+            console.log(err)
           });
       });
   }, []);
 
-
+  useEffect(()=>console.log(state.formState),[state.formState])
 
   /**
    * Handle form changes
@@ -303,7 +321,8 @@ export default function AddEnseignant(props) {
    
     setState({
       ...state,
-      formState: {...state.formState,[event.target.name]:
+      formState: {...state.formState,
+        [event.target.name]:
         event.target.name === "commune"
           ? state.listC.find((el) => el.id === event.target.value).baladiya
           : event.target.value},
@@ -325,41 +344,90 @@ export default function AddEnseignant(props) {
               props: { ...el.props, value: filteredCommunes[0].value },
             };
           } else 
+
+
             // Change Matieres's possible values according to choosed cycle
-          if (event.target.name === "cycle" && el.props.name === "matiere") {
-            const  labels= Array.from( new Set(state.listeMatieres
-              .filter((matiere) => matiere.cycle === event.target.value)
-              .map((item) => item.titre
-              )));
-            const filteredMatieres= labels.map((item)=>({
-              key: `${item}`,
-              value: `${item}`,
-              label: `${item}`
-            }) ); 
+          // if (event.target.name === "cycle" && el.props.name === "matiere") {
+          //   const  labels= Array.from( new Set(state.listeMatieres
+          //     .filter((matiere) => matiere.cycle === event.target.value)
+          //     .map((item) => item.titre
+          //     )));
+          //   const filteredMatieres= labels.map((item)=>({
+          //     key: `${item}`,
+          //     value: `${item}`,
+          //     label: `${item}`
+          //   }) ); 
+          //   return {
+          //     ...el,
+          //     children: filteredMatieres,
+
+          //     props: { ...el.props, value: state.formState.matiere },
+          //   };
+          // }
+            // New changes by mahdi
+          if (event.target.name === "matiere" && el.props.name === "cycle") {
+            const  labels= Array.from( new Set(state.listeAnnes
+              .filter((classe) => typeof (classe.matieres.find(el=> el.id===event.target.value)) !=="undefined")
+              .map((classe) => classe.cycle
+              ))); 
+              console.log(event.target.value,'LABELS : ',labels)
+              const filteredCycles=labels.map((codeCycle)=>({
+                key: codeCycle,
+                value: codeCycle,
+                label: codeCycle===1?"Primaire":codeCycle===2?"Moyen":"Lycé",
+                }))
+           
             return {
               ...el,
-              children: filteredMatieres,
+              children: filteredCycles,
 
-              props: { ...el.props, value: state.formState.matiere },
+              props: { ...el.props,value: "" },
+            };
+          }
+          if (event.target.name === "matiere" && el.props.name === "classes") {     
+            return {
+              ...el,
+              children: [],
+
+              props: { ...el.props, value: "" },
             };
           }
           else
             // Change Years possible values according to choosed cycle, matiere
-          if (event.target.name === "matiere" && el.props.name === "matieresIds") {
-            const  filteredMatieres= state.listeMatieres
-              .filter((matiere) => matiere.cycle === state.formState.cycle && matiere.titre===event.target.value)
-              .map((item) => (
-                {key: `${item.id}`,
-                value: `${item.id}`,
-                label: `${item.abrv}`
+          // if (event.target.name === "matiere" && el.props.name === "matieresIds") {
+          //   const  filteredMatieres= state.listeMatieres
+          //     .filter((matiere) => matiere.cycle === state.formState.cycle && matiere.titre===event.target.value)
+          //     .map((item) => (
+          //       {key: `${item.id}`,
+          //       value: `${item.id}`,
+          //       label: `${item.abrv}`
+          //   })
+          //     );
+        
+          //   return {
+          //     ...el,
+          //     children: filteredMatieres,
+
+          //     props: { ...el.props, value: state.formState.matieresIds },
+          //   };
+          // }else
+
+            // New changes by mahdi
+          if (event.target.name === "cycle" && el.props.name === "classes") {
+            const  filteredClasses= state.listeAnnes
+              .filter((classe) => classe.cycle === event.target.value && classe.matieres.find(el=>el.id===state.formState.matiere))
+              .map((classe) => (
+                {key: `${classe.id}`,
+                value: `${classe.id}`,
+                label: `${(classe.dexription && classe.dexription!=="" && classe.dexription) || classe.codeCl}`
             })
               );
         
             return {
               ...el,
-              children: filteredMatieres,
+              children: filteredClasses,
 
-              props: { ...el.props, value: state.formState.matieresIds },
+              props: { ...el.props, value: [] },
             };
           }else
           
@@ -381,27 +449,28 @@ export default function AddEnseignant(props) {
    */
   const handleSubmit = (data) => {
     console.log(data);
-    console.log(state);
-    const {username,nom,prenom,email,phone,wilaya,commune,matieresIds}=state.formState;
-    const classesIds=[];
+    console.log(state.formState);
+    const {username,nom,prenom,email,phone,wilaya,commune,matiere,classes}=state.formState;
+    // const classesIds=[];
     
-    matieresIds.forEach((matId)=>{
-      const mat=state.listeMatieres.find(el=> el.id===matId);
-      const classe=state.listeAnnes.find((el)=> el.cycle===mat.cycle && el.annee===mat.annee);
-      classesIds.push(classe.id);
-    })
+    // matieresIds.forEach((matId)=>{
+    //   const mat=state.listeMatieres.find(el=> el.id===matId);
+    //   const classe=state.listeAnnes.find((el)=> el.cycle===mat.cycle && el.annee===mat.annee);
+    //   classesIds.push(classe.id);
+    // })
     
     setisLoading(true);
     TeacherService.register({
       username,nom,prenom,
       email,phone,wilaya,commune,
-      matieresIds,
-      classesIds,
-      password: `${data.username}_password`,
+      // matieresIds,
+      matiereId:matiere,
+      // classesIds,
+      classesIds:classes,
       adminType: "manager",
     }).then(
       (res) => {
-        console.log(res);
+        console.log("Registration results : ",res);
         setAlertProps({
           severity : "success",
           message: 'Enseignant enregistré avec succès'

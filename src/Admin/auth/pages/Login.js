@@ -8,9 +8,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
-  Grid,
-  CircularProgress
 } from "@material-ui/core";
 import {grey} from "@material-ui/core/colors"
 import Alert from "@material-ui/lab/Alert";
@@ -73,7 +70,8 @@ export function SignIn(props) {
   const [loading, setloading] = useState(false);
   const toasterContent = (
     <Alert variant="filled" severity="error">
-      Erreur d'authentification : {props.loginStatus && props.loginStatus.message}
+      Erreur d'authentification.   
+      {props.loginStatus && props.loginStatus.message ? props.loginStatus.message: ""}
     </Alert>
   );
   const closeToaster = () => setAlertOpen(false);
@@ -88,7 +86,7 @@ export function SignIn(props) {
   const handleLogin = (e) => {
     e.preventDefault();
     setloading(true);
-    props.login({ username, password, adminType: isManager?"manager":"teacher" }).then(
+    props.login({ username, password, adminType: isManager?"manager":"enseignant" }).then(
       
       res=> { 
         if(res.type==='MANAGER_LOGIN_FAILED') {
@@ -102,9 +100,11 @@ export function SignIn(props) {
         !isManager && navigator('/teacher');
 
       }
-      // setloading(false);
     },
-      err=> {console.log(err)}
+      err=> {
+        console.log("Erreur d'authentification")
+        console.log(err)
+      }
     );
 
   };
@@ -183,9 +183,10 @@ export function SignIn(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  loginStatus: state.managerReducer.loginStatus,
-});
+const mapStateToProps = (state) => {return ({
+  // loginStatus: state.managerReducer.loginStatus,
+  loginStatus: state.adminReducer.status.loginStatus,
+})};
 
 const mapDispatchToProps = (dispatch) => {
   return {

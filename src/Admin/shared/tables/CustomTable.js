@@ -65,6 +65,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     width: "100%",
     marginBottom: theme.spacing(2),
+    padding: theme.spacing(2),
   },
   avatar: {
     marginRight: theme.spacing(2),
@@ -79,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
   },
   table: {
     minWidth: 750,
+  },
+  tableRow: {
+    cursor: "pointer"
+
   },
   visuallyHidden: {
     border: 0,
@@ -210,7 +215,9 @@ export default function EnhancedTable({
                     return (
                       <TableRow
                         hover
-                        onClick={(event) => {if(handleRowSelected) handleRowSelected(event, row[indexName],handleClick); else handleClick(event, row[indexName])}}
+                        className={classes.tableRow}
+                        onClick={(event) => {if (props.rowClickHandler) props.rowClickHandler(row[indexName]); else if(handleRowSelected) handleRowSelected(event, row[indexName],handleClick); else handleClick(event, row[indexName])}}
+                        // onClick={(event) => {if(handleRowSelected) handleRowSelected(event, row[indexName],handleClick); else handleClick(event, row[indexName])}}
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
@@ -233,14 +240,16 @@ export default function EnhancedTable({
                           const key = column.id;
                           return (
                             <TableCell align="left" key={`${column.id}-${idx}`}>
-                              <Box display="flex">
+                              <Box display="flex" alignItems="center">
                                 {hasAvatar(key) ? (
-                                  <Avatar
+                                  <Box display="flex" alignItems="center" >
+                                    <Avatar
                                     className={classes.avatar}
                                     src={row.avatarUrl}
                                   >
                                     {getInitials(row[key])}
                                   </Avatar>
+                                  </Box>
                                 ) : null}
                                
                                   {column.withChip &&

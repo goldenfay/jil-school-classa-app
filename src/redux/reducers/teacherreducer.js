@@ -5,13 +5,13 @@ const layoutState={
     selectedLink: 'dashboard'
 }
 const userState={
-    user: JSON.parse(localStorage.getItem('teacher')) || {}
+    user: JSON.parse(localStorage.getItem('enseignant')) || {},
+    adminType: "enseignant"
 }
 
 function managerReducer(state=userState,action){
     switch(action.type){
         case "UPDATE_PROFILE":
-            console.log('yuuuha')
             return {user:{...state.user, ...action.payload}};
 
         default: return state//throw Error('Invalid action!');

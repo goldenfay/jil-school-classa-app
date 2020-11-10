@@ -1,7 +1,8 @@
 import ManagerStore from './managerStore'
 import TeacherStore from './teacherStore'
+import AdminStore from './adminStore'
 
-export {ManagerStore,TeacherStore}
+export {ManagerStore,TeacherStore,AdminStore}
 
 // import { createStore } from "redux";
 

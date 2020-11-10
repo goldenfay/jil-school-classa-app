@@ -105,9 +105,9 @@ function AjouterCours(props) {
         if(step===2 && stepsPassed.filter(el=> el===true).length===3){
             console.log('Going to send the course');
             TeacherService.addNewCourse({
-                adminType: "teacher",
+                adminType: "enseignant",
                 ...globalState,
-                ajoutePar: props.teacher.id
+                enseignant: props.teacher.id
             }).then(
                 res=>{
                     setregisterCourseFeedback((

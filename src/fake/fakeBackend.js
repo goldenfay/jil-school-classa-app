@@ -1,7 +1,8 @@
 import {rows as fakeProfs} from './fakeProfs'
 import {customersRows as fakeClients} from './fakeCustomers'
 import fakeClasses from './fakeClasses'
-import fakeMatieres from './fakeMatieres'
+// import fakeMatieres from './fakeMatieres'
+import fakeMatieres from './fakeMatieres2'
 import fakeCours from './fakeCours'
 
 // Set fake Manager and teachers database
@@ -15,11 +16,11 @@ const admins=fakeProfs.map((row)=>({
 admins[0].adminType='manager'
 
 
-localStorage.setItem('admins', JSON.stringify(admins))
-localStorage.setItem('clients', JSON.stringify(fakeClients))
-localStorage.setItem('eleves', JSON.stringify(fakeProfs))
-localStorage.setItem('classes', JSON.stringify(fakeClasses))
-localStorage.setItem('matieres', JSON.stringify(fakeMatieres))
+if(localStorage.getItem('admins')===null)localStorage.setItem('admins', JSON.stringify(admins))
+if(localStorage.getItem('clients')===null)localStorage.setItem('clients', JSON.stringify(fakeClients))
+if(localStorage.getItem('eleves')===null)localStorage.setItem('eleves', JSON.stringify(fakeProfs))
+if(localStorage.getItem('classes')===null)localStorage.setItem('classes', JSON.stringify(fakeClasses))
+if(localStorage.getItem('matieres')===null)localStorage.setItem('matieres', JSON.stringify(fakeMatieres))
 // localStorage.setItem('cours', JSON.stringify(fakeCours))
 
 let adminsDB = JSON.parse(localStorage.getItem('admins')) || []
@@ -60,6 +61,34 @@ export function configureFakeBackend () {
             reject("Nom d'utilisateur ou mot de passe incorrecte.")
           }
 
+          return
+        }
+        // update manager
+        if (url.match(/\/api\/admin\/\d+$/) && opts.method === 'PUT') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+            // find user by id in users array
+            let urlParts = url.split('/')
+            let id = parseInt(urlParts[urlParts.length - 1])
+            let updates = JSON.parse(opts.body);
+            for (let i = 0; i < adminsDB.length; i++) {
+              let user = adminsDB[i]
+              if (user.id === id) {
+                // delete user
+                adminsDB[i]={
+                  ...adminsDB[i],
+                  ...updates
+
+                }
+                localStorage.setItem('admins', JSON.stringify(adminsDB))
+                resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(adminsDB[i])) })
+              }
+            }
+            
+          } else {
+            // return 401 not authorised if token is null or invalid
+            reject('Unauthorised')
+          }
+          
           return
         }
         /*************************************************************/
@@ -121,34 +150,6 @@ export function configureFakeBackend () {
           return
         }
         
-        // update prof
-        if (url.match(/\/enseignants\/\d+$/) && opts.method === 'PUT') {
-          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-            // find user by id in users array
-            let urlParts = url.split('/')
-            let id = parseInt(urlParts[urlParts.length - 1])
-            let updates = JSON.parse(opts.body);
-            for (let i = 0; i < adminsDB.length; i++) {
-              let user = adminsDB[i]
-              if (user.id === id) {
-                // delete user
-                adminsDB[i]={
-                  ...adminsDB[i],
-                  ...updates
-
-                }
-                localStorage.setItem('admins', JSON.stringify(adminsDB))
-                resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(adminsDB[i])) })
-              }
-            }
-            
-          } else {
-            // return 401 not authorised if token is null or invalid
-            reject('Unauthorised')
-          }
-          
-          return
-        }
         // delete prof
         if (url.match(/\/enseignants\/\d+$/) && opts.method === 'DELETE') {
           // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
@@ -206,10 +207,21 @@ export function configureFakeBackend () {
         // get classes
         if (url.endsWith('/classes') && opts.method === 'GET') {
           if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-            const res=classesDB.map((classe)=>({
-              ...classe,
-              matieres: matieresDB.filter((el)=> el.classe===classe.id)
-            }))
+           
+            resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(classesDB))})
+          } else {
+            reject('Unauthorised')
+          }
+
+          return
+        }
+        // get classes with matieres
+        if (url.endsWith('/classesMatieres') && opts.method === 'GET') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+            const res={
+              classes: classesDB,
+              matieres: matieresDB
+            }
             resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(res))})
           } else {
             reject('Unauthorised')
@@ -238,7 +250,7 @@ export function configureFakeBackend () {
           if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
             let urlParts = url.split('/')
             let id = parseInt(urlParts[urlParts.length - 1])
-            let prof = adminsDB.filter(admin => { return admin.adminType==="teacher" && admin.id === id }).length;
+            let prof = adminsDB.filter(admin => { return admin.adminType==="enseignant" && admin.id === id }).length;
 
             if(!prof) reject('Enseignant non trouvé')
 
@@ -265,7 +277,7 @@ export function configureFakeBackend () {
           }
           let coursePoster = newCourse.ajoutePar;
 
-          let poster = adminsDB.filter(admin => { return admin.adminType==="teacher" && admin.id === coursePoster }).length
+          let poster = adminsDB.filter(admin => { return admin.adminType==="enseignant" && admin.id === coursePoster }).length
           if (!poster) {
             reject('Enseignant non trouvé ')
             return

@@ -13,14 +13,14 @@ const columns = [
   
 ];
 const headCells = [
-  { id: "id", numeric: false, disablePadding: true, label: "id" },
+  // { id: "id", numeric: false, disablePadding: true, label: "id" },
   { id: "nom", numeric: false, disablePadding: true, label: "Nom" ,withAvatar:true},
   { id: "prenom", numeric: false, disablePadding: false, label: "Prénom" },
-  { id: "classes", numeric: false, disablePadding: false, label: "Classe" },
+  { id: "classes", numeric: false, disablePadding: false, label: "Classes",withChip: true,usesInnerTheme: true },
   { id: "matiere", numeric: false, disablePadding: false, label: "Matière" },
   { id: "wilaya", numeric: false, disablePadding: false, label: "Wilaya" },
   { id: "commune", numeric: false, disablePadding: false, label: "Commune" },
-  { id: "dateAjout", numeric: false, disablePadding: false, label: "Date d'ajout " },
+  { id: "date_ajout", numeric: false, disablePadding: false, label: "Date d'ajout " },
 ];
 const rows = [
   {

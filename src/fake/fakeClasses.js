@@ -5,6 +5,7 @@ export default [
     cycle: 1,
     annee: 3,
     description: "3eme anne primaire",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#$$$#$$#","science civile#$$$#$$#","technologie#$$$#$$#","français#$$$#$$#"],
     id: "3AP#3AP#3AP",
   },
   {
@@ -12,6 +13,7 @@ export default [
     cycle: 1,
     annee: 4,
     description: "4eme anne primaire",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#$$$#$$#","science civile#$$$#$$#","technologie#$$$#$$#","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$"],
     id: "4AP#4AP#4AP",
   },
   {
@@ -19,6 +21,7 @@ export default [
     cycle: 1,
     annee: 5,
     description: "5eme anne primaire",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#$$$#$$#","science civile#$$$#$$#","technologie#$$$#$$#","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$"],
     id: "5AP#5AP#5AP",
   },
   {
@@ -26,6 +29,7 @@ export default [
     cycle: 2,
     annee: 1,
     description: "1er anne moyenne",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#$$$#$$#","science civile#$$$#$$#","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "1AM#1AM#1AM",
   },
   {
@@ -33,6 +37,7 @@ export default [
     cycle: 2,
     annee: 2,
     description: "2eme anne moyenne",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#$$$#$$#","science civile#$$$#$$#","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "2AM#2AM#2AM",
   },
   {
@@ -40,6 +45,7 @@ export default [
     cycle: 2,
     annee: 3,
     description: "3eme anne moyenne",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#$$$#$$#","science civile#$$$#$$#","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "3AM#3AM#3AM",
   },
   {
@@ -47,6 +53,7 @@ export default [
     cycle: 2,
     annee: 4,
     description: "4eme anne moyenne",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#$$$#$$#","science civile#$$$#$$#","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "4AM#4AM#4AM",
   },
   {
@@ -54,6 +61,7 @@ export default [
     cycle: 3,
     annee: 1,
     description: "1er anne scientifique",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "1AS#1AS#1AS",
   },
   {
@@ -61,6 +69,7 @@ export default [
     cycle: 3,
     annee: 1,
     description: "2eme anne literaire",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "1AL#1AL#1AL",
   },
   {
@@ -68,6 +77,7 @@ export default [
     cycle: 3,
     annee: 2,
     description: "2eme anne science",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "2S#2S#2S",
   },
   {
@@ -75,6 +85,7 @@ export default [
     cycle: 3,
     annee: 2,
     description: "2eme anne math",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "2M#2M#2M",
   },
   {
@@ -82,6 +93,7 @@ export default [
     cycle: 3,
     annee: 2,
     description: "2eme anne technique mathematique",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","gm#2TM#2TM#2TM","elect#2TM#2TM#2TM","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "2TM#2TM#2TM",
   },
   {
@@ -89,6 +101,7 @@ export default [
     cycle: 3,
     annee: 2,
     description: "2eme anne gestion",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","comptabilité#2G#2G#2G","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "2G#2G#2G",
   },
   {
@@ -96,6 +109,7 @@ export default [
     cycle: 3,
     annee: 3,
     description: "3eme anne science",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "3S#3S#3S",
   },
   {
@@ -103,6 +117,7 @@ export default [
     cycle: 3,
     annee: 3,
     description: "3eme anne math",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","science naturelle#$*$*$*$*$*$*$*$*$*$","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "3M#3M#3M",
   },
   {
@@ -110,6 +125,7 @@ export default [
     cycle: 3,
     annee: 3,
     description: "3eme anne technique mathematique",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","gm#2TM#2TM#2TM","elect#2TM#2TM#2TM","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "3TM#3TM#3TM",
   },
   {
@@ -117,6 +133,7 @@ export default [
     cycle: 3,
     annee: 3,
     description: "3eme anne gestion",
+    matieres: ["math#$$$#$$#","arabe#$$$#$$#","science islamique#SHARI3A","français#$$$#$$#","hisoire#$$$$$$$$$$","géographie#$$$$$$$$$$","comptabilité#2G#2G#2G","physique#$*$*$*$*$*$*$*$*$*$","anglais#$*$*$*$*$*$*$*$*$*$"],
     id: "3G#3G#3G",
   },
 ];

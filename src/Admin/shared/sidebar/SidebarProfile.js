@@ -11,7 +11,7 @@ function SidebarProfile(props) {
   const { user } = props;
   return (
     <ProfileAvatar
-      avatar={user.avatar}
+      avatar={user.image}
       firstname={user.nom}
       lastname={user.prenom}
       descriptionTitle={user.description}
@@ -29,7 +29,8 @@ SidebarProfile.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.managerReducer.user,
+  // user: state.managerReducer.user,
+  user: state.adminReducer.user,
 });
 
 

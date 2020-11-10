@@ -2,24 +2,28 @@ import TeacherService from "../../services/teacherServices";
 
 const logout = () => {
   localStorage.removeItem('token');
-  localStorage.removeItem('teacher');
+  localStorage.removeItem('enseignant');
   return { type: "LOGOUT"};
 
   
 };
 
 const updateProfile = (payload) => {
+  return function(dispatch,getState){
   return TeacherService.updateProfile(payload)
   .then(
     res=>{
-
-      return { type: "UPDATE_PROFILE", res };
+    localStorage.setItem('enseignant', JSON.stringify(res));
+     
+     dispatch({ type: "UPDATE_PROFILE", payload: res });
+     return Promise.resolve({ok:true})
     },
     err=>{
-      return { type: "UPDATE_PROFILE_FAILED", err };
-
+     dispatch({ type: "UPDATE_PROFILE_FAILED", payload: err });
+      return Promise.reject({message: err})
     }
   )
+  }
 
   // const old=JSON.parse(localStorage.getItem(adminType));
   // localStorage.setItem(adminType,JSON.stringify({...old,...payload}));

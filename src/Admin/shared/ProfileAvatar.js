@@ -16,7 +16,10 @@ const useStyles = makeStyles((theme) => ({
     width: 64,
     height: 64,
     color: theme.palette.secondary.contrastText,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+  },
+  title:{
+    textTransform: "capitalize"
   }
 }));
 
@@ -32,7 +35,7 @@ function ProfileAvatar(props) {
           flexDirection="column"
         >
           <Avatar
-            className={props.classes? props.classes.avatar : classes.avatar}
+            className={`${props.classes? props.classes.avatar : classes.avatar}`}
             src={avatar}
             color={"secondary"}
           > {getInitials(`${firstname} ${lastname}`)}
@@ -41,6 +44,7 @@ function ProfileAvatar(props) {
             color="textPrimary"
             gutterBottom
             variant="h6"
+            className={classes.title}
           >
             {`${firstname} ${lastname}`}
           </Typography>

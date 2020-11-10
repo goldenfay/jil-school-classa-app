@@ -5,19 +5,24 @@ const layoutState={
     selectedLink: 'dashboard'
 }
 const userState={
-    user: JSON.parse(localStorage.getItem('manager')) || {},
-    adminType: "manager"
+    user: JSON.parse(localStorage.getItem('manager')) || JSON.parse(localStorage.getItem('enseignant')) || {},
+    adminType: JSON.parse(localStorage.getItem('enseignant'))!==null?"enseignant" : "manager",
+    status:{
+        // loginStatus:{success: true, message: "Connexion réussie"}
+    }
     
 }
 
-function managerReducer(state=userState,action){
+function adminReducer(state=userState,action){
     switch(action.type){
         case "UPDATE_PROFILE":
-            return {user:{...state.user, ...action.payload}};
-        case "SET_CURRENT_MANAGER":
             return {...state,user:{...state.user, ...action.payload}};
+        case "SET_CURRENT_MANAGER":
+            return {...state,user:{...state.user, ...action.payload},adminType:"manager"};
+        case "SET_CURRENT_TEACHER":
+            return {...state,user:{...state.user, ...action.payload},adminType:"enseignant"};
         case "MANAGER_LOGIN_FAILED":
-            return {loginStatus:{success: false, message: action.payload}};
+            return {...state,status: {...state.status,loginStatus:{success: false, message: action.payload}}};
         case "LOGOUT":
             return userState
 
@@ -36,8 +41,9 @@ function managerLayoutReducer(state=layoutState,action){
 
 
 const combined=combineReducers({
-    managerReducer,
+    adminReducer,
     managerLayoutReducer
 })
+
 
 export default combined

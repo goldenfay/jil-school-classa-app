@@ -18,13 +18,17 @@ const register = (data) => {
     "nom",
     "prenom",
     "email",
-    "matieresIds",
+    "phone",
+    // "matieresIds",
+    // "classesIds",
+    "matiereId",
     "classesIds",
     "wilaya",
     "commune",
-    "phone",
   ];
-  const keys=Object.keys(data);
+    // Filter any params out of params Set
+  const keys=Object.keys(data).filter(el=>params.includes(el));
+    // Ensure that there is only params attributs, not less, not more
   if (!params.every((key) => keys.includes(key)))
     return Promise.reject({
       message: "Les paramètres de formulaire sont invalides",
@@ -32,7 +36,7 @@ const register = (data) => {
 
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json",...authHeader() },
     body: JSON.stringify(data),
   };
 
@@ -45,7 +49,7 @@ const register = (data) => {
  * @param {*} data 
  */
 const updateProfile = (data) => {
-  if (checkRoleAutorizationFail(data,"teacher"))
+  if (checkRoleAutorizationFail(data,"enseignant"))
     return Promise.reject({
       message:
         "Non autorisé! Uniquement l'enseignant qui peut mettre à jours son profile",
@@ -83,11 +87,11 @@ const getAll = (data) => {
     });
   const requestOptions = {
     method: "GET",
-    headers: authHeader(),
+    headers: {...authHeader(),adminType: data.adminType},
     // body: JSON.stringify(data),
   };
 
-  return fetch(`${teacherConfig.API_URL}`, requestOptions).then(
+  return fetch(`${teacherConfig.API_URL}/`, requestOptions).then(
     handleResponse
   );
 };
@@ -111,7 +115,7 @@ function getById(id) {
 
 
 function getProfCourses(data){
-  if (!(data.adminType && data.adminType==="teacher"))
+  if (!(data.adminType && data.adminType==="enseignant"))
     return Promise.reject({
       message:
         "Non autorisé! Uniquement l'enseignant qui récupérer tous ses cours",
@@ -133,7 +137,7 @@ function getProfCourses(data){
 }
 
 function addNewCourse(data){
-  if (checkRoleAutorizationFail(data,"teacher"))
+  if (checkRoleAutorizationFail(data,"enseignant"))
     return Promise.reject({
       message:
         "Non autorisé! Uniquement l'enseignant qui peut ajouter un cours",

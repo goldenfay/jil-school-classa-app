@@ -64,6 +64,11 @@ const validationSchema = Yup.object({
     .trim()
     .matches(/^0[5679]\d{8}$/, "Numéro de télephone invalide")
     .required("Champs Obligatoire"),
+  currentpassword: Yup.string(),
+  // .test('passwords-match', "Vous devez saisir le mot de passe actuel", function(value) {
+  //   return this.parent.newpassword !== "";
+  // }),
+  newpassword: Yup.string()
 });
 const nom = {
   type: "input",
@@ -106,13 +111,17 @@ export const Profile = ({ className, cardProps, ...props }) => {
 
   // Define notification state
   const [alertOpen, setAlertOpen] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    severity : "success",
+    message: 'Profile mis à jours avec succès'
+  });
   const toasterContent = (
-    <Alert variant="filled" severity="success">
-      Profile mis à jours avec succès
+    <Alert variant="filled" severity={alertProps.severity}>
+      {alertProps.message}
     </Alert>
   );
   const closeToaster = () => setAlertOpen(false);
-
+  // const [progressValue, setProgressValue] = useState(0);
   // Update field's initial values
   nom.props.value = state.nom;
   prenom.props.value = state.prenom;
@@ -149,6 +158,7 @@ export const Profile = ({ className, cardProps, ...props }) => {
       }),
     },
   };
+  
 
   // Define the shape of the form
   const formStructure = [
@@ -156,6 +166,32 @@ export const Profile = ({ className, cardProps, ...props }) => {
     [email, phone],
     [currentpassword, newpassword],
   ];
+
+  const handleLoadImg=(event)=>{
+    const file = event.currentTarget.files[0];
+
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      const fileToAdd = {
+        file: file,
+        data: fileReader.result,
+        isUploading: false,
+      };
+      const changesObj={
+        ...state,
+        imgFile: fileToAdd,
+      };
+      setState(changesObj);
+
+    };
+    fileReader.onerror = () => {
+      console.log("Une est s'est produite lors de chargement de l'image depuis le disque");
+    };
+
+    fileReader.readAsDataURL(file);
+
+  }
+
 
   const handleChange = (event) => {
     setState({
@@ -166,13 +202,39 @@ export const Profile = ({ className, cardProps, ...props }) => {
   
 
   const handleSubmit = (data) => {
-    setisLoding(true);
-    // Redux update action dispatch
-    props.updateProfile(data);
+    const changes=Object.assign({}, ...(Object.keys(user).map((key)=>{
+      if(data[key] && user[key]!==data[key] && data[key]!=="")
+      return {
+        [key]: data[key]
+      } 
+    }).filter((el)=> !(typeof el==="undefined"))));
+    console.log(state.imgFile)
+    if(state.imgFile)
+      changes.image=state.imgFile.data;
 
-    console.log(props);
-    // Display notification snackbar toaster
-    setAlertOpen(true);
+    setisLoding(true)
+    props.updateProfile({...changes,adminType: "manager",id: user.id}).then(
+      res=>{
+        setAlertProps({
+                severity : "success",
+                message: 'Profile mis à jours avec succès'
+              });
+              setAlertOpen(true)
+              setisLoding(false)
+        
+      },
+      err=>{
+        props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
+            setAlertProps({
+                    severity:'error',
+                    message : `Une erreur s'est produite ${err.message ? err.message:""}`
+                  });
+            setAlertOpen(true);
+            setisLoding(false)
+
+      }
+      )
+   
   };
   return (
     <Page className={classes.root} title="Compte">
@@ -194,14 +256,23 @@ export const Profile = ({ className, cardProps, ...props }) => {
                 <ProfileAvatar
                   firstname={user.nom}
                   lastname={user.prenom}
-                  avatar={user.avatar}
+                  avatar={(state.imgFile && state.imgFile.data ) || user.image}
                   descriptionTitle={user.jobTitle}
                   classes={classes}
                 />
               </CardContent>
               <Divider />
               <CardActions>
-                <Button color="primary" fullWidth variant="text">
+              <input 
+                type="file" 
+                id="profilePicture" name="profilePicture" 
+                hidden
+                accept="image/png, image/jpeg"
+                onChange={handleLoadImg}
+                />
+                <Button component="label"  htmlFor="profilePicture" 
+                color="primary" fullWidth variant="text"
+                >
                   Modifier votre avatar
                 </Button>
               </CardActions>
@@ -240,7 +311,8 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.managerReducer.user,
+  // user: state.managerReducer.user,
+  user: state.adminReducer.user,
 });
 
 const mapDispatchToProps = (dispatch) => {

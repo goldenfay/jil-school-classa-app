@@ -16,6 +16,7 @@ import {
   SvgIcon,
   Grid,
   Paper,
+  MenuItem,
 } from "@material-ui/core";
 import {purple} from "@material-ui/core/colors"
 import { Search as SearchIcon } from "react-feather";
@@ -85,6 +86,7 @@ export function Contenu(props) {
   
   const [coursRows, setCoursRows] = useState([]);
   const [filtredCoursRows, setFiltredCoursRows] = useState([]);
+  const [displayedCourses, setDisplayedCourses] = useState([]);
   
   
   useEffect(()=>{
@@ -102,8 +104,9 @@ export function Contenu(props) {
       label: "Actions",
       withChildComponent: true,
     });
+
     TeacherService.getProfCourses({
-      adminType: "teacher",
+      adminType: "enseignant",
       id: props.teacher.id
     }).then(
       res=>{
@@ -144,8 +147,10 @@ export function Contenu(props) {
           
           )
         }));
+        const firstClasseRows=rows.filter(row=> row.classe===props.teacher.classes[0]._id)
         setCoursRows(rows);
-        setFiltredCoursRows(rows)
+        setFiltredCoursRows(firstClasseRows);
+        setDisplayedCourses(firstClasseRows)
       },
       err=>{
 
@@ -154,6 +159,13 @@ export function Contenu(props) {
 
 
   },[])
+
+  const changeYearcourses=(e)=>{
+    const newRows=coursRows.map(row=>row.classe===e.target.value)
+    setDisplayedCourses(newRows);
+    setFiltredCoursRows()
+
+  }
 
 
 
@@ -168,7 +180,7 @@ export function Contenu(props) {
     }
     const value = e.target.value;
     setFiltredCoursRows(
-      coursRows.filter(
+      displayedCourses.filter(
         (row) =>
           (row.titre && row.titre.indexOf(value) !== -1) ||
           (row.titrePdf && row.titrePdf.indexOf(value) !== -1)
@@ -181,6 +193,52 @@ export function Contenu(props) {
       <MuiThemeProvider theme={defaultTheme}>
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <Box
+                mt={3}
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+                flexDirection="row"
+              >
+                 <TextField 
+                 select
+                  value={props.teacher.classes.length?props.teacher.classes[0]._id:""}
+                  onChange={changeYearcourses}
+                  label="Choisissez l'année à afficher"
+                 >
+                   {props.teacher.classes && props.teacher.classes.map((cl)=>
+                   (<MenuItem
+                   key={cl._id}
+                   value={cl._id}
+                   >
+                     {cl.codeCl}
+                  </MenuItem>))}
+                   
+                </TextField>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Box
+                mt={3}
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+                flexDirection="row"
+              >
+                <MuiThemeProvider theme={successtheme}>
+                  <Button
+                    size="medium"
+                    variant="contained"
+                    className={classes.button}
+                    startIcon={<AddIcon />}
+                    color="primary"
+                  >
+                    Ajouter
+                  </Button>
+                </MuiThemeProvider>
+              </Box>
+            </Grid>
             {/* Recherche de cours */}
             <Grid item xs={12} sm={8}>
               <Box mt={3}>
@@ -201,27 +259,6 @@ export function Contenu(props) {
                     onChange={(e) => handleSearchInputChange(e)}
                   />
                 </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Box
-                mt={3}
-                alignItems="center"
-                justifyContent="center"
-                display="flex"
-                flexDirection="row"
-              >
-                <MuiThemeProvider theme={successtheme}>
-                  <Button
-                    size="medium"
-                    variant="contained"
-                    className={classes.button}
-                    startIcon={<AddIcon />}
-                    color="primary"
-                  >
-                    Ajouter
-                  </Button>
-                </MuiThemeProvider>
               </Box>
             </Grid>
             {/* Liste des enseignants */}
@@ -261,7 +298,8 @@ export function Contenu(props) {
   );
 }
 const mapStateToProps = (state) => ({
-  teacher : state.managerReducer.user
+  // teacher : state.managerReducer.user
+  teacher : state.adminReducer.user
   
 })
 

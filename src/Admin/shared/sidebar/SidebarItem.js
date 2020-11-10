@@ -60,6 +60,7 @@ function SidebarItem(props) {
 }
 
 const mapStateToProps = (state) => ({
+  // selectedLink: state.managerLayoutReducer.selectedLink,
   selectedLink: state.managerLayoutReducer.selectedLink,
 });
 

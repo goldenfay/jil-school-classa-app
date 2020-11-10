@@ -53,7 +53,7 @@ const navItems=[
       label:'Profile'
   },
   {
-      link:'/teacher/logout',
+      link:'/logout',
       ItemIcon:ExitToAppIcon,
       label:'Deconnexion'
   },

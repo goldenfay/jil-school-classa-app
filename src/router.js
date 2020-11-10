@@ -18,13 +18,14 @@ import Pubs from "./Admin/Manager/dashboard/pages/Pubs";
 import Contenu from "./Admin/Teacher/dashboard/pages/contenu/Contenu";
 import ElevesClasse from "./Admin/Teacher/dashboard/pages/Eleves";
 import TeacherProfile from "./Admin/Teacher/dashboard/pages/Profile";
-import { Provider } from "react-redux";
-import {ManagerStore,TeacherStore} from './redux/stores/';
 
+ 
+// Redux
+import { connect } from "react-redux";
 
 const isLoggedIn = (adminType) => {
   const admin = localStorage.getItem(
-    adminType === "manager" ? "manager" : "teacher"
+    adminType === "manager" ? "manager" : "enseignant"
   );
   return admin !== null;
 };
@@ -32,12 +33,9 @@ const isLoggedIn = (adminType) => {
 
 
 function PrivateRoute({ component: Component, adminType,from,...rest }) {
-// const navigate=useNavigate();
-  
-//   !isLoggedIn(adminType) && navigate(from);
-  console.log(rest)
+
   return (
-    <Provider store={from==="/"?ManagerStore:TeacherStore} >
+    // <Provider store={from==="/"?ManagerStore:TeacherStore} >
     <Route
       {...rest}
       element={((props) =>
@@ -52,12 +50,10 @@ function PrivateRoute({ component: Component, adminType,from,...rest }) {
       )()
       }
     />
-    </Provider>
+    // </Provider>
   );
 }
-const routes = (null
-  
-);
+
 // const routes = [
 //   {
 //     path: '/login',
@@ -92,28 +88,33 @@ const routes = (null
 
 function router(props) {
 
-  // const navigator=useNavigate();
   return (
     <Router>
     <Routes>
     
       <Route path='/login' element={<Auth /> } />
       <Route path='/logout' element={<Logout /> } />
-      <Route path="/"   element={<PrivateRoute component={ManagerDashboardLayout} adminType='manager' from='/' path='/'/>}>
+      {props.currentAdminType==="manager" && (<Route path="/"   element={<PrivateRoute component={ManagerDashboardLayout} adminType='manager' from='/' path='/'/>}>
        
         <Route path="" element={<Dashboard />} />
         <Route path="enseignants" element={<Enseignants />} />
+        <Route path="cyclesannes" element={<Dashboard />} />
         <Route path="abonnes" element={<Abonnes />} />
         <Route path="eleves" element={<Eleves/>} />
         <Route path="profile" element={<Profile/>} />
         <Route path="pubs" element={<Pubs/>} />
-      </Route> 
-      <Route path="/teacher"   element={<PrivateRoute component={TeacherDashboardLayout} adminType='teacher' from='/teacher' path='/teacher'/>}>
+      </Route>)} 
+      {props.currentAdminType==="enseignant" &&(<Route path="/teacher"   element={<PrivateRoute component={TeacherDashboardLayout} adminType='enseignant' from='/teacher' path='/teacher'/>}>
        
         <Route path="contenu" element={<Contenu />} />
         <Route path="eleves" element={<ElevesClasse/>} />
         <Route path="profile" element={<TeacherProfile/>} />
-      </Route> 
+      </Route> )}
+      {/* <Route path="*" element={<Navigate
+          
+            to={{ pathname: "/login"}}
+          />}
+      /> */}
     </Routes>
   </Router>
   )
@@ -123,6 +124,15 @@ router.propTypes = {
 
 }
 
-export default router
+const mapStateToProps = (state) => { return ({
+  currentAdminType: state.adminReducer.adminType,
+})};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(router);
 
 

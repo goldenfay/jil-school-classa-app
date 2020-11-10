@@ -3,9 +3,9 @@ import ManagerService from "../../services/managerServices";
 const login = (formData) => {
   const { username, password, adminType } = formData;
   return ManagerService.login(username, password, adminType).then(
-    (manager) => {
+    (admin) => {
 
-      return { type: "SET_CURRENT_MANAGER", payload: manager };
+      return { type:adminType==="manager"? "SET_CURRENT_MANAGER":"SET_CURRENT_TEACHER", payload: admin };
     },
     (err) => {
         console.error("Une errur s'est produite lors de la connexion : ",err);
@@ -16,18 +16,27 @@ const login = (formData) => {
 const logout = () => {
   localStorage.removeItem('manager');
   localStorage.removeItem('token');
-  // localStorage.removeItem('teacher');
+  localStorage.removeItem('enseignant');
   return { type: "LOGOUT"};
 
   
 };
 const updateProfile = (payload,adminType="manager") => {
-  // ManagerService.
-
-  // const old=JSON.parse(localStorage.getItem(adminType));
-  // localStorage.setItem(adminType,JSON.stringify({...old,...payload}));
-
-  return { type: "UPDATE_PROFILE", payload };
+  return function(dispatch,getState){
+    return ManagerService.updateProfile(payload)
+    .then(
+      res=>{
+      localStorage.setItem('manager', JSON.stringify(res));
+       
+       dispatch({ type: "UPDATE_PROFILE", payload: res });
+       return Promise.resolve({ok:true})
+      },
+      err=>{
+       dispatch({ type: "UPDATE_PROFILE_FAILED", payload: err });
+        return Promise.reject({message: err})
+      }
+    )
+    }
 };
 
 /******************************************** LAYOUT ACTIONS *****************************************/

@@ -1,8 +1,12 @@
+const USERS_API_URL="http://localhost:5000/api/user";
 const teacherConfig={
-    API_URL: "http://localhost:4000/api/admin/enseignants"
+    API_URL: "http://localhost:5000/api/admin/enseignants",
+    USERS_API_URL
 }
 const managerConfig={
-    API_URL: "http://localhost:4000/api/admin"
+    API_URL: "http://localhost:5000/api/admin",
+    USERS_API_URL
+
 }
 
 

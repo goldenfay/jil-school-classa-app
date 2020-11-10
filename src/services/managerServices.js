@@ -1,6 +1,36 @@
 import {managerConfig} from './config'
 import {handleResponse,checkRoleAutorizationFail,authHeader,login} from './shared'
 
+/**
+ * Update teacher profile.
+ * @param {*} data 
+ */
+const updateProfile = (data) => {
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement l'administrateur qui peut mettre à jours son profile",
+    });
+  const {adminType}=data;  
+  const params = [
+    "nom",
+    "prenom",
+    "email",
+    "phone",
+    "avatar",
+    "password"
+  ];
+  
+  const body=Object.assign({},...(Object.keys(data).filter(key=> params.includes(key)).map((key)=>({[key]: data[key]})) ) )
+  const requestOptions = {
+    method: "PUT",
+    headers: {...authHeader(),'Content-Type':'application/json'},
+    body: JSON.stringify({...body,adminType}),
+  };
+  return fetch(`${managerConfig.API_URL}/${data.id}`, requestOptions).then(
+    handleResponse
+  );
+};
 
 
 
@@ -64,7 +94,48 @@ const getAllClasses = (data) => {
       // body: JSON.stringify(data),
     };
   
-    return fetch(`${managerConfig.API_URL}/classes`, requestOptions).then(
+    return fetch(`${managerConfig.USERS_API_URL}/classes`, requestOptions).then(
+      handleResponse
+    );
+  };
+
+/**
+ * Fetch all classes with all matieres
+ * @param {*} data 
+ */
+const getAllMatieres = (data) => {
+    if (checkRoleAutorizationFail(data))
+      return Promise.reject({
+        message:
+          "Non autorisé! Uniquement le Manager qui récupérer tous les classes",
+      });
+    const requestOptions = {
+      method: "GET",
+      headers: {...authHeader(),adminType: data.adminType},
+      // body: JSON.stringify(data),
+    };
+  
+    return fetch(`${managerConfig.USERS_API_URL}/matieres/`, requestOptions).then(
+      handleResponse
+    );
+  };
+
+/**
+ * Fetch all classes with all matieres
+ * @param {*} data 
+ */
+const getAllClassesMatieres = (data) => {
+    if (checkRoleAutorizationFail(data))
+      return Promise.reject({
+        message:
+          "Non autorisé! Uniquement le Manager qui récupérer tous les classes",
+      });
+    const requestOptions = {
+      method: "GET",
+      headers: {...authHeader(),adminType: data.adminType}
+    };
+  
+    return fetch(`${managerConfig.USERS_API_URL}/classes/matieres`, requestOptions).then(
       handleResponse
     );
   };
@@ -74,9 +145,12 @@ const getAllClasses = (data) => {
 
 const managerService={
     login,
+    updateProfile,
     getAllAbonnes,
     getAllEleves,
-    getAllClasses
+    getAllClasses,
+    getAllMatieres,
+    getAllClassesMatieres
 
 }
 

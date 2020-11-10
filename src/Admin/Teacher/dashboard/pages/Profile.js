@@ -130,6 +130,16 @@ export const Profile = ({ className, cardProps, ...props }) => {
   email.props.value = state.email;
   phone.props.value = state.phone;
   // const formState=
+  
+  /**
+   * Handle toggle show/hide password
+   * @param {*} name 
+   */
+  const handleShowPassword = (name) => {
+    if (name === "currentpassword")
+      setShowCurrentPassword(!showCurrentPassword);
+    if (name === "newpassword") setShowNewPassword(!showNewPassword);
+  };
 
   const currentpassword = {
     type: "input",
@@ -155,16 +165,6 @@ export const Profile = ({ className, cardProps, ...props }) => {
       }),
     },
   };
-  
-  /**
-   * Handle toggle show/hide password
-   * @param {*} name 
-   */
-  const handleShowPassword = (name) => {
-    if (name === "currentpassword")
-      setShowCurrentPassword(!showCurrentPassword);
-    if (name === "newpassword") setShowNewPassword(!showNewPassword);
-  };
   // Define the shape of the form
   const formStructure = [
     [nom, prenom], // This is a row in the form grid
@@ -184,7 +184,7 @@ export const Profile = ({ className, cardProps, ...props }) => {
       };
       const changesObj={
         ...state,
-        avatar: fileToAdd,
+        imgFile: fileToAdd,
       };
       setState(changesObj);
 
@@ -200,14 +200,14 @@ export const Profile = ({ className, cardProps, ...props }) => {
   const uploadImage=()=>{
     //Update file (Change its state to uploading)
     setState({...state,
-      avatar: {
-      ...state.avatar,
+      imgFile: {
+      ...state.imgFile,
       isUploading: true,
     }});
     
       // Send files to Server
     const data = new FormData();
-    data.append("file", state.avatar.file);
+    data.append("file", state.imgFile.file);
     return axios
       .post("http://localhost:4000/upload/admins/profileImg", data, {
         headers: {
@@ -253,30 +253,52 @@ export const Profile = ({ className, cardProps, ...props }) => {
         [key]: data[key]
       }
     }).filter((el)=> !(typeof el==="undefined"))));
-    
-    changes.avatar=state.avatar.data;
-    TeacherService.updateProfile({...changes,adminType: "teacher",id: user.id}).then(
-      res=>{
-        console.log(res);
-        localStorage.setItem('teacher', JSON.stringify(res));
-        props.updateProfile({ type: "UPDATE_PROFILE", payload: res });
+    console.log(state.imgFile)
+    if(state.imgFile)
+      changes.avatar=state.imgFile.data;
+    // TeacherService.updateProfile({...changes,adminType: "enseignant",id: user.id}).then(
+    //   res=>{
+    //     console.log(res);
+    //     localStorage.setItem('enseignant', JSON.stringify(res));
+    //     props.updateProfile({ type: "UPDATE_PROFILE", payload: res });
 
+    //     setAlertProps({
+    //       severity : "success",
+    //       message: 'Profile mis à jours avec succès'
+    //     });
+    //     setAlertOpen(true)
+    //   },
+    //   err=>{
+    //     props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
+    //     setAlertProps({
+    //             severity:'error',
+    //             message : `Une erreur s'est produite ${err.message ? err.message:err}`
+    //           });
+    //     setAlertOpen(true);
+  
+    //   }
+    // ).catch(err=> console.log(err));
+
+
+    props.updateProfile({...changes,adminType: "enseignant",id: user.id}).then(
+      res=>{
         setAlertProps({
-          severity : "success",
-          message: 'Profile mis à jours avec succès'
-        });
-        setAlertOpen(true)
+                severity : "success",
+                message: 'Profile mis à jours avec succès'
+              });
+              setAlertOpen(true)
+        
       },
       err=>{
         props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
-        setAlertProps({
-                severity:'error',
-                message : `Une erreur s'est produite ${err.message ? err.message:err}`
-              });
-        setAlertOpen(true);
-  
+            setAlertProps({
+                    severity:'error',
+                    message : `Une erreur s'est produite ${err.message ? err.message:""}`
+                  });
+            setAlertOpen(true);
+
       }
-    ).catch(err=> console.log(err));
+      )
 
    
   };
@@ -299,7 +321,7 @@ export const Profile = ({ className, cardProps, ...props }) => {
                 <ProfileAvatar
                   firstname={user.nom}
                   lastname={user.prenom}
-                  avatar={(state.avatar && state.avatar.data ) || user.avatar}
+                  avatar={(state.imgFile && state.imgFile.data ) || user.avatar}
                   descriptionTitle={user.jobTitle}
                   classes={classes}
                 />
@@ -363,12 +385,14 @@ Profile.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.managerReducer.user,
+  // user: state.managerReducer.user,
+  user: state.adminReducer.user,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateProfile: (params) =>dispatch(params),
+    // updateProfile: (params) =>dispatch(params),
+    updateProfile: (params)=>dispatch(Actions.updateProfile(params))
   };
 };
 
