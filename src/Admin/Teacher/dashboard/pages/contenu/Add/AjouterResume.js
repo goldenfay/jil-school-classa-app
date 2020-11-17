@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {
   Container,
   Grid,
-  Box,
   CssBaseline,
   Button,
   Typography,
@@ -48,7 +47,7 @@ function AjouterDocument(props) {
     pdfFile: props.state.pdfFile!==null?props.state.pdfFile:null,
     DOC: props.state.pdfFile!==null?props.state.pdfFile.file.name:""
   };
-  const [labelRef, _] = useState(createRef());
+  const labelRef=createRef();
 
   const [uploadRequired, setUploadRequired] = useState(false);
   const [state, setState] = useState({
@@ -66,7 +65,7 @@ function AjouterDocument(props) {
       setParentInput={(file) => setState({ ...state, pdfFile: file,DOC: file.file.name })}
     />
   );
-  const [formStructure, setFormeStructure] = useState([
+  const formStructure=[
         [titre],
         [
           {
@@ -86,7 +85,7 @@ function AjouterDocument(props) {
             type: "formControl",
           },
         ],
-      ]);
+      ];
   const formRef = useRef();
   useEffect(() => {
     if (props.linkRefHandle) props.linkRefHandle(formRef, 1);

@@ -1,4 +1,4 @@
-import React, {createRef, useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import PropTypes from 'prop-types';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -43,7 +43,7 @@ const CustomForm=React.forwardRef((props,ref)=> {
         touched,
         values,
       }) => (
-        <form className={classes.form}  onSubmit={(e)=>{e.preventDefault(); handleSubmit(e); }} ref={ref}>
+        <form className={classes.form}  onSubmit={(e)=>{e.preventDefault(); handleSubmit(e); }} ref={ref} encType="multipart/form-data">
           <Grid container spacing={2}>
             {props.fieldsHiearchy && props.fieldsHiearchy.map((gridRow,rowidx) => {
               if (!(gridRow instanceof Array)) {

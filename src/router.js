@@ -12,12 +12,14 @@ import Enseignants from "./Admin/Manager/dashboard/pages/enseignants/Enseignants
 import Abonnes from "./Admin/Manager/dashboard/pages/Abonnes";
 import Eleves from "./Admin/Manager/dashboard/pages/Eleves";
 import Profile from "./Admin/Manager/dashboard/pages/Profile";
-import Pubs from "./Admin/Manager/dashboard/pages/Pubs";
+import Pubs from "./Admin/Manager/dashboard/pages/pubs/Pubs";
+import Statistiques from "./Admin/Manager/dashboard/pages/Statistiques";
 
 // Teacher's views
 import Contenu from "./Admin/Teacher/dashboard/pages/contenu/Contenu";
 import ElevesClasse from "./Admin/Teacher/dashboard/pages/Eleves";
 import TeacherProfile from "./Admin/Teacher/dashboard/pages/Profile";
+import TeacherStatistiques from "./Admin/Teacher/dashboard/pages/Statistiques";
 
  
 // Redux
@@ -54,38 +56,6 @@ function PrivateRoute({ component: Component, adminType,from,...rest }) {
   );
 }
 
-// const routes = [
-//   {
-//     path: '/login',
-//     element: <Auth />,
-//   },
-//   {
-//     path: '/',
-//     element: privateRoute('manager',ManagerDashboardLayout),
-//     children: [
-//       { path: 'enseignants', element: privateRoute('manager',Enseignants) },
-//       { path: 'abonnes', element: privateRoute('manager',Abonnes) },
-//       { path: 'eleves', element: privateRoute('manager',Eleves) },
-//       { path: 'profile', element: privateRoute('manager',Profile) },
-//       { path: 'pubs', element:privateRoute('manager',Pubs) },
-//       // { path: 'settings', element: <SettingsView /> },
-//       // { path: '*', element: <Route to="/404" /> }
-//     ]
-//   },
-//   {
-//     path: '/teacher',
-//     element: <Provider store={TeacherStore}><TeacherDashboardLayout /></Provider>,
-//     children: [
-//       { path: 'contenu', element: <Contenu /> },
-//       { path: 'eleves', element: <ElevesClasse /> },
-//       { path: 'profile', element: <TeacherProfile /> },
-//       // { path: 'settings', element: <SettingsView /> },
-//       // { path: '*', element: <Route to="/404" /> }
-//     ]
-//   },
-
-// ];
-
 function router(props) {
 
   return (
@@ -101,6 +71,7 @@ function router(props) {
         <Route path="cyclesannes" element={<Dashboard />} />
         <Route path="abonnes" element={<Abonnes />} />
         <Route path="eleves" element={<Eleves/>} />
+        <Route path="statistiques" element={<Statistiques/>} />
         <Route path="profile" element={<Profile/>} />
         <Route path="pubs" element={<Pubs/>} />
       </Route>)} 
@@ -108,6 +79,7 @@ function router(props) {
        
         <Route path="contenu" element={<Contenu />} />
         <Route path="eleves" element={<ElevesClasse/>} />
+        <Route path="statistiques" element={<TeacherStatistiques/>} />
         <Route path="profile" element={<TeacherProfile/>} />
       </Route> )}
       {/* <Route path="*" element={<Navigate

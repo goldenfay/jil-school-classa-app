@@ -15,7 +15,7 @@ import Page from "../../../shared/Page";
 import LoadingComponent from "../../../shared/LoadingComponent";
 
 // Data
-import { headCells } from "../../../../fake/fakeProfs";
+import { profsHeadCells } from "../../../data/tableHeads";
 import ManagerService from "../../../../services/managerServices";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Eleves(props) {
   const classes = useStyles();
 
-  const dataColumns = headCells.map((el) => el.label);
+  const dataColumns = profsHeadCells.map((el) => el.label);
 
 
   // States
@@ -40,7 +40,7 @@ export default function Eleves(props) {
       (res) => {
         setisLoading(false);
         setFiltredElevesRows(
-          res.map((row) => headCells.map((column) => row[column.id]))
+          res.map((row) => profsHeadCells.map((column) => row[column.id]))
         );
       },
       (err) => {

@@ -11,15 +11,15 @@ import {
   CardContent,
   Divider,
   makeStyles,
-  LinearProgress
+  LinearProgress,
 } from "@material-ui/core";
 import { InputAdornment } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Alert from "@material-ui/lab/Alert";
-import { MuiThemeProvider } from "@material-ui/core/styles";
+// import { MuiThemeProvider } from "@material-ui/core/styles";
 import * as Yup from "yup";
-import axios from "axios"
+import axios from "axios";
 
 // Redux
 import { connect } from "react-redux";
@@ -29,9 +29,9 @@ import { TeacherActions as Actions } from "../../../../redux/actions/";
 import Page from "../../../shared/Page";
 import ProfileAvatar from "../../../shared/ProfileAvatar";
 import CustomForm from "../../../shared/CustomForm";
-import tinyTheme from "../../../../themes/tinyTheme";
+import LoadingComponent from "../../../shared/LoadingComponent";
 import ToasterSnackBar from "../../../shared/notifiers/toaster/ToasterSnackBar";
-import TeacherService from '../../../../services/teacherServices'
+// import TeacherService from "../../../../services/teacherServices";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
     height: 100,
     width: 100,
   },
-  
 }));
 
 const validationSchema = Yup.object({
@@ -64,13 +63,20 @@ const validationSchema = Yup.object({
     .trim()
     .matches(/^0[5679]\d{8}$/, "Numéro de télephone invalide")
     .required("Champs Obligatoire"),
-  currentpassword: Yup.string(),
-  // .test('passwords-match', "Vous devez saisir le mot de passe actuel", function(value) {
-  //   return this.parent.newpassword !== "";
-  // }),
-  newpassword: Yup.string()
-    
-    
+  newpassword: Yup.string(),
+  currentpassword: Yup.string().test(
+    "passwords-match",
+    "Vous devez saisir le mot de passe actuel",
+    function (value) {
+      // console.log(this.parent);
+      return (
+        !this.parent.newpassword ||
+        this.parent.newpassword === "" ||
+        (this.parent.newpassword !== "" && value && value !== "")
+      );
+      // return false;
+    }
+  ),
 });
 const nom = {
   type: "input",
@@ -105,16 +111,21 @@ const constructPasswordField = (params) => ({
 export const Profile = ({ className, cardProps, ...props }) => {
   const classes = useStyles();
   const user = props.user;
-    // States
-  const [state, setState] = useState({...user,currentpassword:'',newpassword:''});
+  // States
+  const [state, setState] = useState({
+    ...user,
+    currentpassword: "",
+    newpassword: "",
+  });
+  const [isLoding, setisLoding] = useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
 
   // Define notification state
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertProps, setAlertProps] = useState({
-    severity : "success",
-    message: 'Profile mis à jours avec succès'
+    severity: "success",
+    message: "Profile mis à jours avec succès",
   });
   const toasterContent = (
     <Alert variant="filled" severity={alertProps.severity}>
@@ -123,17 +134,17 @@ export const Profile = ({ className, cardProps, ...props }) => {
   );
   const closeToaster = () => setAlertOpen(false);
   const [progressValue, setProgressValue] = useState(0);
-  
+
   // Update field's initial falues
   nom.props.value = state.nom;
   prenom.props.value = state.prenom;
   email.props.value = state.email;
   phone.props.value = state.phone;
   // const formState=
-  
+
   /**
    * Handle toggle show/hide password
-   * @param {*} name 
+   * @param {*} name
    */
   const handleShowPassword = (name) => {
     if (name === "currentpassword")
@@ -172,7 +183,7 @@ export const Profile = ({ className, cardProps, ...props }) => {
     [currentpassword, newpassword],
   ];
 
-  const handleLoadImg=(event)=>{
+  const handleLoadImg = (event) => {
     const file = event.currentTarget.files[0];
 
     const fileReader = new FileReader();
@@ -182,61 +193,59 @@ export const Profile = ({ className, cardProps, ...props }) => {
         data: fileReader.result,
         isUploading: false,
       };
-      const changesObj={
+      const changesObj = {
         ...state,
         imgFile: fileToAdd,
       };
       setState(changesObj);
-
     };
     fileReader.onerror = () => {
-      console.log("Une est s'est produite lors de chargement de l'image depuis le disque");
+      console.log(
+        "Une est s'est produite lors de chargement de l'image depuis le disque"
+      );
     };
 
     fileReader.readAsDataURL(file);
+  };
 
-  }
-
-  const uploadImage=()=>{
+  const uploadImage = () => {
     //Update file (Change its state to uploading)
-    setState({...state,
+    setState({
+      ...state,
       imgFile: {
-      ...state.imgFile,
-      isUploading: true,
-    }});
-    
-      // Send files to Server
+        ...state.imgFile,
+        isUploading: true,
+      },
+    });
+
+    // Send files to Server
     const data = new FormData();
     data.append("file", state.imgFile.file);
     return axios
       .post("http://localhost:4000/upload/admins/profileImg", data, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
-          setProgressValue(progressEvent.loaded / progressEvent.total*100)
+          setProgressValue((progressEvent.loaded / progressEvent.total) * 100);
         },
       })
       .then(
         (res) => {
           console.log(`Server result : ${res}`);
           if (res.status === 200) {
-            console.log('File successfullly uploaded.')
-            return Promise.resolve({ok: true,res:res});
-            
-
-            
+            console.log("File successfullly uploaded.");
+            return Promise.resolve({ ok: true, res: res });
           }
-          return Promise.reject("L'image n'a pas pu chargée correcttement")
+          return Promise.reject("L'image n'a pas pu chargée correcttement");
         },
-        (err) =>{
-          return Promise.reject(`Une erreur est survenu lors de chargement : ${err}`)
-         
+        (err) => {
+          return Promise.reject(
+            `Une erreur est survenu lors de chargement : ${err}`
+          );
         }
-        
-        );
-  }
-
+      );
+  };
 
   const handleChange = (event) => {
     setState({
@@ -246,61 +255,53 @@ export const Profile = ({ className, cardProps, ...props }) => {
   };
 
   const handleSubmit = (data) => {
-    
-    const changes=Object.assign({}, ...(Object.keys(user).map((key)=>{
-      if(data[key] && user[key]!==data[key] && data[key]!=="")
-      return {
-        [key]: data[key]
-      }
-    }).filter((el)=> !(typeof el==="undefined"))));
-    console.log(state.imgFile)
-    if(state.imgFile)
-      changes.avatar=state.imgFile.data;
-    // TeacherService.updateProfile({...changes,adminType: "enseignant",id: user.id}).then(
-    //   res=>{
-    //     console.log(res);
-    //     localStorage.setItem('enseignant', JSON.stringify(res));
-    //     props.updateProfile({ type: "UPDATE_PROFILE", payload: res });
+    const changes = Object.assign(
+      {},
+      ...Object.keys(user)
+        .map((key) => {
+          if (data[key] && user[key] !== data[key] && data[key] !== "")
+            return {
+              [key]: data[key],
+            };
+          else return undefined  
+        })
+        .filter((el) => !(typeof el === "undefined"))
+    );
+    console.log(state.imgFile);
+    if (state.imgFile) changes.image = state.imgFile.file;
+    if (data.currentpassword && data.newpassword) {
+      changes.oldPassword = data.currentpassword;
+      changes.newPassword = data.newpassword;
+    }
 
-    //     setAlertProps({
-    //       severity : "success",
-    //       message: 'Profile mis à jours avec succès'
-    //     });
-    //     setAlertOpen(true)
-    //   },
-    //   err=>{
-    //     props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
-    //     setAlertProps({
-    //             severity:'error',
-    //             message : `Une erreur s'est produite ${err.message ? err.message:err}`
-    //           });
-    //     setAlertOpen(true);
-  
-    //   }
-    // ).catch(err=> console.log(err));
+    // If no field is changed, do not do anything, quit
+    if (!Object.keys(changes).length) return;
+    changes.id = user.id;
 
-
-    props.updateProfile({...changes,adminType: "enseignant",id: user.id}).then(
-      res=>{
-        setAlertProps({
-                severity : "success",
-                message: 'Profile mis à jours avec succès'
-              });
-              setAlertOpen(true)
-        
-      },
-      err=>{
-        props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
-            setAlertProps({
-                    severity:'error',
-                    message : `Une erreur s'est produite ${err.message ? err.message:""}`
-                  });
-            setAlertOpen(true);
-
-      }
-      )
-
-   
+    setisLoding(true)
+    props
+      .updateProfile({ ...changes, adminType: "enseignant", id: user.id })
+      .then(
+        (res) => {
+          setAlertProps({
+            severity: "success",
+            message: "Profile mis à jours avec succès",
+          });
+          setAlertOpen(true);
+          setisLoding(false)
+        },
+        (err) => {
+          // props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
+          setAlertProps({
+            severity: "error",
+            message: `Une erreur s'est produite ${
+              err.message ? err.message : ""
+            }`,
+          });
+          setAlertOpen(true);
+          setisLoding(false)
+        }
+      );
   };
   return (
     <Page className={classes.root} title="Compte">
@@ -314,29 +315,34 @@ export const Profile = ({ className, cardProps, ...props }) => {
 
         <Grid container spacing={3}>
           <Grid item lg={4} md={6} xs={12}>
-            <Card
-              {...cardProps}
-            >
+            <Card {...cardProps}>
               <CardContent>
                 <ProfileAvatar
                   firstname={user.nom}
                   lastname={user.prenom}
-                  avatar={(state.imgFile && state.imgFile.data ) || user.avatar}
+                  avatar={(state.imgFile && state.imgFile.data) || user.image}
                   descriptionTitle={user.jobTitle}
                   classes={classes}
                 />
               </CardContent>
               <Divider />
               <CardActions>
-                <input 
-                type="file" 
-                id="profilePicture" name="profilePicture" 
-                hidden
-                accept="image/png, image/jpeg"
-                onChange={handleLoadImg}
+                <form encType="multipart/form-data">
+                  <input
+                  type="file"
+                  id="profilePicture"
+                  name="profilePicture"
+                  hidden
+                  accept="image/png, image/jpeg"
+                  onChange={handleLoadImg}
                 />
-                <Button component="label"  htmlFor="profilePicture" 
-                color="primary" fullWidth variant="text"
+                </form>
+                <Button
+                  component="label"
+                  htmlFor="profilePicture"
+                  color="primary"
+                  fullWidth
+                  variant="text"
                 >
                   Modifier votre avatar
                 </Button>
@@ -351,28 +357,30 @@ export const Profile = ({ className, cardProps, ...props }) => {
               />
               <Divider />
               {/* <MuiThemeProvider theme={tinyTheme}> */}
-                <CustomForm
+              <LoadingComponent 
+                component={<CustomForm
                   validationSchema={validationSchema}
                   fieldsHiearchy={formStructure}
                   initialState={state}
                   onChange={handleChange}
                   onSubmit={handleSubmit}
                   submitLabel={"Mettre à jours"}
+                />}
+                controller={isLoding}
                 />
               {/* </MuiThemeProvider> */}
             </Card>
           </Grid>
         </Grid>
         <Grid container justify="center">
-        <Grid item xs={12} sm={8} >
-           {state.avatar!=null && progressValue>0 &&( <LinearProgress
-              variant="determinate"
-              color={"primary"}
-              value={progressValue}
-              
-              
-              
-            />)}
+          <Grid item xs={12} sm={8}>
+            {state.avatar != null && progressValue > 0 && (
+              <LinearProgress
+                variant="determinate"
+                color={"primary"}
+                value={progressValue}
+              />
+            )}
           </Grid>
         </Grid>
       </Container>
@@ -392,7 +400,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     // updateProfile: (params) =>dispatch(params),
-    updateProfile: (params)=>dispatch(Actions.updateProfile(params))
+    updateProfile: (params) => dispatch(Actions.updateProfile(params)),
   };
 };
 

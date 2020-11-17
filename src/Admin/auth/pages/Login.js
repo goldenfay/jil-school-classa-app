@@ -96,7 +96,8 @@ export function SignIn(props) {
       else {
         console.log('success'); 
         e.returnValue = true;
-        isManager && navigator(-1);
+        isManager && navigator('/');
+        // isManager && navigator(-1);
         !isManager && navigator('/teacher');
 
       }

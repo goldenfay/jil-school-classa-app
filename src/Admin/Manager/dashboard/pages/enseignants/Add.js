@@ -311,7 +311,6 @@ export default function AddEnseignant(props) {
       });
   }, []);
 
-  useEffect(()=>console.log(state.formState),[state.formState])
 
   /**
    * Handle form changes

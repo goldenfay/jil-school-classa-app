@@ -1,4 +1,4 @@
-import { teacherConfig } from "./config";
+import { teacherConfig,managerConfig } from "./config";
 import { handleResponse,checkRoleAutorizationFail, authHeader, login } from "./shared";
 
 
@@ -19,12 +19,11 @@ const register = (data) => {
     "prenom",
     "email",
     "phone",
-    // "matieresIds",
-    // "classesIds",
     "matiereId",
     "classesIds",
     "wilaya",
     "commune",
+    
   ];
     // Filter any params out of params Set
   const keys=Object.keys(data).filter(el=>params.includes(el));
@@ -55,21 +54,31 @@ const updateProfile = (data) => {
         "Non autorisé! Uniquement l'enseignant qui peut mettre à jours son profile",
     });
   const params = [
+    "id",
     "nom",
     "prenom",
     "email",
     "phone",
-    "avatar",
-    "password"
+    "image",
+    "password",
+    "oldPassword",
+    "newPassword"
   ];
+  const {adminType}=data;
+  const fd = new FormData();
+  Object.keys(data).forEach(el=> {
+    if(params.includes(el)) fd.append(el,data[el])
+  })
+  fd.append('adminType',adminType)
   
-  const body=Object.assign({},...(Object.keys(data).filter(key=> params.includes(key)).map((key)=>({[key]: data[key]})) ) )
   const requestOptions = {
     method: "PUT",
-    headers: authHeader(),
-    body: JSON.stringify(body),
+    headers:{...authHeader()},
+    // body: JSON.stringify({...body,adminType}),
+    // body: JSON.stringify({adminType}),
+    body:fd
   };
-  return fetch(`${teacherConfig.API_URL}/${data.id}`, requestOptions).then(
+  return fetch(`${managerConfig.API_URL}/${data.id}`, requestOptions).then(
     handleResponse
   );
 };
@@ -88,7 +97,6 @@ const getAll = (data) => {
   const requestOptions = {
     method: "GET",
     headers: {...authHeader(),adminType: data.adminType},
-    // body: JSON.stringify(data),
   };
 
   return fetch(`${teacherConfig.API_URL}/`, requestOptions).then(

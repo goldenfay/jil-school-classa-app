@@ -11,12 +11,6 @@ import SidebarItemsList from './SidebarItemList'
 import SidebarProfile from './SidebarProfile'
 import { Divider } from '@material-ui/core';
 
-const user={
-  avatar:'logo192.png',
-  firstname: 'Yassice',
-  lastname: 'Djebarri'
-}
-
 export default function index(props) {
     const {classes,open,handleDrawerClose}=props;
    

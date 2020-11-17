@@ -1,10 +1,9 @@
-import React ,{useState}from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Snackbar } from "@material-ui/core";
-import {Slide,Fade,Grow} from '@material-ui/core';
+import {Slide} from '@material-ui/core';
 
 const defaultTransition=(props)=> <Slide {...props}  direction="up" />;
-const defaultClosehandler=()=> {}
 function ToasterSnackBar({children,...props}) {
     // const [open,setOpen]=useState(typeof props.open ==="undefined" ? true:props.open)
   return (
@@ -22,6 +21,8 @@ function ToasterSnackBar({children,...props}) {
   );
 }
 
-ToasterSnackBar.propTypes = {};
+ToasterSnackBar.propTypes = {
+  // children: PropTypes.any.isRequired(),
+};
 
 export default ToasterSnackBar;

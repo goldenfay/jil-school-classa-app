@@ -32,7 +32,7 @@ import Page from "../../../shared/Page";
 import LoadingComponent from '../../../shared/LoadingComponent' 
 
 // Data
-import { customersHeadCells, customersRows as fakeCustomersRows } from "../../../../fake/fakeCustomers";
+import { customersHeadCells} from "../../../data/tableHeads";
 import { ordersHeadCells, ordersRows } from "../../../../fake/fakeOrders";
 import ManagerService from "../../../../services/managerServices";
 

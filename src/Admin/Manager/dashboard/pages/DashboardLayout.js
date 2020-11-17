@@ -50,7 +50,7 @@ const navItems=[
       label:'Pubs'
   },
   {
-      link:'/dashboard',
+      link:'/statistiques',
       ItemIcon:BarChartIcon,
       label:'Statistiques'
   },

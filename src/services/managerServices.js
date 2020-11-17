@@ -17,8 +17,9 @@ const updateProfile = (data) => {
     "prenom",
     "email",
     "phone",
-    "avatar",
-    "password"
+    "image",
+    "oldPassword",
+    "newPassword"
   ];
   
   const body=Object.assign({},...(Object.keys(data).filter(key=> params.includes(key)).map((key)=>({[key]: data[key]})) ) )
@@ -140,7 +141,126 @@ const getAllClassesMatieres = (data) => {
     );
   };
 
+/**
+ * Insert a new Pub.
+ * @param {*} data 
+ */
+const addPub = (data,optionalOpts) => {
+  console.log(data.adminType)
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement l'administrateur qui peut ajouter des Pubs",
+    });
+  const requiredParams = [
+    "sponsor", "titre","type","image"
+  ];
+  if(!requiredParams.every(attr=> Object.keys(data).find(key=> key===attr)))
+  return Promise.reject({
+    message:
+      "Paramètres manquants",
+  });
+  const {adminType}=data;
+  const fd = new FormData();
+  Object.keys(data).forEach(el=> {
+    if(requiredParams.includes(el)) fd.append(el,data[el])
+  })
+  fd.append('adminType',adminType)
+  if (data.link) fd.append('link',data.link)
+  const requestOptions = {
+    method: "POST",
+    headers: {...authHeader()},
+    body: fd,
+    ...optionalOpts
+  };
+  return fetch(`${managerConfig.USERS_API_URL}/pubs/new`, requestOptions).then(
+    handleResponse
+  );
+};
+/**
+ * Update a pub.
+ * @param {*} data 
+ */
+const updatePub = (data,optionalOpts) => {
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement l'administrateur qui peut ajouter des Pubs",
+    });
+  
+  if(!data.id)
+  return Promise.reject({
+    message:
+      "Paramètres manquants",
+  });
+  const params = [
+    "sponsor", "titre","type","image"
+  ];
+  const {adminType}=data;
+  const fd = new FormData();
+  Object.keys(data).forEach(el=> {
+    if(params.includes(el)) fd.append(el,data[el])
+  })
+  fd.append('adminType',adminType)
+  if (data.link) fd.append('link',data.link)
+  const requestOptions = {
+    method: "PUT",
+    headers: {...authHeader()},
+    body: fd,
+    ...optionalOpts
+  };
+  return fetch(`${managerConfig.USERS_API_URL}/pubs/${data.id}`, requestOptions).then(
+    handleResponse
+  );
+};
 
+/**
+ * Delete a pub.
+ * @param {*} data 
+ */
+const deletePub = (data,optionalOpts) => {
+  console.log(data.adminType)
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement l'administrateur qui peut ajouter des Pubs",
+    });
+  if(!data.id)
+    return Promise.reject({
+      message:
+        "Paramètres manquants",
+    });
+  
+  const requestOptions = {
+    method: "DELETE",
+    headers: {...authHeader(),'Content-Type':'application/json'},
+    body: JSON.stringify(data),
+   
+  };
+  return fetch(`${managerConfig.USERS_API_URL}/pubs/${data.id}`, requestOptions).then(
+    handleResponse
+  );
+};
+
+/**
+ * Fetch all pubs
+ * @param {*} data 
+ */
+const getAllPubs = (data) => {
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement le Manager qui récupérer toutes les pubs",
+    });
+  const requestOptions = {
+    method: "GET",
+    headers: {...authHeader(),adminType: data.adminType}
+  };
+
+  return fetch(`${managerConfig.USERS_API_URL}/pubs`, requestOptions).then(
+    handleResponse
+  );
+};
 
 
 const managerService={
@@ -150,7 +270,11 @@ const managerService={
     getAllEleves,
     getAllClasses,
     getAllMatieres,
-    getAllClassesMatieres
+    getAllClassesMatieres,
+    getAllPubs,
+    addPub,
+    updatePub,
+    deletePub,
 
 }
 

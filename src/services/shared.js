@@ -16,7 +16,7 @@ const login =(username,password,adminType)=>{
       return fetch(`${managerConfig.API_URL}/signin`, requestOptions)
       .then(handleResponse)
       .then(res => {
-        let adminObj={...res.admin,description: adminType==='manager'?"Admin d'application":`Enseignat en ${res.admin.matiere}`};
+        let adminObj={...res.admin,description: adminType==='manager'?"Admin d'application":`Enseignant(e) en ${res.admin.matiere.titre}`};
         // login successful if there's a jwt token in the response
         if (res.token) {
           // store user details and jwt token in local storage to keep user logged 
@@ -27,7 +27,7 @@ const login =(username,password,adminType)=>{
         return adminObj
       },
       err=>{
-        return Promise.reject("Impossible de contacter le serveur")
+        return  Promise.reject(err.message?err.message: err);
       }
    
       )  

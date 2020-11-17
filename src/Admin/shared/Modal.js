@@ -65,14 +65,14 @@ function CustomModal(props) {
     <div>
       
       <Dialog onClose={props.handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth="lg" fullWidth>
-        <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
+        <DialogTitle id="customized-dialog-title" onClose={props.handleClose || handleClose}>
           {props.title}
         </DialogTitle>
         <DialogContent dividers>
           {props.body}
         </DialogContent>
         <DialogActions>
-          {props.actions && props.actions.map((action)=><Button autoFocus onClick={action.clickHandler} color="primary">
+          {props.actions && props.actions.map((action,index)=><Button autoFocus key={index} onClick={action.clickHandler} color="primary">
             {action.label}
           </Button>)}
         </DialogActions>

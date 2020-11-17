@@ -40,7 +40,7 @@ import Modal from '../../../../shared/Modal'
 import InforCard from './InfoCard' 
 
 // Data
-import { headCells } from "../../../../../fake/fakeProfs";
+import { profsHeadCells } from "../../../../data/tableHeads";
 // import {ManagerActions} from "../../../../../redux/actions/";
 import TeacherService from "../../../../../services/teacherServices";
 
@@ -258,7 +258,7 @@ export default function Enseignants(props) {
                 <MuiThemeProvider theme={bootstraptheme}>
                   <LoadingComponent component={<CustomTable
                     tableTitle={"Liste des enseignants"}
-                    headCells={headCells}
+                    headCells={profsHeadCells}
                     rows={filtredProfsRows}
                     rowClickHandler={rowClickHandler}
                     indexName={"id"}

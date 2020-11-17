@@ -39,7 +39,7 @@ const navItems=[
       label:'Eleves'
   },
   {
-      link:'/teacher/dashboard',
+      link:'/teacher/statistiques',
       ItemIcon:BarChartIcon,
       label:'Statistiques'
   },

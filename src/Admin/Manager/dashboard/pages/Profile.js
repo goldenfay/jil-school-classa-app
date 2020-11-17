@@ -64,11 +64,13 @@ const validationSchema = Yup.object({
     .trim()
     .matches(/^0[5679]\d{8}$/, "Numéro de télephone invalide")
     .required("Champs Obligatoire"),
-  currentpassword: Yup.string(),
-  // .test('passwords-match', "Vous devez saisir le mot de passe actuel", function(value) {
-  //   return this.parent.newpassword !== "";
-  // }),
-  newpassword: Yup.string()
+  newpassword: Yup.string(),
+  currentpassword: Yup.string()
+  .test('passwords-match', "Vous devez saisir le mot de passe actuel", function(value) {
+    // console.log(this.parent);
+    return !this.parent.newpassword || (this.parent.newpassword === "") || (this.parent.newpassword !== "" && value && value!=="");
+    // return false;
+  }),
 });
 const nom = {
   type: "input",
@@ -103,9 +105,10 @@ const constructPasswordField = (params) => ({
 export const Profile = ({ className, cardProps, ...props }) => {
   const classes = useStyles();
   const user = props.user;
+  // const {username,nom,prenom,email,image,phone,_id}
     // States
   const [isLoding, setisLoding] = useState(false);
-  const [state, setState] = useState(user);
+  const [state, setState] = useState({...user, newpassword:"",currentpassword: ""});
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
 
@@ -202,15 +205,29 @@ export const Profile = ({ className, cardProps, ...props }) => {
   
 
   const handleSubmit = (data) => {
+      // Grap only changed fields
     const changes=Object.assign({}, ...(Object.keys(user).map((key)=>{
       if(data[key] && user[key]!==data[key] && data[key]!=="")
       return {
         [key]: data[key]
       } 
+      else return undefined
     }).filter((el)=> !(typeof el==="undefined"))));
-    console.log(state.imgFile)
+
+    console.log(state.imgFile);
     if(state.imgFile)
       changes.image=state.imgFile.data;
+
+    if(data.currentpassword && data.newpassword){
+      changes.oldPassword=data.currentpassword;
+      changes.newPassword=data.newpassword;
+    }
+
+  
+    
+      // If no field is changed, do not do anything, quit
+    if (! Object.keys(changes).length) return;
+    changes.id=user.id
 
     setisLoding(true)
     props.updateProfile({...changes,adminType: "manager",id: user.id}).then(
@@ -224,7 +241,7 @@ export const Profile = ({ className, cardProps, ...props }) => {
         
       },
       err=>{
-        props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
+        // props.updateProfile({ type: "UPDATE_PROFILE_FAILED", err });
             setAlertProps({
                     severity:'error',
                     message : `Une erreur s'est produite ${err.message ? err.message:""}`

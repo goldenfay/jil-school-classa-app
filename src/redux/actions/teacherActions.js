@@ -13,9 +13,11 @@ const updateProfile = (payload) => {
   return TeacherService.updateProfile(payload)
   .then(
     res=>{
-    localStorage.setItem('enseignant', JSON.stringify(res));
+      const oldUser=JSON.parse(localStorage.getItem('enseignant'))
+      const updateUser={...oldUser,...res};
+    localStorage.setItem('enseignant', JSON.stringify(updateUser));
      
-     dispatch({ type: "UPDATE_PROFILE", payload: res });
+     dispatch({ type: "UPDATE_PROFILE", payload: updateUser });
      return Promise.resolve({ok:true})
     },
     err=>{

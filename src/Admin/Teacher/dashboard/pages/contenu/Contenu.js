@@ -45,8 +45,8 @@ import TeacherService from '../../../../../services/teacherServices'
 
 // Data
 import {
-  headCells,
-} from "../../../../../fake/fakeCours";
+  coursHeadCells,
+} from "../../../../data/tableHeads";
 
 const successtheme = createMuiTheme({
   palette: {
@@ -87,17 +87,18 @@ export function Contenu(props) {
   const [coursRows, setCoursRows] = useState([]);
   const [filtredCoursRows, setFiltredCoursRows] = useState([]);
   const [displayedCourses, setDisplayedCourses] = useState([]);
+  const [showAddForm, setShowAddForm] = useState(false); // Loading spinners controller
   
   
   useEffect(()=>{
-    headCells.push({
+    coursHeadCells.push({
       id: "attachements",
       numeric: false,
       disablePadding: false,
       label: "Attachements",
       withChildComponent: true,
     });
-    headCells.push({
+    coursHeadCells.push({
       id: "actions",
       numeric: false,
       disablePadding: false,
@@ -203,9 +204,10 @@ export function Contenu(props) {
               >
                  <TextField 
                  select
+                 fullWidth
                   value={props.teacher.classes.length?props.teacher.classes[0]._id:""}
                   onChange={changeYearcourses}
-                  label="Choisissez l'année à afficher"
+                  label="Choisissez la classe à afficher"
                  >
                    {props.teacher.classes && props.teacher.classes.map((cl)=>
                    (<MenuItem
@@ -216,27 +218,6 @@ export function Contenu(props) {
                   </MenuItem>))}
                    
                 </TextField>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Box
-                mt={3}
-                alignItems="center"
-                justifyContent="center"
-                display="flex"
-                flexDirection="row"
-              >
-                <MuiThemeProvider theme={successtheme}>
-                  <Button
-                    size="medium"
-                    variant="contained"
-                    className={classes.button}
-                    startIcon={<AddIcon />}
-                    color="primary"
-                  >
-                    Ajouter
-                  </Button>
-                </MuiThemeProvider>
               </Box>
             </Grid>
             {/* Recherche de cours */}
@@ -261,6 +242,28 @@ export function Contenu(props) {
                 </Box>
               </Box>
             </Grid>
+            <Grid item xs={12} sm={4}>
+              <Box
+                mt={3}
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+                flexDirection="row"
+              >
+                <MuiThemeProvider theme={successtheme}>
+                  <Button
+                    size="medium"
+                    variant="contained"
+                    className={classes.button}
+                    startIcon={<AddIcon />}
+                    color="primary"
+                    onClick={(e)=>setShowAddForm(true)}
+                  >
+                    Ajouter
+                  </Button>
+                </MuiThemeProvider>
+              </Box>
+            </Grid>
             {/* Liste des enseignants */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
@@ -268,7 +271,7 @@ export function Contenu(props) {
                   <CustomTable
                     withStartCheckbox={false}
                     tableTitle={"Liste des cours"}
-                    headCells={headCells}
+                    headCells={coursHeadCells}
                     rows={filtredCoursRows}
                     indexName={"id"}
                     withActions={false}
@@ -278,7 +281,7 @@ export function Contenu(props) {
                 </MuiThemeProvider>
               </Paper>
             </Grid>
-            <Grid item xs={12}>
+           {showAddForm && ( <Grid item xs={12}>
               <Paper
                 className={classes.paper}
                 style={{ padding: defaultTheme.spacing(2) }}
@@ -290,7 +293,7 @@ export function Contenu(props) {
                   <AddCoursForm teacher={props.teacher}/>
                 </MuiThemeProvider>
               </Paper>
-            </Grid>
+            </Grid>)}
           </Grid>
         </Container>
       </MuiThemeProvider>
