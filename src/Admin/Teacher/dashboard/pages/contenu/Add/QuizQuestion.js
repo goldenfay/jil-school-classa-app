@@ -185,14 +185,14 @@ function QuizQuestion(props) {
                           >
                             <input
                               type="file"
-                              id="questionImg"
+                              id={`questionImg-${props.numQuestion}`}
                               name="questionImg"
                               hidden
                               accept="image/png, image/jpeg"
                               onChange={(e) => handleLoadImg(e, "questionImg")}
                             />
                             <label
-                              htmlFor="questionImg"
+                              htmlFor={`questionImg-${props.numQuestion}`}
                               className={classes.uploadLabel}
                             >
                               Charger
@@ -280,14 +280,14 @@ function QuizQuestion(props) {
                           >
                             <input
                               type="file"
-                              id="answerImg"
+                              id={`answerImg-${props.numQuestion}`}
                               name="answerImg"
                               hidden
                               accept="image/png, image/jpeg"
                               onChange={(e) => handleLoadImg(e, "answerImg")}
                             />
                             <label
-                              htmlFor="answerImg"
+                              htmlFor={`answerImg-${props.numQuestion}`}
                               className={classes.uploadLabel}
                             >
                               Charger

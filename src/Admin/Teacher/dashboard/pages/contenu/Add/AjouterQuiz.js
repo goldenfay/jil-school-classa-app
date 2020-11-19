@@ -101,7 +101,7 @@ function AjouterQuiz(props) {
 
   }
 
-  useEffect(()=>console.log("Ajouter Qui state : ",state),[state])
+  // useEffect(()=>console.log("Ajouter Qui state : ",state),[state])
 
   const updateQuestList = (size) => {
     if (size>state.questionsList.length)
@@ -109,7 +109,7 @@ function AjouterQuiz(props) {
         ...state,
         questionsList: [...state.questionsList,...makeEmptyArray(size-state.questionsList.length)]
       })
-    if (size<state.questionsList.length)
+    else if (size<state.questionsList.length)
       setState({
         ...state,
         questionsList: state.questionsList.slice(0,size)
@@ -127,9 +127,9 @@ function AjouterQuiz(props) {
     setState({
       questionsList: changes
     });
-    const successFlag=changes.find(el=> el.valid===false);
+    const failFlag=changes.find(el=> el.valid===false);
 
-    if(successFlag) return;
+    if(failFlag) return;
 
     props.submitHandler({ 
       questionsList: state.questionsList.map((el)=> el.question)

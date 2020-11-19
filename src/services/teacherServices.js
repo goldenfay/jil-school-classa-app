@@ -155,7 +155,7 @@ function addNewCourse(data){
     "lien",
     "thumbnail",
     "titrePdf",
-    "pdfFile",
+    "pdf",
     "questionsList",
   ];
   const keys=Object.keys(data);
@@ -164,13 +164,20 @@ function addNewCourse(data){
       message: "Les paramètres de formulaire sont invalides",
     });
 
+  const fd=new FormData()
+  fd.append('pdf',data.pdf)
+  data.questionsList.forEach(qst=>{
+    if(qst.questionImg && qst.questionImg!==null)
+    fd.append('cartes[]',qst.questionImg)
+  })
+  // fd.append('cartes',data.questionsList.map(qst=>qst.questionImg).filter(el=> el && el!==null))
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    headers: { ...authHeader() },
+    body: fd
   };
 
-  return fetch(`${teacherConfig.API_URL}/cours/new`, requestOptions).then(
+  return fetch(`${teacherConfig.USERS_API_URL}/cours/new`, requestOptions).then(
     handleResponse
   );
 

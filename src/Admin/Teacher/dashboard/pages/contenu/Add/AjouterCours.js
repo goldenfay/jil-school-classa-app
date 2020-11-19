@@ -104,9 +104,14 @@ function AjouterCours(props) {
     const validateStep=(step)=>{
         if(step===2 && stepsPassed.filter(el=> el===true).length===3){
             console.log('Going to send the course');
+            const x=globalState.pdfFile.file
+            
+            console.log(globalState.pdfFile.file);
+            console.log(globalState.questionsList);
             TeacherService.addNewCourse({
                 adminType: "enseignant",
                 ...globalState,
+                pdf: globalState.pdfFile.file,
                 enseignant: props.teacher.id
             }).then(
                 res=>{
