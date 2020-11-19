@@ -47,7 +47,7 @@ const getAllAbonnes = (data) => {
       });
     const requestOptions = {
       method: "GET",
-      headers: authHeader(),
+      headers: {...authHeader(),'Content-Type':'application/json', 'adminType':data.adminType}
       // body: JSON.stringify(data),
     };
   
@@ -68,7 +68,7 @@ const getAllEleves = (data) => {
       });
     const requestOptions = {
       method: "GET",
-      headers: authHeader(),
+      headers: {...authHeader(),'Content-Type':'application/json', 'adminType':data.adminType}
       // body: JSON.stringify(data),
     };
   
@@ -91,7 +91,7 @@ const getAllClasses = (data) => {
       });
     const requestOptions = {
       method: "GET",
-      headers: authHeader(),
+      headers: {...authHeader(),'Content-Type':'application/json', 'adminType':data.adminType}
       // body: JSON.stringify(data),
     };
   

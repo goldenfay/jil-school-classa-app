@@ -70,10 +70,10 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.children.map((subRow) => (
-                    <TableRow >
+                  {row.children.map((subRow,rowIdx) => (
+                    <TableRow key={rowIdx}>
                      
-                      {subHeaderLabels.map((label)=>(<TableCell>{subRow[label.key]}</TableCell>))}
+                      {subHeaderLabels.map((label,index)=>(<TableCell key={`${index}-${subRow[label.key]}`}>{subRow[label.key]}</TableCell>))}
                       
                     </TableRow>
                   ))}

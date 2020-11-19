@@ -18,7 +18,7 @@ import LoadingComponent from "../../../../shared/LoadingComponent";
 import CollapssibleTable from "../../../../shared/tables/CustomCollapsibleTable";
 import { Add as AddIcon } from "@material-ui/icons";
 
-
+import ManagerService from '../../../../../services/managerServices'
 const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
@@ -43,12 +43,11 @@ export default function Dashboard(props) {
 
     // On Component Di mount, fetch required infos ( wilayas/communes, cycles,years,matieres)
     useEffect(() => {
-        // setisLoading(true);
-        fetch("/assets/yearscycles.json")
-          .then((response) => response.json())
+        setisLoading(true);
+        ManagerService.getAllClasses({adminType: 'manager'})
           .then((res) => {
                     const rows=[{cycle: "Primaire",children: []},{cycle: "CEM",children: []},{cycle: "Lycé",children: []}];
-                    res.forEach((classe) => {
+                    res.classes.forEach((classe) => {
                         rows[classe.cycle-1].children.push( {codeCl: classe.codeCl,description: classe.description});
                     });
                     console.log(rows);
@@ -56,6 +55,7 @@ export default function Dashboard(props) {
                     setisLoading(false);
               },
               (err) => {
+                console.log(err)
                 setisLoading(false);
               }
           )
