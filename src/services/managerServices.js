@@ -254,7 +254,7 @@ const getAllPubs = (data) => {
     });
   const requestOptions = {
     method: "GET",
-    headers: {...authHeader(),adminType: data.adminType}
+    headers: {...authHeader(),adminType: data.adminType,'Content-Type':'application/json'}
   };
 
   return fetch(`${managerConfig.USERS_API_URL}/pubs`, requestOptions).then(
@@ -262,6 +262,26 @@ const getAllPubs = (data) => {
   );
 };
 
+
+/**
+ * Fetch Profs summary
+ * @param {*} data 
+ */
+const getProfsStatistics = (data) => {
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement le Manager qui récupérer ces informations",
+    });
+  const requestOptions = {
+    method: "GET",
+    headers: {...authHeader(),adminType: data.adminType}
+  };
+
+  return fetch(`${managerConfig.STATS_API_URL}/enseignants/summary`, requestOptions).then(
+    handleResponse
+  );
+};
 
 const managerService={
     login,
@@ -275,6 +295,8 @@ const managerService={
     addPub,
     updatePub,
     deletePub,
+    getProfsStatistics
+
 
 }
 
