@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Paper from '@material-ui/core/Paper';
 import {
-    PieChart, Pie, Sector, Cell,Tooltip
+    PieChart, Pie,  Cell,Tooltip
   } from 'recharts';
 import { Box, Typography } from '@material-ui/core';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ["#003f5c","#2f4b7c","#665191","#a05195","#d45087","#f95d6a","#ff7c43","#ffa600"];
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
     cx, cy, midAngle, innerRadius, outerRadius, percent, index,
@@ -42,7 +42,8 @@ function PieChartComponent(props) {
 
             </Typography>
             </Box>
-            <PieChart width={400} height={400} >
+            <Box display="flex" flexDirection="row" justifyContent="center">
+            <PieChart width={520} height={520} >
         <Pie
           data={chartData}
           cx={200}
@@ -60,6 +61,7 @@ function PieChartComponent(props) {
         </Pie>
         <Tooltip content={<CustomTooltip />} />
       </PieChart>
+      </Box>
           
         </Paper>
       );

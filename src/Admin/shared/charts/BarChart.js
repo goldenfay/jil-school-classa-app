@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 
-
+const COLORS=["941191","a34e8b","c69464","e9da3c","d2dc6c","bade9c","8ae1fc","48b8d0"]
 function BarChart(props) {
     const {chartData}= props
     return (
