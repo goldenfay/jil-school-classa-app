@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
     // Components
 import PieChart from '../../../../shared/charts/PieChart'
 import LoadingComponent from '../../../../shared/LoadingComponent'
+import { Box } from '@material-ui/core'
 
 function ProfsGeoPartition(props) {
     const {data}=props
 
     return (
-        <div>
+        <Box display="flex" justifyContent="center" width="100%">
             <LoadingComponent
             controller={props.isLoading}
             component={
@@ -24,7 +25,7 @@ function ProfsGeoPartition(props) {
             }
             />
             
-        </div>
+        </Box>
     )
 }
 

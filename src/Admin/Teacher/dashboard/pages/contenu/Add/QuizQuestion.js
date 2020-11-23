@@ -89,7 +89,6 @@ function QuizQuestion(props) {
         isUploading: false,
         progress: 0,
       };
-      console.log("File object assigned");
       const changesObj={
         ...state,
         [name]: fileToAdd,
@@ -189,6 +188,7 @@ function QuizQuestion(props) {
                               name="questionImg"
                               hidden
                               accept="image/png, image/jpeg"
+                              
                               onChange={(e) => handleLoadImg(e, "questionImg")}
                             />
                             <label

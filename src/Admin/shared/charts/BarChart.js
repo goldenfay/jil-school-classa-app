@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Paper from '@material-ui/core/Paper';
+import {Paper,Box, Typography} from '@material-ui/core';
 import {
   Chart,
   BarSeries,
@@ -10,13 +10,30 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 
-const COLORS=["941191","a34e8b","c69464","e9da3c","d2dc6c","bade9c","8ae1fc","48b8d0"]
+const COLORS=["#00429d",
+"#325ba8",
+"#4f75af",
+"#6990b3",
+"#83acb2",
+"#9dc9a9",
+"#90ee90",
+"#ffe3ca",
+"#ffc6b4",
+"#ffa89c",
+"#ff8781",
+"#ff6162",
+"#ff2812",]
 function BarChart(props) {
     const {chartData}= props
     return (
 
       
           <Paper>
+            <Box display="flex" flexDirection="row" justifyContent="center">
+        <Typography variant="caption" color="textSecondary" align="center">
+          {props.title}
+        </Typography>
+      </Box>
             <Chart
               data={chartData}
             >
@@ -27,7 +44,7 @@ function BarChart(props) {
                 valueField={props.yName}
                 argumentField={props.xName}
               />
-              <Title text={props.title} />
+              {/* <Title text={props.title} /> */}
               <Animation />
             </Chart>
           </Paper>

@@ -110,13 +110,18 @@ const getAll = (data) => {
  * @param {*} id ID of the requested teacher
  * @returns
  */
-function getById(id) {
+function getById(data) {
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement le Manager qui récupérer tous les enseignants",
+    });
   const requestOptions = {
     method: "GET",
-    headers: authHeader(),
+    headers: {...authHeader(),adminType: data.adminType},
   };
 
-  return fetch(`${teacherConfig.API_URL}/${id}`, requestOptions).then(
+  return fetch(`${teacherConfig.API_URL}/${data.id}`, requestOptions).then(
     handleResponse
   );
 }
@@ -135,10 +140,10 @@ function getProfCourses(data){
     });
   const requestOptions = {
     method: "GET",
-    headers: authHeader(),
+    headers: {...authHeader(),adminType: data.adminType},
   };
 
-  return fetch(`${teacherConfig.API_URL}/cours/enseignants/${data.id}`, requestOptions).then(
+  return fetch(`${teacherConfig.USERS_API_URL}/cours/enseignants/${data.id}`, requestOptions).then(
     handleResponse
   );
 
@@ -152,7 +157,12 @@ function addNewCourse(data){
     });
   const params = [
     "titre",
-    "lien",
+    "ordre",
+    "trimestre",
+    "video",
+    "enseignant",
+    "matiere",
+    "classe",
     "thumbnail",
     "titrePdf",
     "pdf",
@@ -165,11 +175,19 @@ function addNewCourse(data){
     });
 
   const fd=new FormData()
-  fd.append('pdf',data.pdf)
+  params.forEach(key=> fd.append(key,data[key]) )
+  fd.set('questionsList',JSON.stringify(data.questionsList.map(qst=>({
+    questionImgName: qst.questionImg!==null ?qst.questionImg.file.name:null,
+    answerImgName: qst.answerImg!==null?qst.answerImg.file.name:null,
+  }))))
   data.questionsList.forEach(qst=>{
     if(qst.questionImg && qst.questionImg!==null)
-    fd.append('cartes[]',qst.questionImg)
+      fd.append('cartesQuestions',qst.questionImg.file)
+    if(qst.answerImg && qst.answerImg!==null)
+      fd.append('cartesAnswers',qst.answerImg.file)
   })
+  fd.append("adminType",data["adminType"])
+  console.log(data["adminType"])
   // fd.append('cartes',data.questionsList.map(qst=>qst.questionImg).filter(el=> el && el!==null))
   const requestOptions = {
     method: "POST",

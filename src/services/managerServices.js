@@ -283,6 +283,26 @@ const getProfsStatistics = (data) => {
   );
 };
 
+/**
+ * Fetch Eleves summary
+ * @param {*} data 
+ */
+const getElevesStatistics = (data) => {
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement le Manager qui récupérer ces informations",
+    });
+  const requestOptions = {
+    method: "GET",
+    headers: {...authHeader(),adminType: data.adminType}
+  };
+
+  return fetch(`${managerConfig.STATS_API_URL}/eleves/summary`, requestOptions).then(
+    handleResponse
+  );
+};
+
 const managerService={
     login,
     updateProfile,
@@ -295,7 +315,8 @@ const managerService={
     addPub,
     updatePub,
     deletePub,
-    getProfsStatistics
+    getProfsStatistics,
+    getElevesStatistics
 
 
 }

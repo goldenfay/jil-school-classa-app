@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 // Components
 import Page from "../../../shared/Page";
+import ElevesStatCharts from "../components/charts/ElevesStatCharts";
 import ProfsGeoPartitionPie from "../components/charts/ProfsGeoPartition";
 import ClassesByProfDist from "../components/charts/ClassesByProfDist";
 import Summary from "../components/charts/Summary";
@@ -26,11 +27,21 @@ function Statistiques(props) {
   const classes = useStyles();
 
   useEffect(() => {
+      // Fetch profs related statistics
     ManagerService.getProfsStatistics({ adminType: "manager" }).then(
       (res) => {
         console.log(res);
         setProfsSummary(res);
         setProfsSummaryisLoading(false);
+      },
+      (err) => {}
+    );
+      // Fetch eleves related statistics
+    ManagerService.getElevesStatistics({ adminType: "manager" }).then(
+      (res) => {
+        console.log(res);
+        setElevesSummary(res);
+        setElevesSummaryisLoading(false);
       },
       (err) => {}
     );
@@ -40,10 +51,14 @@ function Statistiques(props) {
   const [profsSummaryisLoading, setProfsSummaryisLoading] = useState(true);
   const [elevesSummaryisLoading, setElevesSummaryisLoading] = useState(true);
   // Data states
-  const [profsSummary, setProfsSummary] = useState({ profsByWilaya: [] });
-  const [elevesSummary, setElevesSummary] = useState({ profsByWilaya: [] });
+  const [profsSummary, setProfsSummary] = useState({ profsByWilaya: [],
+    classesByprof: [] });
+  const [elevesSummary, setElevesSummary] = useState({ 
+    elevesByAge: [] ,
+    elevesBySexe: [] ,
+  });
   return (
-    <Page className={classes.root} title="Compte">
+    <Page className={classes.root} title="Statistiques">
     <Container>
       {/* Quelques chifres */}
       <Summary summary={{}}/>
@@ -70,20 +85,20 @@ function Statistiques(props) {
         </Grid>
       </Grid>
       {/* Statistiques reliées aux élèves */}
-      {/* <Grid container spacing={3}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h6" color="textPrimary">Elèves</Typography>
         </Grid>
-        <Grid item xs={12} sm={4}>
-            <ProfsGeoPartitionPie 
+        <Grid item xs={12} sm={12}>
+            <ElevesStatCharts 
             isLoading={elevesSummaryisLoading}
-            data={elevesSummary.profsByWilaya}
+            data={elevesSummary}
 
 
             />
 
         </Grid>
-      </Grid> */}
+      </Grid>
     </Container>
     </Page>
   );

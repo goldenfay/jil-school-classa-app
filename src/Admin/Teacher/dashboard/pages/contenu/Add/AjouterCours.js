@@ -57,6 +57,8 @@ function AjouterCours(props) {
     ))
     const defaultState={
         titre:'',
+        ordre: 1,
+        trimestre: 1,
         lien:'',
         thumbnail: '',
         titrePdf:'',
@@ -66,10 +68,10 @@ function AjouterCours(props) {
     }
     const [globalState,SetGlobalState]=useState(defaultState);
     // Only for test
-    useEffect(()=>{
-        console.log("Global State changed. Here's the updated version : ",globalState)
+    // useEffect(()=>{
+    //     console.log("Global State changed. Here's the updated version : ",globalState)
 
-    },[globalState])
+    // },[globalState])
 
     const [stepsPassed,setStepsPassed]=useState([false,false,false]);
     
@@ -92,7 +94,6 @@ function AjouterCours(props) {
 
     const submitRefHandle=(ref)=>{
         setaddVideoRef(ref);
-        console.log('received')
         
     }
     /**
@@ -103,16 +104,18 @@ function AjouterCours(props) {
     
     const validateStep=(step)=>{
         if(step===2 && stepsPassed.filter(el=> el===true).length===3){
-            console.log('Going to send the course');
-            const x=globalState.pdfFile.file
+            console.log('Sending cours ...');
             
-            console.log(globalState.pdfFile.file);
-            console.log(globalState.questionsList);
+            console.log("Questions List : ",globalState.questionsList);
             TeacherService.addNewCourse({
                 adminType: "enseignant",
                 ...globalState,
+                video: globalState.lien,
+                matiere: props.teacher.matiere._id,
+                classe: props.currentClasse,
                 pdf: globalState.pdfFile.file,
-                enseignant: props.teacher.id
+                enseignant: props.teacher.id,
+                
             }).then(
                 res=>{
                     setregisterCourseFeedback((
@@ -126,11 +129,12 @@ function AjouterCours(props) {
 
                 },
                 err=>{
+                    console.log(err)
                     setregisterCourseFeedback((
                         < >
             <ErrorIcon fontSize="large" className={classes.error}  />
             <Typography className={classes.error}  variant="body1" >Une erreur s'est produite. Impossible d'ajouter le cours.</Typography>
-                    <p>{err}</p>
+                    {/* <p>{err.}</p> */}
         </>
                     ))
 
@@ -190,7 +194,7 @@ function AjouterCours(props) {
             // nexHandler={(step)=>(stepsPassed[step]===true) }
             nexHandler={(step)=> validateStep(step) }
             backBtnIcon={{startIcon:(<BackIcon/>)}}
-            finalStep={<Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+            finalStep={<Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" style={{minHeight: "100px"}}>
                 {registerCourseFeedback}
 
             </Box>}

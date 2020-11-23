@@ -34,7 +34,7 @@ InfoCard.propTypes = {
     prenom: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     jobTitle: PropTypes.string.isRequired,
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.array.isRequired,
 
 }
 

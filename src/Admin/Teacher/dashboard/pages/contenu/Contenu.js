@@ -22,7 +22,7 @@ import {purple} from "@material-ui/core/colors"
 import { Search as SearchIcon } from "react-feather";
 import AddIcon from "@material-ui/icons/Add";
 import { Cancel as CancelIcon, 
-  Error as ErrorIcon,
+  Edit as EditIcon,
   PictureAsPdf as PDFIcon,
   LiveHelp as QuizIcon
  } 
@@ -87,10 +87,12 @@ export function Contenu(props) {
   const [coursRows, setCoursRows] = useState([]);
   const [filtredCoursRows, setFiltredCoursRows] = useState([]);
   const [displayedCourses, setDisplayedCourses] = useState([]);
+  const [currentClasse, setCurrentClasse] = useState("");
   const [showAddForm, setShowAddForm] = useState(false); // Loading spinners controller
   
   
   useEffect(()=>{
+    props.teacher.classes && props.teacher.classes && setCurrentClasse(props.teacher.classes[0]._id)
     coursHeadCells.push({
       id: "attachements",
       numeric: false,
@@ -112,7 +114,7 @@ export function Contenu(props) {
     }).then(
       res=>{
         console.log("Les cours de ce prof : ",res)
-        const rows=res.map((row) => ({
+        const rows=res.courses.map((row) => ({
           ...row,
           actions: (
             <>
@@ -122,7 +124,7 @@ export function Contenu(props) {
                 color="primary"
                 onClick={(e) => console.log(row)}
               >
-                <ErrorIcon />
+                <EditIcon />
               </IconButton>
               </Tooltip>
               <Tooltip title="Supprimer">
@@ -140,8 +142,8 @@ export function Contenu(props) {
             <>
             
                  
-                 <Tooltip title={`Ce cours contient un ${"résumé"} en PDF`} ><IconButton disabled={!row.pdfFile || row.pdfFile===null}> <PDFIcon fontSize="large" className={classes.red} /> </IconButton></Tooltip>
-                 <Tooltip title={`Ce cours contient un quiz de ${row.questionsList.length} questions`} ><IconButton> <QuizIcon fontSize="large" className={classes.purple} /> </IconButton></Tooltip>
+                 <Tooltip title={`Ce cours contient un ${"résumé"} en PDF`} ><IconButton disabled={!row.pdf || row.pdf===null}> <PDFIcon fontSize="large" className={classes.red} /> </IconButton></Tooltip>
+                 <Tooltip title={`Ce cours contient un quiz de ${row.quiz.length} questions`} ><IconButton> <QuizIcon fontSize="large" className={classes.purple} /> </IconButton></Tooltip>
               
 
             </>
@@ -154,6 +156,7 @@ export function Contenu(props) {
         setDisplayedCourses(firstClasseRows)
       },
       err=>{
+        console.log(err)
 
       }
     )
@@ -162,9 +165,10 @@ export function Contenu(props) {
   },[])
 
   const changeYearcourses=(e)=>{
-    const newRows=coursRows.map(row=>row.classe===e.target.value)
+    setCurrentClasse(e.target.value)
+    const newRows=coursRows.filter(row=>row.classe===e.target.value)
     setDisplayedCourses(newRows);
-    setFiltredCoursRows()
+    setFiltredCoursRows(newRows)
 
   }
 
@@ -173,10 +177,9 @@ export function Contenu(props) {
 
   // SearcheBar handle changes
   const handleSearchInputChange = (e) => {
-    console.log(e.target.value);
 
     if (e.target.value.length < 4) {
-      setFiltredCoursRows(coursRows);
+      setFiltredCoursRows(displayedCourses);
       return;
     }
     const value = e.target.value;
@@ -205,7 +208,7 @@ export function Contenu(props) {
                  <TextField 
                  select
                  fullWidth
-                  value={props.teacher.classes.length?props.teacher.classes[0]._id:""}
+                  value={currentClasse}
                   onChange={changeYearcourses}
                   label="Choisissez la classe à afficher"
                  >
@@ -275,6 +278,7 @@ export function Contenu(props) {
                     rows={filtredCoursRows}
                     indexName={"id"}
                     withActions={false}
+                    rowClickHandler={()=>{}}
                     // actionButtons={actions}
                     // customtheme={bootstraptheme}
                   />
@@ -290,7 +294,7 @@ export function Contenu(props) {
                   Ajouter Un Nouveau Cours
                 </Typography>
                 <MuiThemeProvider theme={defaultTheme}>
-                  <AddCoursForm teacher={props.teacher}/>
+                  <AddCoursForm teacher={props.teacher} currentClasse={currentClasse}/>
                 </MuiThemeProvider>
               </Paper>
             </Grid>)}

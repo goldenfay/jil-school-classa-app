@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 function Summary(props) {
     const classes = useStyles();
     return (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} >
         <Grid item xs={12}>
           <Typography variant="h5" color="textSecondary">
             Quelques chiffres

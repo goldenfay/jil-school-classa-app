@@ -8,7 +8,7 @@ import LoadingComponent from '../../../../shared/LoadingComponent'
 
 function ClassesByProfDist(props) {
     // const {data}=props
-    const data=props.data && props.data.map(el=>({_id: `${el.nom} ${el.prenom}`,count: el.count }))
+    const data=props.data && props.data.map(el=>({_id: `${el.nom} ${el.prenom}`,count: el.count })).sort((a,b)=>b.count-a.count)
 
 
     return (

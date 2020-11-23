@@ -144,57 +144,70 @@ export default function Enseignants(props) {
   };
 
   const rowClickHandler=(profId)=>{
-    const prof=profsRows.find(ens=>ens.id===profId);
-    if(!prof) {
-      console.error("Le prof clciké n'a pas été trouvé");
-      return;
-    }
-    const {nom,prenom,image}=prof;
-    setPopupOpen(true);
-    setpopupBody(
-      (
-        <Container >
-    <Grid container spacing={2}>
-      <Grid item xs={12} sm={5}>
-        <InforCard 
-        nom={nom}
-        prenom={prenom}
-        image={image}
-        jobTitle={`Enseignant en ${prof.matiere}`}
+    // const prof=profsRows.find(ens=>ens.id===profId);
+    // if(!prof) {
+    //   console.error("Le prof clciké n'a pas été trouvé");
+    //   return;
+    // }
+    TeacherService.getById({id: profId, adminType: "manager"}).then(
+      res=>{
+        const prof=res;
 
-        />
+        const {nom,prenom,image,classes}=prof;
+        setPopupOpen(true);
+        setpopupBody(
+          (
+            <Container >
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={5}>
+            <InforCard 
+            nom={nom}
+            prenom={prenom}
+            image={image}
+            jobTitle={`Enseignant en ${prof.matiere.titre}`}
+            classes={classes}
+    
+            />
+    
+          </Grid>
+          <Grid item xs={12} sm={7}>
+    
+        <Paper elevation={3} style={{padding: "1rem"}}>
+          <Typography color="textPrimary" variant="h6">
+            Derniers cours ajoutés
+          </Typography>
+          <Timeline align="alternate">
+            {!prof.cours.length && <Typography color="textSecondary" variant="caption">
+           Aucun cours n'est ajouté par cet enseignant
+          </Typography>}
+          {prof.cours.map((cours,index)=> 
+          <TimelineItem key={index}>
+            <TimelineOppositeContent>
+          <Typography color="textSecondary">{new Date(cours.date_ajout).toLocaleDateString('fr-FR')} {new Date(cours.date_ajout).toLocaleTimeString('fr-FR')}</Typography>
+              </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot color={index%2===0?"primary":"secondary"} />
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent>
+                <Typography>{cours.titre}</Typography>
+              </TimelineContent>
+          </TimelineItem>)}
+          
+        </Timeline>
+        </Paper>
+    
+          </Grid>
+    
+        </Grid>
+    
+      </Container>
+          )
+        )
+      },
+      err=>{
 
-      </Grid>
-      <Grid item xs={12} sm={7}>
-
-    <Paper elevation={3} style={{padding: "1rem"}}>
-      <Typography color="textPrimary" variant="h6">
-        Derniers cours ajoutés
-      </Typography>
-      <Timeline align="alternate">
-      {prof.cours.map((cours,index)=> 
-      <TimelineItem>
-        <TimelineOppositeContent>
-            <Typography color="textSecondary">09:30 am</Typography>
-          </TimelineOppositeContent>
-          <TimelineSeparator>
-            <TimelineDot color={index%2===0?"primary":"secondary"} />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent>
-            <Typography>{cours.titre}</Typography>
-          </TimelineContent>
-      </TimelineItem>)}
-      
-    </Timeline>
-    </Paper>
-
-      </Grid>
-
-    </Grid>
-
-  </Container>
-      )
+      }
     )
 
   }
