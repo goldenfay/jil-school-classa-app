@@ -78,7 +78,7 @@ mongoose
     });
   })
   .catch((err) => {
-    console.log("Error Connection");
+    console.log("Error Connection",err);
   });
 
 // convention: db naming should be singular and starts with capital letter ==> mongoose.model("Matiere", matiereSchema) &&& ref:"Matiere"
