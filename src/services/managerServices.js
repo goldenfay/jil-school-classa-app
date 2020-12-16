@@ -11,28 +11,56 @@ const updateProfile = (data) => {
       message:
         "Non autorisé! Uniquement l'administrateur qui peut mettre à jours son profile",
     });
-  const {adminType}=data;  
-  const params = [
-    "nom",
-    "prenom",
-    "email",
-    "phone",
-    "image",
-    "oldPassword",
-    "newPassword"
-  ];
-  
-  const body=Object.assign({},...(Object.keys(data).filter(key=> params.includes(key)).map((key)=>({[key]: data[key]})) ) )
-  const requestOptions = {
-    method: "PUT",
-    headers: {...authHeader(),'Content-Type':'application/json'},
-    body: JSON.stringify({...body,adminType}),
-  };
-  return fetch(`${managerConfig.API_URL}/${data.id}`, requestOptions).then(
-    handleResponse
-  );
+    const params = [
+      "id",
+      "nom",
+      "prenom",
+      "email",
+      "phone",
+      "image",
+      "password",
+      "oldPassword",
+      "newPassword"
+    ];
+    const {adminType}=data;
+    const fd = new FormData();
+    Object.keys(data).forEach(el=> {
+      if(params.includes(el)) fd.append(el,data[el])
+    })
+    fd.append('adminType',adminType)
+    
+    const requestOptions = {
+      method: "PUT",
+      headers:{...authHeader()},
+      body:fd
+    };
+    return fetch(`${managerConfig.API_URL}/${data.id}`, requestOptions).then(
+      handleResponse
+    );
 };
 
+
+
+/**
+ * Fetch all abonnements
+ * @param {*} data An object containing infos about the requester
+ */
+const getAllAbonnements = (data) => {
+    if (checkRoleAutorizationFail(data))
+      return Promise.reject({
+        message:
+          "Non autorisé! Uniquement le Manager qui récupérer tous les abonnements",
+      });
+    const requestOptions = {
+      method: "GET",
+      headers: {...authHeader(),'Content-Type':'application/json', 'adminType':data.adminType}
+      // body: JSON.stringify(data),
+    };
+  
+    return fetch(`${managerConfig.USERS_API_URL}/abonnements`, requestOptions).then(
+      handleResponse
+    );
+  };
 
 
 /**
@@ -51,7 +79,7 @@ const getAllAbonnes = (data) => {
       // body: JSON.stringify(data),
     };
   
-    return fetch(`${managerConfig.API_URL}/clients`, requestOptions).then(
+    return fetch(`${managerConfig.USERS_API_URL}/clients`, requestOptions).then(
       handleResponse
     );
   };
@@ -72,7 +100,7 @@ const getAllEleves = (data) => {
       // body: JSON.stringify(data),
     };
   
-    return fetch(`${managerConfig.API_URL}/eleves`, requestOptions).then(
+    return fetch(`${managerConfig.USERS_API_URL}/eleves`, requestOptions).then(
       handleResponse
     );
   };
@@ -306,6 +334,7 @@ const getElevesStatistics = (data) => {
 const managerService={
     login,
     updateProfile,
+    getAllAbonnements,
     getAllAbonnes,
     getAllEleves,
     getAllClasses,

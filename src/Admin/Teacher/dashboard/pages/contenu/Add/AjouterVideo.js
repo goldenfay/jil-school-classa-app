@@ -9,14 +9,26 @@ import {
   Typography,
   Paper,
   TextField,
+  MenuItem
 } from "@material-ui/core";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import teacherService from "../../../../../../services/teacherServices";
+// Redux
+import { connect } from "react-redux";
 
 const validationSchema = Yup.object({
   titre: Yup.string()
     .min(5, "Le titre du cours doit contenir au minimum 5 caractères")
-    .max(20, "Le titre du cours ne doit pas dépasser 20 caractères")
+    .max(70, "Le titre du cours ne doit pas dépasser 70 caractères")
+    .required("Champs Obligatoire"),
+  trimestre: Yup.number()
+    .integer()
+    .oneOf([1,2,3])
+    .required("Champs Obligatoire"),
+  ordre: Yup.number()
+    .integer()
+    .positive()
     .required("Champs Obligatoire"),
   lien: Yup.string()
     .url("Le lien de la vidéo est invalide")
@@ -36,6 +48,20 @@ const titreField = {
     label: "Titre du cours",
   },
 };
+const trimestreField= {
+  type: "select",
+  props: {
+    name: "trimestre",
+    required: true,
+    select: true,
+    label: "Trimestre",
+  },
+  children: [1,2,3].map((item) => ({
+    key: item,
+    value: item,
+    label: item,
+  })),
+}
 const lienField = {
   type: "input",
   props: {
@@ -65,6 +91,8 @@ function AjouterVideo(props) {
 
   const initialState = {
     titre: props.state.titre,
+    trimestre: props.state.trimestre,
+    ordre: props.state.ordre,
     lien: props.state.lien,
     thumbnail: props.state.thumbnail,
   };
@@ -77,12 +105,47 @@ function AjouterVideo(props) {
     // Update fields initial values if they already filled before
   if (props.withTitle) titreField.props.value = state.titre;
   lienField.props.value = state.lien;
+  trimestreField.props.value = state.trimestre;
   thumbnailField.props.value = state.thumbnail;
   // Define form hiearchy
-  const formStructure=(props.withTitle ? [[titreField]] : []).concat([
-      [lienField],
-      [thumbnailField],
-    ]);
+  const [formStructure,setFormStructure]=useState([]);
+  
+  useEffect(()=>{
+    teacherService.getProfCourses({adminType: "enseignant", id:props.user._id}).then(
+      res=>{
+        console.log(res);
+        const actualClassCourses=res.courses.filter(cours=>cours.classe===props.currentClasse)
+        const index=props.withTitle ? 1:0
+        const dup=formStructure;
+        setFormStructure((props.withTitle ? [[titreField]] : []).concat([
+          [trimestreField,{
+            type: "select",
+            props: {
+              name: "ordre",
+              required: true,
+              select: true,
+              label: "Ce cours est placé après",
+              value: actualClassCourses.length?actualClassCourses[0].ordre:0
+            },
+            children: actualClassCourses.map((item) => ({
+              key: item._id,
+              value: item.ordre,
+              label: item.titre,
+            })),
+          }],
+          [lienField],
+          [thumbnailField],
+        ]))
+       
+
+      },
+      err=>{
+        console.log('an error occured when fetching courses of the professor: ',err)
+
+      }
+    )
+
+  },[])  
 
   const onChangeHandler = (event) => {
     setState({
@@ -148,6 +211,25 @@ function AjouterVideo(props) {
                             {...field.props}
                           />
                         )}
+                        {field.type === "select" && (
+                    <TextField 
+                      error={Boolean(touched[field.props.name] && errors[field.props.name])}
+                      helperText={touched[field.props.name] && errors[field.props.name]}
+                      onBlur={handleBlur}
+                      onChange={(e)=> {handleChange(e); if(props.onChange) props.onChange(e)} }
+                      variant="outlined"
+                      fullWidth
+                      id={`${field.props.name}-input`}
+                      {...field.props}
+                    >
+                      {field.children &&
+                        field.children.map((option, idx) => (
+                          <MenuItem key={option.key} value={option.value} >
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                    </TextField>
+                  )}
                       </Grid>
                     ));
                   })}
@@ -201,4 +283,13 @@ AjouterVideo.propTypes = {
   withTitle: PropTypes.bool,
 };
 
-export default AjouterVideo;
+const mapStateToProps = (state) => ({
+  user: state.adminReducer.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AjouterVideo);
+

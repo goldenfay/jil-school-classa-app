@@ -74,8 +74,6 @@ const updateProfile = (data) => {
   const requestOptions = {
     method: "PUT",
     headers:{...authHeader()},
-    // body: JSON.stringify({...body,adminType}),
-    // body: JSON.stringify({adminType}),
     body:fd
   };
   return fetch(`${managerConfig.API_URL}/${data.id}`, requestOptions).then(
@@ -126,7 +124,10 @@ function getById(data) {
   );
 }
 
-
+/**
+ * Fetch all teacher courses.
+ * @param {*} data 
+ */
 function getProfCourses(data){
   if (!(data.adminType && data.adminType==="enseignant"))
     return Promise.reject({
@@ -149,12 +150,16 @@ function getProfCourses(data){
 
 }
 
+/**
+ * Add a new course.
+ * @param {*} data 
+ */
 function addNewCourse(data){
   if (checkRoleAutorizationFail(data,"enseignant"))
     return Promise.reject({
       message:
         "Non autorisé! Uniquement l'enseignant qui peut ajouter un cours",
-    });
+      });
   const params = [
     "titre",
     "ordre",
@@ -174,7 +179,7 @@ function addNewCourse(data){
       message: "Les paramètres de formulaire sont invalides",
     });
 
-  const fd=new FormData()
+    const fd=new FormData()
   params.forEach(key=> fd.append(key,data[key]) )
   fd.set('questionsList',JSON.stringify(data.questionsList.map(qst=>({
     questionImgName: qst.questionImg!==null ?qst.questionImg.file.name:null,
@@ -182,9 +187,9 @@ function addNewCourse(data){
   }))))
   data.questionsList.forEach(qst=>{
     if(qst.questionImg && qst.questionImg!==null)
-      fd.append('cartesQuestions',qst.questionImg.file)
+    fd.append('cartesQuestions',qst.questionImg.file)
     if(qst.answerImg && qst.answerImg!==null)
-      fd.append('cartesAnswers',qst.answerImg.file)
+    fd.append('cartesAnswers',qst.answerImg.file)
   })
   fd.append("adminType",data["adminType"])
   console.log(data["adminType"])
@@ -194,8 +199,62 @@ function addNewCourse(data){
     headers: { ...authHeader() },
     body: fd
   };
-
+  
   return fetch(`${teacherConfig.USERS_API_URL}/cours/new`, requestOptions).then(
+    handleResponse
+    );
+    
+  }
+
+
+/**
+ * Delete a course.
+ * @param {*} data 
+ */
+const deleteCourse = (data,optionalOpts) => {
+  if (checkRoleAutorizationFail(data,"enseignant"))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement l'enseignant qui peut supprimer un cours",
+    });
+  if(!data.id)
+    return Promise.reject({
+      message:
+        "Paramètres manquants",
+    });
+  
+  const requestOptions = {
+    method: "DELETE",
+    headers: {...authHeader(),'Content-Type':'application/json'},
+    body: JSON.stringify(data),
+   
+  };
+  return fetch(`${teacherConfig.USERS_API_URL}/cours/${data.id}`, requestOptions).then(
+    handleResponse
+  );
+};
+
+/**
+ * Fetch all students teached by a teacher.
+ * @param {*} data 
+ */
+function getProfEleves(data){
+  if (checkRoleAutorizationFail(data,"enseignant"))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement l'enseignant qui récupérer les élèves spécifiés",
+    });
+  if (!data.id)
+    return Promise.reject({
+      message:
+        "Paramètres invalides",
+    });
+  const requestOptions = {
+    method: "GET",
+    headers: {...authHeader(),adminType: data.adminType},
+  };
+
+  return fetch(`${teacherConfig.USERS_API_URL}/eleves/enseignants/${data.id}`, requestOptions).then(
     handleResponse
   );
 
@@ -208,7 +267,9 @@ const teacherService = {
   getAll,
   getById,
   getProfCourses,
-  addNewCourse
+  addNewCourse,
+  deleteCourse,
+  getProfEleves
 };
 
 export default teacherService;

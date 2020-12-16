@@ -32,8 +32,7 @@ import Page from "../../../shared/Page";
 import LoadingComponent from '../../../shared/LoadingComponent' 
 
 // Data
-import { customersHeadCells} from "../../../data/tableHeads";
-import { ordersHeadCells, ordersRows } from "../../../../fake/fakeOrders";
+import { ordersHeadCells,customersHeadCells} from "../../../data/tableHeads";
 import ManagerService from "../../../../services/managerServices";
 
 const actions = [
@@ -76,6 +75,7 @@ export default function Abonnes(props) {
      
     const [customersRows,setCutomersRows]=useState([]);   // Original rows 
     const [filtredCustomersRows,setFiltredCutomersRows]=useState([]);   // Filtered rows after search changes
+    const [ordersRows,setOrdersRows]=useState([]);   // Original rows 
   
     
 
@@ -85,11 +85,11 @@ export default function Abonnes(props) {
     setisLoading(true);
     ManagerService.getAllAbonnes({adminType: "manager"}).then(
       res=>{ 
-        const rows=res.map((row)=>{
+        const rows=res.clients.map((row)=>{
           const modified=row.eleves.map((eleve)=>({
             
-            avatar: <Avatar alt={eleve.username}  src={eleve.avatar} />,
-            label:eleve.username,
+            avatar: <Avatar alt={eleve.nom}  src={eleve.avatar} />,
+            label:eleve.nom,
             variant:"outlined" ,
             component:Link ,
             to:`/eleves?eleveId=${eleve.id}`,
@@ -98,7 +98,10 @@ export default function Abonnes(props) {
           
           return {
             ...row,
-            eleves: modified
+            eleves: modified,
+            status: {
+              color :row.is_abonne?"primary":"secondary",
+              label: row.is_abonne?"Actif":"Non Actif"}
           }
           
         })
@@ -107,7 +110,40 @@ export default function Abonnes(props) {
         setisLoading(false);
 
       },
-      err=>{ setisLoading(false);
+      err=>{ 
+        console.log(err);
+        setisLoading(false);
+
+      }
+    )
+      // Fetch all abonnements
+    ManagerService.getAllAbonnements({adminType: "manager"}).then(
+      res=>{ 
+        console.log(res);
+        const rows=res.abonnements.map((row)=>{
+          
+          
+          return {
+            ...row,
+            type: row.type[0]==="3"?"3 classes":row.type[0]==="1"? "1 classe": "Autre",
+            owner: row.client.username,
+            classesLabels:row.classes.map(el=>({
+              label: el.codeCl
+
+            })),
+            status: {
+              color :row.is_abonne?"primary":"secondary",
+              label: row.is_abonne?"Actif":"Expiré"}
+          }
+          
+        })
+        setOrdersRows(rows);
+        setisLoading(false);
+
+      },
+      err=>{ 
+        console.error("An Error occured when fetching abonnements :",err);
+        setisLoading(false);
 
       }
     )
@@ -117,7 +153,6 @@ export default function Abonnes(props) {
 
     // SearcheBar handle changes
   const handleSearchInputChange=(e)=>{
-    console.log(e.target.value);
 
     if(e.target.value.length<4) {
       setFiltredCutomersRows(customersRows); 
@@ -144,7 +179,7 @@ export default function Abonnes(props) {
                       tableTitle={"Liste des derniers abonnements"}
                       headCells={ordersHeadCells}
                       rows={ordersRows}
-                      indexName={"codeAchat"}
+                      indexName={"code_achat"}
                       withStartCheckbox={true}
                       withActions={false}
                       innerTheme={cyclesTheme}
@@ -156,7 +191,7 @@ export default function Abonnes(props) {
               </Grid>
             </MuiThemeProvider>
             {/* Top abonnes */}
-            <MuiThemeProvider theme={activeInactiveTheme}>
+            {/* <MuiThemeProvider theme={activeInactiveTheme}>
               <Grid
                 item
                 container
@@ -185,7 +220,7 @@ export default function Abonnes(props) {
                   <Typography variant="h6">Carte Informative</Typography>
                 </Grid>
               </Grid>
-            </MuiThemeProvider>
+            </MuiThemeProvider> */}
 
             {/* Recherche d'abonnes */}
             <Grid item xs={12}>

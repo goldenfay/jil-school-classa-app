@@ -72,7 +72,7 @@ function CustomModal(props) {
           {props.body}
         </DialogContent>
         <DialogActions>
-          {props.actions && props.actions.map((action,index)=><Button autoFocus key={index} onClick={action.clickHandler} color="primary">
+          {props.actions && props.actions.map((action,index)=><Button autoFocus key={index} onClick={action.clickHandler} {...action} color={action.color || "primary"}>
             {action.label}
           </Button>)}
         </DialogActions>

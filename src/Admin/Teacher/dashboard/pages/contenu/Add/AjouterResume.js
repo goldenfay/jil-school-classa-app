@@ -17,7 +17,7 @@ import CustomUploadButton from "../../../../../shared/CustomUploaderButton";
 const validationSchema = Yup.object({
   titrePdf: Yup.string()
     .min(5, "Le titre du document doit contenir au minimum 5 caractères")
-    .max(20, "Le titre du document ne doit pas dépasser 20 caractères")
+    .max(40, "Le titre du document ne doit pas dépasser 40 caractères")
     .required('Champs Obligatoire'),
 });
 

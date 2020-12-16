@@ -110,9 +110,10 @@ function AjouterCours(props) {
             TeacherService.addNewCourse({
                 adminType: "enseignant",
                 ...globalState,
-                video: globalState.lien,
                 matiere: props.teacher.matiere._id,
                 classe: props.currentClasse,
+                ordre: globalState.ordre+1,
+                video: globalState.lien,
                 pdf: globalState.pdfFile.file,
                 enseignant: props.teacher.id,
                 
@@ -120,10 +121,14 @@ function AjouterCours(props) {
                 res=>{
                     setregisterCourseFeedback((
                         < >
-            <SuccessIcon className={classes.sucess} fontSize="large"  />
-            <Typography className={classes.sucess} variant="body1" >Cours enregistré avec succès.</Typography>
-        </>
-                    ))
+                            <SuccessIcon className={classes.sucess} fontSize="large"  />
+                            <Typography className={classes.sucess} variant="body1" >Cours enregistré avec succès.</Typography>
+                        </>
+                    ));
+
+                    if(props.onApprendNewCours)
+                        props.onApprendNewCours(res.newCours)
+
 
                     SetGlobalState(defaultState)
 
@@ -132,10 +137,10 @@ function AjouterCours(props) {
                     console.log(err)
                     setregisterCourseFeedback((
                         < >
-            <ErrorIcon fontSize="large" className={classes.error}  />
-            <Typography className={classes.error}  variant="body1" >Une erreur s'est produite. Impossible d'ajouter le cours.</Typography>
-                    {/* <p>{err.}</p> */}
-        </>
+                            <ErrorIcon fontSize="large" className={classes.error}  />
+                            <Typography className={classes.error}  variant="body1" >Une erreur s'est produite. Impossible d'ajouter le cours.</Typography>
+                                    <p>{(err.message && err.message)|| err}</p>
+                        </>
                     ))
 
                 }
@@ -146,6 +151,7 @@ function AjouterCours(props) {
         if(step===0) addVideoRef.current.click()
         if(step===1) addResumeRef.current.click()
         if(step===2) addQuizRef.current.click()
+       
         return stepsPassed[step];
     }
     
@@ -154,7 +160,9 @@ function AjouterCours(props) {
             ...globalState,
             ...state
         });
-        setStepsPassed(stepsPassed.map((val,idx)=> stepsPassed[idx] || step===idx ))
+        setStepsPassed(stepsPassed.map((val,idx)=> val || step===idx ))
+        
+     
         return true;
         
     }
@@ -164,10 +172,12 @@ function AjouterCours(props) {
             {component}
             </Grid>
     )
+        //Define each step Component
     steps[0].children= (wrapper(<AjouterVideo withTitle 
         state={globalState} linkRefHandle={linkRefHandle} 
         updateStepsStatus={updateStepsStatus} submitRefTracker={submitRefHandle} 
         classes={classes} 
+        currentClasse={props.currentClasse}
         submitHandler={updateState}
         />))
     steps[1].children= (wrapper(<AjouterDocument  
@@ -205,6 +215,7 @@ function AjouterCours(props) {
 }
 
 AjouterCours.propTypes = {
+    currentClasse: PropTypes.string.isRequired
 
 }
 

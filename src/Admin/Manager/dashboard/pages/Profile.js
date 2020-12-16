@@ -86,7 +86,7 @@ const email = {
 };
 const phone = {
   type: "input",
-  props: { name: "phone", required: true, type: "text", label: "Télephone" },
+  props: { name: "phone", required: true, type: "tel", label: "Télephone" },
 };
 
 const constructPasswordField = (params) => ({
@@ -214,14 +214,14 @@ export const Profile = ({ className, cardProps, ...props }) => {
       else return undefined
     }).filter((el)=> !(typeof el==="undefined"))));
 
-    console.log(state.imgFile);
     if(state.imgFile)
-      changes.image=state.imgFile.data;
+      changes.image=state.imgFile.file;
 
     if(data.currentpassword && data.newpassword){
       changes.oldPassword=data.currentpassword;
       changes.newPassword=data.newpassword;
     }
+    console.log(changes);
 
   
     

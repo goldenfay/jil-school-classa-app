@@ -34,42 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const MyTextField = ({ ...props }) => {
-//   const [field, meta] = useField(props);
-//   const [invalide, setinvalide] = useState(false);
-//   const [isFocused, setisFocused] = useState(false);
-
-//   const handlefocus = () => {
-//     setisFocused(true);
-//     setinvalide(isFocused && (meta.error ? true : false));
-//   };
-//   return (
-//     <>
-//       <TextField
-//         error={invalide}
-//         variant="outlined"
-//         required
-//         fullWidth
-//         id={props.id || props.name}
-//         {...props}
-//         {...field}
-//         autoComplete="lname"
-//         aria-describedby={`${props.id}-feedback ${props.id}-help`}
-//         onFocus={handlefocus}
-//       />
-//       {invalide ? (
-//         <FormHelperText
-//           id={`${props.id}-feedback`}
-//           aria-live="polite"
-//           style={{ color: "#f44336" }}
-//           className={`feedback text-sm ${invalide ? "error" : "success"}`}
-//         >
-//           {meta.error}
-//         </FormHelperText>
-//       ) : null}
-//     </>
-//   );
-// };
 const validationSchema = Yup.object({
   username: Yup.string()
     .max(20, "Le nom de famille ne doit pas dépasser 20 caractères")
@@ -221,10 +185,7 @@ export default function AddEnseignant(props) {
                   // listeAnnes.push({...classe,id: `${classe.codeCl}#${classe.codeCl}#${classe.codeCl}`}); // To be replaced by the above after Backend implemented
 
                 classe.matieres.forEach((matiere, index) => {
-                  // listeMatieres.push({...matiere,cycle: classe.cycle,annee: classe.annee,abrv: `${matiere.titre}-${classe.codeCl}`});
-                    // To be replaced by the above after Backend implemented
-                  // listeMatieres.push({...matiere,cycle: classe.cycle,annee: classe.annee,abrv: `${matiere.titre}-${classe.codeCl}`}); 
-                    // New changes by mahdi
+             
                     if(!ItemsMatieres.find(el=>el.titre===matiere.titre)) ItemsMatieres.push({...matiere}); 
                 });
          
@@ -243,11 +204,7 @@ export default function AddEnseignant(props) {
                 
               },
               children:[]
-              // children: [1,2,3].map((codeCycle)=>({
-              //   key: codeCycle,
-              //   value: codeCycle,
-              //   label: codeCycle===1?"Primaire":codeCycle===2?"Moyen":"Lycé",
-              //   }))
+           
             };
             const matieres = {
               type: "select",
@@ -278,8 +235,7 @@ export default function AddEnseignant(props) {
                 multiple: true,
                 label: "Classes enseignés",
                 value: [],
-                // value: state.formState.matieresIds,
-                // value: state.formState.classes,
+              
                 SelectProps: {
                   multiple: true
                 }
@@ -344,25 +300,6 @@ export default function AddEnseignant(props) {
             };
           } else 
 
-
-            // Change Matieres's possible values according to choosed cycle
-          // if (event.target.name === "cycle" && el.props.name === "matiere") {
-          //   const  labels= Array.from( new Set(state.listeMatieres
-          //     .filter((matiere) => matiere.cycle === event.target.value)
-          //     .map((item) => item.titre
-          //     )));
-          //   const filteredMatieres= labels.map((item)=>({
-          //     key: `${item}`,
-          //     value: `${item}`,
-          //     label: `${item}`
-          //   }) ); 
-          //   return {
-          //     ...el,
-          //     children: filteredMatieres,
-
-          //     props: { ...el.props, value: state.formState.matiere },
-          //   };
-          // }
             // New changes by mahdi
           if (event.target.name === "matiere" && el.props.name === "cycle") {
             const  labels= Array.from( new Set(state.listeAnnes
@@ -392,25 +329,7 @@ export default function AddEnseignant(props) {
             };
           }
           else
-            // Change Years possible values according to choosed cycle, matiere
-          // if (event.target.name === "matiere" && el.props.name === "matieresIds") {
-          //   const  filteredMatieres= state.listeMatieres
-          //     .filter((matiere) => matiere.cycle === state.formState.cycle && matiere.titre===event.target.value)
-          //     .map((item) => (
-          //       {key: `${item.id}`,
-          //       value: `${item.id}`,
-          //       label: `${item.abrv}`
-          //   })
-          //     );
-        
-          //   return {
-          //     ...el,
-          //     children: filteredMatieres,
-
-          //     props: { ...el.props, value: state.formState.matieresIds },
-          //   };
-          // }else
-
+       
             // New changes by mahdi
           if (event.target.name === "cycle" && el.props.name === "classes") {
             const  filteredClasses= state.listeAnnes
@@ -450,13 +369,7 @@ export default function AddEnseignant(props) {
     console.log(data);
     console.log(state.formState);
     const {username,nom,prenom,email,phone,wilaya,commune,matiere,classes}=state.formState;
-    // const classesIds=[];
-    
-    // matieresIds.forEach((matId)=>{
-    //   const mat=state.listeMatieres.find(el=> el.id===matId);
-    //   const classe=state.listeAnnes.find((el)=> el.cycle===mat.cycle && el.annee===mat.annee);
-    //   classesIds.push(classe.id);
-    // })
+   
     
     setisLoading(true);
     TeacherService.register({
@@ -488,7 +401,7 @@ export default function AddEnseignant(props) {
         console.error(err);
         setAlertProps({
           severity:'error',
-          message : `Une erreur s'est produite ${err.json}`
+          message : `Une erreur s'est produite ${(err.message && err.message) || err }`
         });
         setToasterOpen(true);
         setisLoading(false);

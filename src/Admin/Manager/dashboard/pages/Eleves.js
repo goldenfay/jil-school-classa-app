@@ -15,7 +15,7 @@ import Page from "../../../shared/Page";
 import LoadingComponent from "../../../shared/LoadingComponent";
 
 // Data
-import { profsHeadCells } from "../../../data/tableHeads";
+import { elevesHeadCells } from "../../../data/tableHeads";
 import ManagerService from "../../../../services/managerServices";
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Eleves(props) {
   const classes = useStyles();
 
-  const dataColumns = profsHeadCells.map((el) => el.label);
+  const dataColumns = elevesHeadCells.map((el) => el.label);
 
 
   // States
@@ -38,10 +38,15 @@ export default function Eleves(props) {
     setisLoading(true);
     ManagerService.getAllEleves({ adminType: "manager" }).then(
       (res) => {
-        setisLoading(false);
+        console.log(res)
+
         setFiltredElevesRows(
-          res.map((row) => profsHeadCells.map((column) => row[column.id]))
-        );
+          res.eleves.map((row) => 
+          elevesHeadCells.map((column) => 
+          column.id==="classe"?row.classe.codeCl:row[column.id]
+          ))
+          );
+          setisLoading(false);
       },
       (err) => {
         setisLoading(false);

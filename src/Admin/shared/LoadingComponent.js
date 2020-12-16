@@ -1,10 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {CircularProgress,Box} from "@material-ui/core"
+import {CircularProgress,Box,Container} from "@material-ui/core"
 import {makeStyles} from "@material-ui/core/styles"
 
 
 const useStyles = makeStyles((theme) => ({
+    container:{
+      height: "100%",
+      minHeight: 300
+    },
+    box:{
+      height: "100%",
+      width: "100%",
+    },
    
     wrapper: {
         margin: theme.spacing(1),
@@ -27,10 +35,10 @@ function LoadingComponent(props) {
    
   
     return (
-        <div>
-        <div>
+        <Container className={classes.container}>
+        {/* <div> */}
             {props.controller && 
-            <Box display="flex" width="100%" height="100%" alignContent="center" alignItems="center" justifyContent="center">
+            <Box display="flex" className={classes.container} alignContent="center" alignItems="center" justifyContent="center">
                 <CircularProgress  className={classes.buttonProgress}  {...props.progressStyles}/>
             </Box>
             
@@ -38,8 +46,8 @@ function LoadingComponent(props) {
             {!props.controller && props.component}
 
             
-        </div>
-        </div>
+        {/* </div> */}
+        </Container>
     )
 }
 

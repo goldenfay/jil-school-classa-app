@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles, MuiThemeProvider } from "@material-ui/core/styles";
-import {
-  Container,
-  Grid,
-  Paper,
-} from "@material-ui/core";
+import { Container, Grid, Paper } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 
 //themes
 import { defaultTheme } from "../../../../themes/palettes";
-
+// Redux
+import { connect } from "react-redux";
 // components
 import Page from "../../../shared/Page";
 import LoadingComponent from "../../../shared/LoadingComponent";
 
 // Data
 import { profsHeadCells } from "../../../data/tableHeads";
-import ManagerService from "../../../../services/managerServices";
+import TeacherService from "../../../../services/teacherServices";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -24,11 +21,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
 }));
-export default function Eleves(props) {
+export function Eleves(props) {
   const classes = useStyles();
 
   const dataColumns = profsHeadCells.map((el) => el.label);
-
 
   // States
   const [filtredElevesRows, setFiltredElevesRows] = useState([]);
@@ -36,15 +32,23 @@ export default function Eleves(props) {
 
   useEffect(() => {
     setisLoading(true);
-    ManagerService.getAllEleves({ adminType: "manager" }).then(
+    TeacherService.getProfEleves({
+      adminType: "enseignant",
+      id: props.user._id,
+    }).then(
       (res) => {
-        setisLoading(false);
+        console.log("Tous les élèves concernés par ce prof : ", res);
+
         setFiltredElevesRows(
-          res.map((row) => profsHeadCells.map((column) => row[column.id]))
+          res.eleves.map((row) =>
+            profsHeadCells.map((column) => row[column.id])
+          )
         );
+        setisLoading(false);
       },
       (err) => {
         setisLoading(false);
+        console.log(err);
       }
     );
   }, []);
@@ -77,3 +81,14 @@ export default function Eleves(props) {
     </Page>
   );
 }
+
+const mapStateToProps = (state) => ({
+  // user: state.managerReducer.user,
+  user: state.adminReducer.user,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Eleves);
