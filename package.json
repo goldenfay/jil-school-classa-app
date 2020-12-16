@@ -1,64 +1,37 @@
 {
-  "name": "front-end",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@devexpress/dx-react-chart": "^2.7.3",
-    "@devexpress/dx-react-chart-material-ui": "^2.7.3",
-    "@devexpress/dx-react-core": "^2.7.3",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/data-grid": "^4.0.0-alpha.6",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.20.0",
-    "classnames": "^2.2.6",
-    "formik": "^2.1.7",
-    "history": "^5.0.0",
-    "mui-datatables": "^3.5.0",
-    "react": "^16.13.1",
-    "react-card-flip": "^1.0.11",
-    "react-dom": "^16.13.1",
-    "react-feather": "^2.0.8",
-    "react-helmet": "^6.1.0",
-    "react-redux": "^7.2.1",
-    "react-router-dom": "^6.0.0-beta.0",
-    "react-scripts": "3.4.3",
-    "react-toastify": "^6.0.9",
-    "react-transition-group": "^4.4.1",
-    "recharts": "^1.8.5",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
-    "serve": "^11.3.2",
-    "tinycolor2": "^1.4.2",
-    "vimeo": "^2.1.1",
-    "yup": "^0.29.3"
-  },
+  "name": "classa-api",
+  "version": "1.0.0",
+  "description": "this package contains the api for the classa application for JilSchool",
+  "main": "index.js",
   "scripts": {
-    "start": "npm run build && serve -s build",
-    "server": "react-scripts start",
-    "build": "react-scripts build",
-    "build-ghPages": "react-scripts build && rm -rf ../classa-app.github.io/*",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/classa-app/classa-api.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "Mehdi Messarat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/classa-app/classa-api/issues"
+  },
+  "homepage": "https://github.com/classa-app/classa-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "form-data": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.2",
+    "mongoose-unique-validator": "^2.0.3",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.14",
+    "nodemon": "^2.0.6",
+    "shelljs": "^0.8.4",
+    "uuid": "^8.3.1"
   }
 }

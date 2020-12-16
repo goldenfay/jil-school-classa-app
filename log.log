@@ -1,0 +1,491 @@
+2020-12-01T19:22:01.169+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2020-12-01T19:22:01.712+0100 W  ASIO     [main] No TransportLayer configured during NetworkInterface startup
+2020-12-01T19:22:01.713+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=5460 port=27017 dbpath=C:\data\db 64-bit host=PC-PC
+2020-12-01T19:22:01.713+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2020-12-01T19:22:01.713+0100 I  CONTROL  [initandlisten] db version v4.2.6
+2020-12-01T19:22:01.713+0100 I  CONTROL  [initandlisten] git version: 20364840b8f1af16917e4c23c1b5f5efd8b352f8
+2020-12-01T19:22:01.713+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
+2020-12-01T19:22:01.714+0100 I  CONTROL  [initandlisten] modules: none
+2020-12-01T19:22:01.714+0100 I  CONTROL  [initandlisten] build environment:
+2020-12-01T19:22:01.714+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
+2020-12-01T19:22:01.714+0100 I  CONTROL  [initandlisten]     distarch: x86_64
+2020-12-01T19:22:01.714+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
+2020-12-01T19:22:01.714+0100 I  CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\4.2\bin\mongod.cfg", net: { bindIp: "localhost", port: 27017 }, replication: { replSetName: "rs" }, storage: { dbPath: "C:\data\db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "log.log" } }
+2020-12-01T19:22:01.721+0100 I  STORAGE  [initandlisten] Detected data files in C:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-12-01T19:22:01.722+0100 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3544M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
+2020-12-01T19:22:01.776+0100 I  STORAGE  [initandlisten] WiredTiger message [1606846921:776835][5460:1999449888], txn-recover: Recovering log 25 through 26
+2020-12-01T19:22:01.946+0100 I  STORAGE  [initandlisten] WiredTiger message [1606846921:946845][5460:1999449888], txn-recover: Recovering log 26 through 26
+2020-12-01T19:22:02.092+0100 I  STORAGE  [initandlisten] WiredTiger message [1606846922:92853][5460:1999449888], txn-recover: Main recovery loop: starting at 25/6272 to 26/256
+2020-12-01T19:22:02.435+0100 I  STORAGE  [initandlisten] WiredTiger message [1606846922:435873][5460:1999449888], txn-recover: Recovering log 25 through 26
+2020-12-01T19:22:02.635+0100 I  STORAGE  [initandlisten] WiredTiger message [1606846922:635884][5460:1999449888], txn-recover: Recovering log 26 through 26
+2020-12-01T19:22:02.773+0100 I  STORAGE  [initandlisten] WiredTiger message [1606846922:773892][5460:1999449888], txn-recover: Set global recovery timestamp: (0, 0)
+2020-12-01T19:22:02.820+0100 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2020-12-01T19:22:02.829+0100 I  STORAGE  [initandlisten] Timestamp monitor starting
+2020-12-01T19:22:02.832+0100 I  CONTROL  [initandlisten] 
+2020-12-01T19:22:02.832+0100 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-12-01T19:22:02.832+0100 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-12-01T19:22:02.833+0100 I  CONTROL  [initandlisten] 
+2020-12-01T19:22:02.838+0100 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+2020-12-01T19:22:02.844+0100 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+2020-12-01T19:22:02.844+0100 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+2020-12-01T19:22:02.844+0100 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+2020-12-01T19:22:02.849+0100 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+2020-12-01T19:22:03.176+0100 W  FTDC     [initandlisten] Failed to initialize Performance Counters for FTDC: WindowsPdhError: PdhExpandCounterPathW failed with 'L’objet spécifié n’a pas été trouvé sur l’ordinateur.' for counter '\Memory\Available Bytes'
+2020-12-01T19:22:03.176+0100 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'C:/data/db/diagnostic.data'
+2020-12-01T19:22:03.178+0100 I  SHARDING [initandlisten] Marking collection local.replset.minvalid as collection version: <unsharded>
+2020-12-01T19:22:03.178+0100 I  SHARDING [initandlisten] Marking collection local.replset.election as collection version: <unsharded>
+2020-12-01T19:22:03.181+0100 I  REPL     [initandlisten] Did not find local initialized voted for document at startup.
+2020-12-01T19:22:03.186+0100 I  REPL     [initandlisten] Rollback ID is 1
+2020-12-01T19:22:03.186+0100 I  REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2020-12-01T19:22:03.188+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:22:03.188+0100 I  SHARDING [LogicalSessionCacheReap] Marking collection config.system.sessions as collection version: <unsharded>
+2020-12-01T19:22:03.188+0100 I  NETWORK  [listener] Listening on 127.0.0.1
+2020-12-01T19:22:03.188+0100 I  NETWORK  [listener] waiting for connections on port 27017
+2020-12-01T19:22:03.188+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T19:22:04.009+0100 I  SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+2020-12-01T19:27:03.188+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:27:03.189+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T19:32:03.188+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:32:03.189+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T19:37:03.188+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:37:03.189+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T19:42:03.188+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:42:03.191+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T19:47:03.188+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:47:03.189+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T19:52:03.188+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:52:03.190+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T19:57:03.189+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T19:57:03.190+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T20:02:03.189+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T20:02:03.192+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T20:07:03.189+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T20:07:03.190+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T20:12:03.189+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-01T20:12:03.190+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-01T20:16:17.682+0100 I  CONTROL  [thread1] Ctrl-C signal
+2020-12-01T20:16:17.682+0100 I  CONTROL  [consoleTerminate] got CTRL_C_EVENT, will terminate after current cmd ends
+2020-12-01T20:16:17.688+0100 I  NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2020-12-01T20:16:17.688+0100 I  -        [consoleTerminate] Stopping further Flow Control ticket acquisitions.
+2020-12-01T20:16:17.689+0100 I  REPL     [consoleTerminate] shutting down replication subsystems
+2020-12-01T20:16:17.689+0100 I  ASIO     [Replication] Killing all outstanding egress activity.
+2020-12-01T20:16:17.691+0100 I  CONTROL  [consoleTerminate] Shutting down free monitoring
+2020-12-01T20:16:17.691+0100 I  FTDC     [consoleTerminate] Shutting down full-time diagnostic data capture
+2020-12-01T20:16:17.696+0100 I  STORAGE  [consoleTerminate] Deregistering all the collections
+2020-12-01T20:16:17.697+0100 I  STORAGE  [consoleTerminate] Timestamp monitor shutting down
+2020-12-01T20:16:17.698+0100 I  STORAGE  [consoleTerminate] WiredTigerKVEngine shutting down
+2020-12-01T20:16:17.698+0100 I  STORAGE  [consoleTerminate] Shutting down session sweeper thread
+2020-12-01T20:16:17.698+0100 I  STORAGE  [consoleTerminate] Finished shutting down session sweeper thread
+2020-12-01T20:16:17.698+0100 I  STORAGE  [consoleTerminate] Shutting down journal flusher thread
+2020-12-01T20:16:17.741+0100 I  STORAGE  [consoleTerminate] Finished shutting down journal flusher thread
+2020-12-01T20:16:17.741+0100 I  STORAGE  [consoleTerminate] Shutting down checkpoint thread
+2020-12-01T20:16:17.741+0100 I  STORAGE  [consoleTerminate] Finished shutting down checkpoint thread
+2020-12-01T20:16:17.764+0100 I  STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2020-12-01T20:16:17.765+0100 I  CONTROL  [consoleTerminate] now exiting
+2020-12-01T20:16:17.765+0100 I  CONTROL  [consoleTerminate] shutting down with code:12
+2020-12-02T11:40:31.792+0100 I  CONTROL  [main] ***** SERVER RESTARTED *****
+2020-12-02T11:40:31.799+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2020-12-02T11:40:32.842+0100 W  ASIO     [main] No TransportLayer configured during NetworkInterface startup
+2020-12-02T11:40:32.863+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=6260 port=27017 dbpath=C:\data\db 64-bit host=PC-PC
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten] db version v4.2.6
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten] git version: 20364840b8f1af16917e4c23c1b5f5efd8b352f8
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten] modules: none
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten] build environment:
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
+2020-12-02T11:40:32.864+0100 I  CONTROL  [initandlisten]     distarch: x86_64
+2020-12-02T11:40:32.865+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
+2020-12-02T11:40:32.865+0100 I  CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\4.2\bin\mongod.cfg", net: { bindIp: "localhost", port: 27017 }, replication: { replSetName: "rs" }, storage: { dbPath: "C:\data\db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "log.log" } }
+2020-12-02T11:40:32.892+0100 I  STORAGE  [initandlisten] Detected data files in C:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-12-02T11:40:32.893+0100 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3544M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
+2020-12-02T11:40:32.953+0100 I  STORAGE  [initandlisten] WiredTiger message [1606905632:953190][6260:1994600224], txn-recover: Recovering log 26 through 27
+2020-12-02T11:40:33.124+0100 I  STORAGE  [initandlisten] WiredTiger message [1606905633:124200][6260:1994600224], txn-recover: Recovering log 27 through 27
+2020-12-02T11:40:33.418+0100 I  STORAGE  [initandlisten] WiredTiger message [1606905633:418217][6260:1994600224], txn-recover: Main recovery loop: starting at 26/6272 to 27/256
+2020-12-02T11:40:34.103+0100 I  STORAGE  [initandlisten] WiredTiger message [1606905634:103256][6260:1994600224], txn-recover: Recovering log 26 through 27
+2020-12-02T11:40:34.395+0100 I  STORAGE  [initandlisten] WiredTiger message [1606905634:395272][6260:1994600224], txn-recover: Recovering log 27 through 27
+2020-12-02T11:40:34.725+0100 I  STORAGE  [initandlisten] WiredTiger message [1606905634:725291][6260:1994600224], txn-recover: Set global recovery timestamp: (0, 0)
+2020-12-02T11:40:34.801+0100 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2020-12-02T11:40:34.846+0100 I  STORAGE  [initandlisten] Timestamp monitor starting
+2020-12-02T11:40:34.867+0100 I  CONTROL  [initandlisten] 
+2020-12-02T11:40:34.867+0100 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-12-02T11:40:34.868+0100 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-12-02T11:40:34.868+0100 I  CONTROL  [initandlisten] 
+2020-12-02T11:40:34.889+0100 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+2020-12-02T11:40:34.896+0100 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+2020-12-02T11:40:34.896+0100 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+2020-12-02T11:40:34.896+0100 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+2020-12-02T11:40:34.901+0100 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+2020-12-02T11:40:35.412+0100 W  FTDC     [initandlisten] Failed to initialize Performance Counters for FTDC: WindowsPdhError: PdhExpandCounterPathW failed with 'L’objet spécifié n’a pas été trouvé sur l’ordinateur.' for counter '\Memory\Available Bytes'
+2020-12-02T11:40:35.412+0100 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'C:/data/db/diagnostic.data'
+2020-12-02T11:40:35.417+0100 I  SHARDING [initandlisten] Marking collection local.replset.minvalid as collection version: <unsharded>
+2020-12-02T11:40:35.417+0100 I  SHARDING [initandlisten] Marking collection local.replset.election as collection version: <unsharded>
+2020-12-02T11:40:35.420+0100 I  REPL     [initandlisten] Did not find local initialized voted for document at startup.
+2020-12-02T11:40:35.424+0100 I  REPL     [initandlisten] Rollback ID is 1
+2020-12-02T11:40:35.425+0100 I  REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2020-12-02T11:40:35.426+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T11:40:35.427+0100 I  SHARDING [LogicalSessionCacheReap] Marking collection config.system.sessions as collection version: <unsharded>
+2020-12-02T11:40:35.428+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T11:40:35.428+0100 I  NETWORK  [listener] Listening on 127.0.0.1
+2020-12-02T11:40:35.428+0100 I  NETWORK  [listener] waiting for connections on port 27017
+2020-12-02T11:40:36.016+0100 I  SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+2020-12-02T11:45:35.426+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T11:45:35.427+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T11:50:35.426+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T11:50:35.427+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T11:55:35.426+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T11:55:35.427+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T12:00:35.426+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T12:00:35.427+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T12:05:35.427+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T12:05:35.428+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T12:10:35.427+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T12:10:35.429+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T12:15:35.427+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T12:15:35.429+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T12:20:35.427+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T12:20:35.429+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T12:21:34.607+0100 I  CONTROL  [thread1] Ctrl-C signal
+2020-12-02T12:21:34.608+0100 I  CONTROL  [consoleTerminate] got CTRL_C_EVENT, will terminate after current cmd ends
+2020-12-02T12:21:34.613+0100 I  NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2020-12-02T12:21:34.614+0100 I  -        [consoleTerminate] Stopping further Flow Control ticket acquisitions.
+2020-12-02T12:21:34.615+0100 I  REPL     [consoleTerminate] shutting down replication subsystems
+2020-12-02T12:21:34.616+0100 I  ASIO     [Replication] Killing all outstanding egress activity.
+2020-12-02T12:21:34.619+0100 I  CONTROL  [consoleTerminate] Shutting down free monitoring
+2020-12-02T12:21:34.619+0100 I  FTDC     [consoleTerminate] Shutting down full-time diagnostic data capture
+2020-12-02T12:21:34.628+0100 I  STORAGE  [consoleTerminate] Deregistering all the collections
+2020-12-02T12:21:34.629+0100 I  STORAGE  [consoleTerminate] Timestamp monitor shutting down
+2020-12-02T12:21:34.629+0100 I  STORAGE  [consoleTerminate] WiredTigerKVEngine shutting down
+2020-12-02T12:21:34.630+0100 I  STORAGE  [consoleTerminate] Shutting down session sweeper thread
+2020-12-02T12:21:34.630+0100 I  STORAGE  [consoleTerminate] Finished shutting down session sweeper thread
+2020-12-02T12:21:34.631+0100 I  STORAGE  [consoleTerminate] Shutting down journal flusher thread
+2020-12-02T12:21:34.648+0100 I  STORAGE  [consoleTerminate] Finished shutting down journal flusher thread
+2020-12-02T12:21:34.648+0100 I  STORAGE  [consoleTerminate] Shutting down checkpoint thread
+2020-12-02T12:21:34.649+0100 I  STORAGE  [consoleTerminate] Finished shutting down checkpoint thread
+2020-12-02T12:21:34.698+0100 I  STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2020-12-02T12:21:34.702+0100 I  CONTROL  [consoleTerminate] now exiting
+2020-12-02T12:21:34.702+0100 I  CONTROL  [consoleTerminate] shutting down with code:12
+2020-12-02T19:34:58.358+0100 I  CONTROL  [main] ***** SERVER RESTARTED *****
+2020-12-02T19:34:58.360+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2020-12-02T19:34:58.843+0100 W  ASIO     [main] No TransportLayer configured during NetworkInterface startup
+2020-12-02T19:34:58.843+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=3864 port=27017 dbpath=C:\data\db 64-bit host=PC-PC
+2020-12-02T19:34:58.844+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2020-12-02T19:34:58.844+0100 I  CONTROL  [initandlisten] db version v4.2.6
+2020-12-02T19:34:58.844+0100 I  CONTROL  [initandlisten] git version: 20364840b8f1af16917e4c23c1b5f5efd8b352f8
+2020-12-02T19:34:58.844+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
+2020-12-02T19:34:58.844+0100 I  CONTROL  [initandlisten] modules: none
+2020-12-02T19:34:58.844+0100 I  CONTROL  [initandlisten] build environment:
+2020-12-02T19:34:58.845+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
+2020-12-02T19:34:58.845+0100 I  CONTROL  [initandlisten]     distarch: x86_64
+2020-12-02T19:34:58.845+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
+2020-12-02T19:34:58.845+0100 I  CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\4.2\bin\mongod.cfg", net: { bindIp: "localhost", port: 27017 }, replication: { replSetName: "rs" }, storage: { dbPath: "C:\data\db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "log.log" } }
+2020-12-02T19:34:58.850+0100 I  STORAGE  [initandlisten] Detected data files in C:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-12-02T19:34:58.851+0100 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3544M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
+2020-12-02T19:34:58.901+0100 I  STORAGE  [initandlisten] WiredTiger message [1606934098:901254][3864:1994600224], txn-recover: Recovering log 27 through 28
+2020-12-02T19:34:59.035+0100 I  STORAGE  [initandlisten] WiredTiger message [1606934099:35262][3864:1994600224], txn-recover: Recovering log 28 through 28
+2020-12-02T19:34:59.169+0100 I  STORAGE  [initandlisten] WiredTiger message [1606934099:169270][3864:1994600224], txn-recover: Main recovery loop: starting at 27/6400 to 28/256
+2020-12-02T19:34:59.492+0100 I  STORAGE  [initandlisten] WiredTiger message [1606934099:492288][3864:1994600224], txn-recover: Recovering log 27 through 28
+2020-12-02T19:34:59.654+0100 I  STORAGE  [initandlisten] WiredTiger message [1606934099:654297][3864:1994600224], txn-recover: Recovering log 28 through 28
+2020-12-02T19:34:59.797+0100 I  STORAGE  [initandlisten] WiredTiger message [1606934099:797306][3864:1994600224], txn-recover: Set global recovery timestamp: (0, 0)
+2020-12-02T19:34:59.832+0100 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2020-12-02T19:34:59.840+0100 I  STORAGE  [initandlisten] Timestamp monitor starting
+2020-12-02T19:34:59.844+0100 I  CONTROL  [initandlisten] 
+2020-12-02T19:34:59.844+0100 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-12-02T19:34:59.845+0100 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-12-02T19:34:59.845+0100 I  CONTROL  [initandlisten] 
+2020-12-02T19:34:59.856+0100 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+2020-12-02T19:34:59.861+0100 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+2020-12-02T19:34:59.862+0100 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+2020-12-02T19:34:59.862+0100 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+2020-12-02T19:34:59.864+0100 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+2020-12-02T19:35:00.166+0100 W  FTDC     [initandlisten] Failed to initialize Performance Counters for FTDC: WindowsPdhError: PdhExpandCounterPathW failed with 'L’objet spécifié n’a pas été trouvé sur l’ordinateur.' for counter '\Processor(_Total)\% Idle Time'
+2020-12-02T19:35:00.166+0100 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'C:/data/db/diagnostic.data'
+2020-12-02T19:35:00.168+0100 I  SHARDING [initandlisten] Marking collection local.replset.minvalid as collection version: <unsharded>
+2020-12-02T19:35:00.168+0100 I  SHARDING [initandlisten] Marking collection local.replset.election as collection version: <unsharded>
+2020-12-02T19:35:00.170+0100 I  REPL     [initandlisten] Did not find local initialized voted for document at startup.
+2020-12-02T19:35:00.172+0100 I  REPL     [initandlisten] Rollback ID is 1
+2020-12-02T19:35:00.172+0100 I  REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2020-12-02T19:35:00.175+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T19:35:00.175+0100 I  SHARDING [LogicalSessionCacheReap] Marking collection config.system.sessions as collection version: <unsharded>
+2020-12-02T19:35:00.175+0100 I  NETWORK  [listener] Listening on 127.0.0.1
+2020-12-02T19:35:00.175+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T19:35:00.176+0100 I  NETWORK  [listener] waiting for connections on port 27017
+2020-12-02T19:35:01.020+0100 I  SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+2020-12-02T19:40:00.175+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T19:40:00.175+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T19:45:00.175+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T19:45:00.175+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T19:50:00.175+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T19:50:00.176+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T19:55:00.176+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T19:55:00.177+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T20:00:00.177+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T20:00:00.177+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T20:05:00.177+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T20:05:00.178+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T20:10:00.178+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T20:10:00.178+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T20:15:00.177+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T20:15:00.178+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T20:20:00.178+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T20:20:00.178+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T20:25:00.178+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-02T20:25:00.179+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-02T20:27:08.099+0100 I  CONTROL  [thread1] Ctrl-C signal
+2020-12-02T20:27:08.100+0100 I  CONTROL  [consoleTerminate] got CTRL_C_EVENT, will terminate after current cmd ends
+2020-12-02T20:27:08.102+0100 I  NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2020-12-02T20:27:08.103+0100 I  -        [consoleTerminate] Stopping further Flow Control ticket acquisitions.
+2020-12-02T20:27:08.105+0100 I  REPL     [consoleTerminate] shutting down replication subsystems
+2020-12-02T20:27:08.106+0100 I  ASIO     [Replication] Killing all outstanding egress activity.
+2020-12-02T20:27:08.108+0100 I  CONTROL  [consoleTerminate] Shutting down free monitoring
+2020-12-02T20:27:08.109+0100 I  FTDC     [consoleTerminate] Shutting down full-time diagnostic data capture
+2020-12-02T20:27:08.118+0100 I  STORAGE  [consoleTerminate] Deregistering all the collections
+2020-12-02T20:27:08.119+0100 I  STORAGE  [consoleTerminate] Timestamp monitor shutting down
+2020-12-02T20:27:08.121+0100 I  STORAGE  [consoleTerminate] WiredTigerKVEngine shutting down
+2020-12-02T20:27:08.121+0100 I  STORAGE  [consoleTerminate] Shutting down session sweeper thread
+2020-12-02T20:27:08.122+0100 I  STORAGE  [consoleTerminate] Finished shutting down session sweeper thread
+2020-12-02T20:27:08.123+0100 I  STORAGE  [consoleTerminate] Shutting down journal flusher thread
+2020-12-02T20:27:08.223+0100 I  STORAGE  [consoleTerminate] Finished shutting down journal flusher thread
+2020-12-02T20:27:08.223+0100 I  STORAGE  [consoleTerminate] Shutting down checkpoint thread
+2020-12-02T20:27:08.224+0100 I  STORAGE  [consoleTerminate] Finished shutting down checkpoint thread
+2020-12-02T20:27:08.256+0100 I  STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2020-12-02T20:27:08.257+0100 I  CONTROL  [consoleTerminate] now exiting
+2020-12-02T20:27:08.258+0100 I  CONTROL  [consoleTerminate] shutting down with code:12
+2020-12-05T15:10:33.893+0100 I  CONTROL  [main] ***** SERVER RESTARTED *****
+2020-12-05T15:10:33.906+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2020-12-05T15:10:34.425+0100 W  ASIO     [main] No TransportLayer configured during NetworkInterface startup
+2020-12-05T15:10:34.427+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=9800 port=27017 dbpath=C:\data\db 64-bit host=PC-PC
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten] db version v4.2.6
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten] git version: 20364840b8f1af16917e4c23c1b5f5efd8b352f8
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten] modules: none
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten] build environment:
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten]     distarch: x86_64
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
+2020-12-05T15:10:34.428+0100 I  CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\4.2\bin\mongod.cfg", net: { bindIp: "localhost", port: 27017 }, replication: { replSetName: "rs" }, storage: { dbPath: "C:\data\db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "log.log" } }
+2020-12-05T15:10:34.440+0100 I  STORAGE  [initandlisten] Detected data files in C:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-12-05T15:10:34.441+0100 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3544M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
+2020-12-05T15:10:34.511+0100 I  STORAGE  [initandlisten] WiredTiger message [1607177434:511028][9800:2005282592], txn-recover: Recovering log 28 through 29
+2020-12-05T15:10:34.649+0100 I  STORAGE  [initandlisten] WiredTiger message [1607177434:649036][9800:2005282592], txn-recover: Recovering log 29 through 29
+2020-12-05T15:10:34.791+0100 I  STORAGE  [initandlisten] WiredTiger message [1607177434:791044][9800:2005282592], txn-recover: Main recovery loop: starting at 28/6400 to 29/256
+2020-12-05T15:10:35.058+0100 I  STORAGE  [initandlisten] WiredTiger message [1607177435:58059][9800:2005282592], txn-recover: Recovering log 28 through 29
+2020-12-05T15:10:35.195+0100 I  STORAGE  [initandlisten] WiredTiger message [1607177435:195067][9800:2005282592], txn-recover: Recovering log 29 through 29
+2020-12-05T15:10:35.318+0100 I  STORAGE  [initandlisten] WiredTiger message [1607177435:318074][9800:2005282592], txn-recover: Set global recovery timestamp: (0, 0)
+2020-12-05T15:10:35.396+0100 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2020-12-05T15:10:35.412+0100 I  STORAGE  [initandlisten] Timestamp monitor starting
+2020-12-05T15:10:35.415+0100 I  CONTROL  [initandlisten] 
+2020-12-05T15:10:35.415+0100 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-12-05T15:10:35.415+0100 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-12-05T15:10:35.416+0100 I  CONTROL  [initandlisten] 
+2020-12-05T15:10:35.432+0100 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+2020-12-05T15:10:35.439+0100 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+2020-12-05T15:10:35.440+0100 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+2020-12-05T15:10:35.441+0100 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+2020-12-05T15:10:35.447+0100 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+2020-12-05T15:10:35.779+0100 W  FTDC     [initandlisten] Failed to initialize Performance Counters for FTDC: WindowsPdhError: PdhExpandCounterPathW failed with 'L’objet spécifié n’a pas été trouvé sur l’ordinateur.' for counter '\Memory\Available Bytes'
+2020-12-05T15:10:35.780+0100 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'C:/data/db/diagnostic.data'
+2020-12-05T15:10:35.783+0100 I  SHARDING [initandlisten] Marking collection local.replset.minvalid as collection version: <unsharded>
+2020-12-05T15:10:35.784+0100 I  SHARDING [initandlisten] Marking collection local.replset.election as collection version: <unsharded>
+2020-12-05T15:10:35.786+0100 I  REPL     [initandlisten] Did not find local initialized voted for document at startup.
+2020-12-05T15:10:35.789+0100 I  REPL     [initandlisten] Rollback ID is 1
+2020-12-05T15:10:35.789+0100 I  REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2020-12-05T15:10:35.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:10:35.791+0100 I  SHARDING [LogicalSessionCacheReap] Marking collection config.system.sessions as collection version: <unsharded>
+2020-12-05T15:10:35.791+0100 I  NETWORK  [listener] Listening on 127.0.0.1
+2020-12-05T15:10:35.791+0100 I  NETWORK  [listener] waiting for connections on port 27017
+2020-12-05T15:10:35.794+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:10:36.023+0100 I  SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+2020-12-05T15:15:35.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:15:35.791+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:20:35.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:20:35.791+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:25:35.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:25:35.791+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:30:35.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:30:35.792+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:35:35.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:35:35.793+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:40:35.792+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:40:35.793+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:45:35.792+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:45:35.793+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:50:35.792+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:50:35.793+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T15:55:35.792+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T15:55:35.793+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:00:35.793+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:00:35.793+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:05:35.793+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:05:35.794+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:10:35.796+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:10:35.798+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:15:35.820+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:15:35.874+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:20:35.820+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:20:35.874+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:25:35.820+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:25:35.874+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:30:35.820+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:30:35.874+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:35:35.820+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:35:35.874+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:40:35.820+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:40:35.874+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:45:35.821+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:45:35.875+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:50:35.821+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T16:50:35.876+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T16:52:58.765+0100 I  CONTROL  [thread1] Ctrl-C signal
+2020-12-05T16:52:58.765+0100 I  CONTROL  [consoleTerminate] got CTRL_C_EVENT, will terminate after current cmd ends
+2020-12-05T16:52:58.779+0100 I  NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2020-12-05T16:52:58.781+0100 I  -        [consoleTerminate] Stopping further Flow Control ticket acquisitions.
+2020-12-05T16:52:58.783+0100 I  REPL     [consoleTerminate] shutting down replication subsystems
+2020-12-05T16:52:58.788+0100 I  ASIO     [Replication] Killing all outstanding egress activity.
+2020-12-05T16:52:58.794+0100 I  CONTROL  [consoleTerminate] Shutting down free monitoring
+2020-12-05T16:52:58.795+0100 I  FTDC     [consoleTerminate] Shutting down full-time diagnostic data capture
+2020-12-05T16:52:58.802+0100 I  STORAGE  [consoleTerminate] Deregistering all the collections
+2020-12-05T16:52:58.805+0100 I  STORAGE  [consoleTerminate] Timestamp monitor shutting down
+2020-12-05T16:52:58.806+0100 I  STORAGE  [consoleTerminate] WiredTigerKVEngine shutting down
+2020-12-05T16:52:58.806+0100 I  STORAGE  [consoleTerminate] Shutting down session sweeper thread
+2020-12-05T16:52:58.807+0100 I  STORAGE  [consoleTerminate] Finished shutting down session sweeper thread
+2020-12-05T16:52:58.808+0100 I  STORAGE  [consoleTerminate] Shutting down journal flusher thread
+2020-12-05T16:52:58.868+0100 I  STORAGE  [consoleTerminate] Finished shutting down journal flusher thread
+2020-12-05T16:52:58.868+0100 I  STORAGE  [consoleTerminate] Shutting down checkpoint thread
+2020-12-05T16:52:58.869+0100 I  STORAGE  [consoleTerminate] Finished shutting down checkpoint thread
+2020-12-05T16:52:58.912+0100 I  STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2020-12-05T16:52:58.913+0100 I  CONTROL  [consoleTerminate] now exiting
+2020-12-05T16:52:58.914+0100 I  CONTROL  [consoleTerminate] shutting down with code:12
+2020-12-05T18:10:05.316+0100 I  CONTROL  [main] ***** SERVER RESTARTED *****
+2020-12-05T18:10:06.968+0100 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2020-12-05T18:10:06.974+0100 W  ASIO     [main] No TransportLayer configured during NetworkInterface startup
+2020-12-05T18:10:06.976+0100 I  CONTROL  [initandlisten] MongoDB starting : pid=10056 port=27017 dbpath=C:\data\db 64-bit host=PC-PC
+2020-12-05T18:10:06.976+0100 I  CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2020-12-05T18:10:06.976+0100 I  CONTROL  [initandlisten] db version v4.2.6
+2020-12-05T18:10:06.976+0100 I  CONTROL  [initandlisten] git version: 20364840b8f1af16917e4c23c1b5f5efd8b352f8
+2020-12-05T18:10:06.976+0100 I  CONTROL  [initandlisten] allocator: tcmalloc
+2020-12-05T18:10:06.976+0100 I  CONTROL  [initandlisten] modules: none
+2020-12-05T18:10:06.977+0100 I  CONTROL  [initandlisten] build environment:
+2020-12-05T18:10:06.977+0100 I  CONTROL  [initandlisten]     distmod: 2012plus
+2020-12-05T18:10:06.977+0100 I  CONTROL  [initandlisten]     distarch: x86_64
+2020-12-05T18:10:06.977+0100 I  CONTROL  [initandlisten]     target_arch: x86_64
+2020-12-05T18:10:06.977+0100 I  CONTROL  [initandlisten] options: { config: "C:\Program Files\MongoDB\Server\4.2\bin\mongod.cfg", net: { bindIp: "localhost", port: 27017 }, replication: { replSetName: "rs" }, storage: { dbPath: "C:\data\db", journal: { enabled: true } }, systemLog: { destination: "file", logAppend: true, path: "log.log" } }
+2020-12-05T18:10:06.984+0100 I  STORAGE  [initandlisten] Detected data files in C:\data\db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2020-12-05T18:10:06.984+0100 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3544M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000,close_scan_interval=10,close_handle_minimum=250),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
+2020-12-05T18:10:07.057+0100 I  STORAGE  [initandlisten] WiredTiger message [1607188207:57380][10056:2005282592], txn-recover: Recovering log 29 through 30
+2020-12-05T18:10:07.303+0100 I  STORAGE  [initandlisten] WiredTiger message [1607188207:303912][10056:2005282592], txn-recover: Recovering log 30 through 30
+2020-12-05T18:10:07.548+0100 I  STORAGE  [initandlisten] WiredTiger message [1607188207:548943][10056:2005282592], txn-recover: Main recovery loop: starting at 29/6400 to 30/256
+2020-12-05T18:10:08.434+0100 I  STORAGE  [initandlisten] WiredTiger message [1607188208:434055][10056:2005282592], txn-recover: Recovering log 29 through 30
+2020-12-05T18:10:08.776+0100 I  STORAGE  [initandlisten] WiredTiger message [1607188208:776599][10056:2005282592], txn-recover: Recovering log 30 through 30
+2020-12-05T18:10:09.066+0100 I  STORAGE  [initandlisten] WiredTiger message [1607188209:66135][10056:2005282592], txn-recover: Set global recovery timestamp: (0, 0)
+2020-12-05T18:10:09.147+0100 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2020-12-05T18:10:09.166+0100 I  STORAGE  [initandlisten] Timestamp monitor starting
+2020-12-05T18:10:09.169+0100 I  CONTROL  [initandlisten] 
+2020-12-05T18:10:09.171+0100 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-12-05T18:10:09.172+0100 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-12-05T18:10:09.172+0100 I  CONTROL  [initandlisten] 
+2020-12-05T18:10:09.181+0100 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+2020-12-05T18:10:09.189+0100 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+2020-12-05T18:10:09.190+0100 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+2020-12-05T18:10:09.190+0100 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+2020-12-05T18:10:09.199+0100 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+2020-12-05T18:10:09.757+0100 W  FTDC     [initandlisten] Failed to initialize Performance Counters for FTDC: WindowsPdhError: PdhExpandCounterPathW failed with 'L’objet spécifié n’a pas été trouvé sur l’ordinateur.' for counter '\Memory\Available Bytes'
+2020-12-05T18:10:09.758+0100 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'C:/data/db/diagnostic.data'
+2020-12-05T18:10:09.767+0100 I  SHARDING [initandlisten] Marking collection local.replset.minvalid as collection version: <unsharded>
+2020-12-05T18:10:09.767+0100 I  SHARDING [initandlisten] Marking collection local.replset.election as collection version: <unsharded>
+2020-12-05T18:10:09.774+0100 I  REPL     [initandlisten] Did not find local initialized voted for document at startup.
+2020-12-05T18:10:09.778+0100 I  REPL     [initandlisten] Rollback ID is 1
+2020-12-05T18:10:09.778+0100 I  REPL     [initandlisten] Did not find local replica set configuration document at startup;  NoMatchingDocument: Did not find replica set configuration document in local.system.replset
+2020-12-05T18:10:09.780+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:10:09.782+0100 I  SHARDING [LogicalSessionCacheReap] Marking collection config.system.sessions as collection version: <unsharded>
+2020-12-05T18:10:09.782+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:10:09.783+0100 I  NETWORK  [listener] Listening on 127.0.0.1
+2020-12-05T18:10:09.783+0100 I  NETWORK  [listener] waiting for connections on port 27017
+2020-12-05T18:10:10.014+0100 I  SHARDING [ftdc] Marking collection local.oplog.rs as collection version: <unsharded>
+2020-12-05T18:15:09.780+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:15:09.782+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:20:09.780+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:20:09.781+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:25:09.780+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:25:09.784+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:30:09.780+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:30:09.781+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:35:09.781+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:35:09.782+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:40:09.781+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:40:09.782+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:45:09.781+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:45:09.783+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:50:09.781+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:50:09.782+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T18:55:09.781+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T18:55:09.783+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:00:09.781+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:00:09.783+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:05:09.781+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:05:09.784+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:10:09.782+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:10:09.784+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:15:09.788+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:15:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:20:09.788+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:20:09.788+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:25:09.788+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:25:09.788+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:30:09.789+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:30:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:35:09.788+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:35:09.789+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:40:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:40:09.790+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:45:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:45:09.790+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:50:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:50:09.790+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T19:55:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T19:55:09.790+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:00:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:00:09.790+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:05:09.789+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:05:09.790+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:10:09.790+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:10:09.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:15:09.790+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:15:09.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:20:09.790+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:20:09.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:25:09.790+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:25:09.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:30:09.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:30:09.792+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:35:09.791+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:35:09.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:40:09.790+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:40:09.791+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:45:09.793+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:45:09.794+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:50:09.791+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:50:09.792+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:55:09.792+0100 I  CONTROL  [LogicalSessionCacheRefresh] Sessions collection is not set up; waiting until next sessions refresh interval: Replication has not yet been configured
+2020-12-05T20:55:09.792+0100 I  CONTROL  [LogicalSessionCacheReap] Failed to reap transaction table: NotYetInitialized: Replication has not yet been configured
+2020-12-05T20:57:48.587+0100 I  CONTROL  [thread1] Ctrl-C signal
+2020-12-05T20:57:48.588+0100 I  CONTROL  [consoleTerminate] got CTRL_C_EVENT, will terminate after current cmd ends
+2020-12-05T20:57:48.599+0100 I  NETWORK  [consoleTerminate] shutdown: going to close listening sockets...
+2020-12-05T20:57:48.601+0100 I  -        [consoleTerminate] Stopping further Flow Control ticket acquisitions.
+2020-12-05T20:57:48.602+0100 I  REPL     [consoleTerminate] shutting down replication subsystems
+2020-12-05T20:57:48.607+0100 I  ASIO     [Replication] Killing all outstanding egress activity.
+2020-12-05T20:57:48.612+0100 I  CONTROL  [consoleTerminate] Shutting down free monitoring
+2020-12-05T20:57:48.615+0100 I  FTDC     [consoleTerminate] Shutting down full-time diagnostic data capture
+2020-12-05T20:57:48.624+0100 I  STORAGE  [consoleTerminate] Deregistering all the collections
+2020-12-05T20:57:48.625+0100 I  STORAGE  [consoleTerminate] Timestamp monitor shutting down
+2020-12-05T20:57:48.627+0100 I  STORAGE  [consoleTerminate] WiredTigerKVEngine shutting down
+2020-12-05T20:57:48.627+0100 I  STORAGE  [consoleTerminate] Shutting down session sweeper thread
+2020-12-05T20:57:48.628+0100 I  STORAGE  [consoleTerminate] Finished shutting down session sweeper thread
+2020-12-05T20:57:48.629+0100 I  STORAGE  [consoleTerminate] Shutting down journal flusher thread
+2020-12-05T20:57:48.632+0100 I  STORAGE  [consoleTerminate] Finished shutting down journal flusher thread
+2020-12-05T20:57:48.632+0100 I  STORAGE  [consoleTerminate] Shutting down checkpoint thread
+2020-12-05T20:57:48.633+0100 I  STORAGE  [consoleTerminate] Finished shutting down checkpoint thread
+2020-12-05T20:57:48.666+0100 I  STORAGE  [consoleTerminate] shutdown: removing fs lock...
+2020-12-05T20:57:48.667+0100 I  CONTROL  [consoleTerminate] now exiting
+2020-12-05T20:57:48.668+0100 I  CONTROL  [consoleTerminate] shutting down with code:12
