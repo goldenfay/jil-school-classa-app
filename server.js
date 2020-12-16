@@ -6,7 +6,6 @@ const URI =require('./config');
 const adminRoutes = require("./admin/routes/rAdmin");
 const userRoutes = require("./user/routes/rUser");
 const multer = require("multer");
-const MONGODB_URI = require("./config");
 
 const PORT = 5000;
 
@@ -65,14 +64,14 @@ mongoose
   })
   .then((p) => {
     const app = server.listen(process.env.PORT || PORT, () => {
-      const serve = {
-        address:
-          app.address().address === "::"
-            ? "http://localhost"
-            : app.address().address,
-        port: app.address().port,
-      };
-      process.env["SERVER"] = JSON.stringify(serve);
+      // const serve = {
+      //   address:
+      //     app.address().address === "::"
+      //       ? "http://localhost"
+      //       : app.address().address,
+      //   port: app.address().port,
+      // };
+      // process.env["SERVER"] = JSON.stringify(serve);
       console.log("Connected to mongodb");
       console.log(`Server Running at ${PORT}`);
     });
@@ -81,44 +80,3 @@ mongoose
     console.log("Error Connection",err);
   });
 
-// convention: db naming should be singular and starts with capital letter ==> mongoose.model("Matiere", matiereSchema) &&& ref:"Matiere"
-
-// Status Code
-// 401 : Authorization error
-// 403 : this is forbidden in general which can be translated to you're not authenticated at all (like signin error, signup error)
-// 404 : Not Found
-// 422 : Invalid user input
-// 500 : Something went wrong on the server
-// 200 : it's a normal success
-// 201 : it's a particular success for when you create something new
-
-// Environment Variable:
-// bcrypt process.env.HASH_SALT: 12
-// jwt admin_secret_key: process.env.ADMIN_SECRET
-// jwt user_secret_key: process.env.USER_SECRET
-
-/*
-
-
-
-Admin Collections 
--------------------
-
-token Manager: 
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjM5Y2VlZmY1NTFjMzhlOTUyOTRhMiIsImlhdCI6MTYwNTYwNjY5MX0.HINqrQdNe8jDeTTU4EPISbQ2iMzbFwWOpXhm05VdCu0
-
-
-Riad Manager account
-username: riad
-Password: riadclassa2020__
-Bcrypt hash : $2a$12$Ns10pMlYGjkTqbH.5X0tNeiSip6iYlf6kVZYXP13nRhHapBJz69oG
-
-db.managers.insertOne(
-  {username: "riad",password: "$2a$12$Ns10pMlYGjkTqbH.5X0tNeiSip6iYlf6kVZYXP13nRhHapBJz69oG", nom:"Djaafer", prenom:"Riad", image:"https://petcivilufu.com.br/assets/base/img/content/team/team16.jpg"})
-
-
-Token Enseignants
-
-
-
-*/
