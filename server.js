@@ -2,9 +2,11 @@ const express = require("express");
 const server = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const URI =require('./config');
 const adminRoutes = require("./admin/routes/rAdmin");
 const userRoutes = require("./user/routes/rUser");
 const multer = require("multer");
+const MONGODB_URI = require("./config");
 
 const PORT = 5000;
 
@@ -55,7 +57,7 @@ server.use("/", (req, res, next) => {
 });
 
 mongoose
-  .connect("mongodb://localhost:27017/classa", {
+  .connect( URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
