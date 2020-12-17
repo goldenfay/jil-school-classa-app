@@ -63,6 +63,7 @@ module.exports = async (req, res, next) => {
           );
         }
         
+  const SERVER_ENV = JSON.parse(process.env["SERVER"]);
        
   const responseObj = rejectPropsObject(admin.toObject({ getters: true }), [
     "password",
