@@ -45,13 +45,7 @@ module.exports = async (req, res, next) => {
     );
   }
 
-  return next(
-    new HttpError(
-      "9IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIW",
-      500
-    )
-  );
-
+  
   let token;
   try {
     token = jwt.sign(
@@ -59,15 +53,21 @@ module.exports = async (req, res, next) => {
         id: admin.id,
       },
       process.env.ADMIN_SECRET || "admin_secret"
-    );
-  } catch (error) {
-    return next(
-      new HttpError(
-        "Une Erreur s'est produite lors de l'authentification. Veuillez réessayer ulterieurement",
-        500
-      )
-    );
-  }
+      );
+    } catch (error) {
+      return next(
+        new HttpError(
+          "Une Erreur s'est produite lors de l'authentification. Veuillez réessayer ulterieurement",
+          500
+          )
+          );
+        }
+        return next(
+          new HttpError(
+            "9IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIW",
+            500
+          )
+        );
 
   const SERVER_ENV = JSON.parse(process.env["SERVER"]);
   const responseObj = rejectPropsObject(admin.toObject({ getters: true }), [
