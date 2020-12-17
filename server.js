@@ -64,14 +64,14 @@ mongoose
   })
   .then((p) => {
     const app = server.listen(process.env.PORT || PORT, () => {
-      // const serve = {
-      //   address:
-      //     app.address().address === "::"
-      //       ? "http://localhost"
-      //       : app.address().address,
-      //   port: app.address().port,
-      // };
-      // process.env["SERVER"] = JSON.stringify(serve);
+      const serve = {
+        address:
+          app.address().address === "::"
+            ? "http://localhost"
+            : app.address().address,
+        port: app.address().port,
+      };
+      process.env["SERVER"] = JSON.stringify(serve);
       console.log("Connected to mongodb");
       console.log(`Server Running at ${PORT}`);
     });
