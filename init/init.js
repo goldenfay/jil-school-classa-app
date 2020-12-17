@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const DBIntializer = require("./index");
 
 
-const action = 1;
+const action = 4;
 
 mongoose
-  .connect('mongodb+srv://classa:<password>@cluster0.maax4.mongodb.net/<dbname>?retryWrites=true&w=majority', {
+  .connect(`mongodb+srv://classa:classaApp2020@cluster0.maax4.mongodb.net/classa?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

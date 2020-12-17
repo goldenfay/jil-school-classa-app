@@ -45,6 +45,13 @@ module.exports = async (req, res, next) => {
     );
   }
 
+  return next(
+    new HttpError(
+      "9IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIW",
+      500
+    )
+  );
+
   let token;
   try {
     token = jwt.sign(
