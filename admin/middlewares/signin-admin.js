@@ -62,14 +62,14 @@ module.exports = async (req, res, next) => {
           )
           );
         }
+        
+        const SERVER_ENV = JSON.parse(process.env["SERVER"]);
         return next(
           new HttpError(
-            "9IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIW",
+            "9IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIW3",
             500
           )
         );
-
-  const SERVER_ENV = JSON.parse(process.env["SERVER"]);
   const responseObj = rejectPropsObject(admin.toObject({ getters: true }), [
     "password",
   ]);
