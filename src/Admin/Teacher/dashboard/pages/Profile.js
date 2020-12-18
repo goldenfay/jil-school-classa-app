@@ -267,7 +267,6 @@ export const Profile = ({ className, cardProps, ...props }) => {
         })
         .filter((el) => !(typeof el === "undefined"))
     );
-    console.log(state.imgFile);
     if (state.imgFile) changes.image = state.imgFile.file;
     if (data.currentpassword && data.newpassword) {
       changes.oldPassword = data.currentpassword;

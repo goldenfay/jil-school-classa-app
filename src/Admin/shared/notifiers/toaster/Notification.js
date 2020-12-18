@@ -14,7 +14,6 @@ export default function Notification({ variant, ...props }) {
     const theme = useTheme();
   const classes = useStyles();
   const toasterStyles=useToasterStyles();
-  console.log(theme)
 
   const icon = props.icon || <Info/>
   const iconWithStyles = React.cloneElement(icon, {

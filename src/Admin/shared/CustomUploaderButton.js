@@ -19,7 +19,6 @@ function CustomUploaderButton({
 
   const handleUploadClick = (e) => {
     const file = e.currentTarget.files[0];
-    console.log('Current value of file input : ',e.currentTarget.value);
 
     const fileReader = new FileReader();
     fileReader.onload = () => {

@@ -109,7 +109,6 @@ export const Pubs = ({ className, cardProps, ...props }) => {
       }
     );
   };
-  // console.log("User from the Redux State : ", user);
   const defaultState = {
     titre: "",
     sponsor: "",
@@ -122,7 +121,6 @@ export const Pubs = ({ className, cardProps, ...props }) => {
   const [currentFile, setCurrentFile] = useState(null);
 
   const inputChangeHandler = (file) => {
-    console.log(file.file.name);
     setCurrentFile(file);
     // setImageName();
   };
@@ -187,7 +185,6 @@ export const Pubs = ({ className, cardProps, ...props }) => {
   }, []);
 
   useEffect(() => {
-    console.log(rows);
     if (rows !== []) {
       setPubRows(
         rows.map((row) => ({
@@ -243,7 +240,6 @@ export const Pubs = ({ className, cardProps, ...props }) => {
 
   // Define handlers
   const onUpload = () => {
-    console.log("Updating...");
 
     //Update file (Change its state to uploading)
     setCurrentFile({
@@ -294,7 +290,6 @@ export const Pubs = ({ className, cardProps, ...props }) => {
   };
 
   const handleChange = (event) => {
-    console.log(pubsRows);
     setNewPubState({
       ...newPubState,
       [event.target.name]: event.target.value,
@@ -303,7 +298,6 @@ export const Pubs = ({ className, cardProps, ...props }) => {
   const handleSubmit = (data) => {
     // Redux update action dispatch
     onUpload();
-    console.log(data);
   };
   return (
     <Page className={classes.root} title="Espace Publicités">

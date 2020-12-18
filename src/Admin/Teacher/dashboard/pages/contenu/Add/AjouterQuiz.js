@@ -101,7 +101,6 @@ function AjouterQuiz(props) {
 
   }
 
-  // useEffect(()=>console.log("Ajouter Qui state : ",state),[state])
 
   const updateQuestList = (size) => {
     if (size>state.questionsList.length)

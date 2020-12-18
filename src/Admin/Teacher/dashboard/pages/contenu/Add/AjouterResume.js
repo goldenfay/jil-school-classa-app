@@ -91,9 +91,9 @@ function AjouterDocument(props) {
     if (props.linkRefHandle) props.linkRefHandle(formRef, 1);
   }, [formRef]);
 
-  useEffect(() => {
-    console.log("State updated on Resume",state);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log("State updated on Resume",state);
+  // }, [state]);
 
   const onChangeHandler = (event) => {
     if (event.target.name === "titrePdf" && event.target.value !== "")

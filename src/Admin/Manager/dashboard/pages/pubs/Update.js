@@ -73,7 +73,6 @@ export const UpdatePub = ({ className, cardProps,oldPubProps, ...props }) => {
   const [currentFile, setCurrentFile] = useState(null);
 
   const inputChangeHandler = (file) => {
-    console.log(file.file.name);
     setCurrentFile(file);
     // setImageName();
   };
@@ -214,7 +213,6 @@ export const UpdatePub = ({ className, cardProps,oldPubProps, ...props }) => {
   const handleSubmit = (data) => {
     // Redux update action dispatch
     sendUpdate();
-    console.log(data);
   };
   return (
       <Container maxWidth="lg">

@@ -113,7 +113,7 @@ export function Contenu(props) {
           <IconButton
             size="medium"
             color="primary"
-            onClick={(e) => console.log(DBrow)}
+            onClick={(e) => console.log()}
           >
             <EditIcon />
           </IconButton>

@@ -113,7 +113,6 @@ function AjouterVideo(props) {
   useEffect(()=>{
     teacherService.getProfCourses({adminType: "enseignant", id:props.user._id}).then(
       res=>{
-        console.log(res);
         const actualClassCourses=res.courses.filter(cours=>cours.classe===props.currentClasse)
         const index=props.withTitle ? 1:0
         const dup=formStructure;

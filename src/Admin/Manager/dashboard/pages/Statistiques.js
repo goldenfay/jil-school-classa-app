@@ -30,7 +30,7 @@ function Statistiques(props) {
       // Fetch profs related statistics
     ManagerService.getProfsStatistics({ adminType: "manager" }).then(
       (res) => {
-        console.log(res);
+        console.log("Profs statistics : ",res);
         setProfsSummary(res);
         setProfsSummaryisLoading(false);
       },
@@ -39,7 +39,7 @@ function Statistiques(props) {
       // Fetch eleves related statistics
     ManagerService.getElevesStatistics({ adminType: "manager" }).then(
       (res) => {
-        console.log(res);
+        console.log("Eleves Statistics : ",res);
         setElevesSummary(res);
         setElevesSummaryisLoading(false);
       },
