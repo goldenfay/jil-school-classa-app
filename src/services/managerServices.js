@@ -174,7 +174,6 @@ const getAllClassesMatieres = (data) => {
  * @param {*} data 
  */
 const addPub = (data,optionalOpts) => {
-  console.log(data.adminType)
   if (checkRoleAutorizationFail(data))
     return Promise.reject({
       message:
@@ -247,7 +246,6 @@ const updatePub = (data,optionalOpts) => {
  * @param {*} data 
  */
 const deletePub = (data,optionalOpts) => {
-  console.log(data.adminType)
   if (checkRoleAutorizationFail(data))
     return Promise.reject({
       message:

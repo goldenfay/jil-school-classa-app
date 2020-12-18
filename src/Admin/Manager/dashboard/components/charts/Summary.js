@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { Grid, Typography, Paper, Box } from "@material-ui/core";
 import { People as PeopleIcon, LocalLibrary,AttachMoney } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
+
+import {getGeneralStatistics} from '../../../../../services/shared'
 const useStyles = makeStyles((theme) => ({
     redBg: {
       backgroundColor: theme.palette.secondary.main,
@@ -32,6 +34,25 @@ const useStyles = makeStyles((theme) => ({
 
 function Summary(props) {
     const classes = useStyles();
+    const [state,setstate]=useState({
+      eleves: null,
+      abonnements: null,
+      profs: null
+    })
+
+    useEffect(()=>{
+      getGeneralStatistics().then(
+        res=>{
+          setstate({...res})
+
+        },
+        err=>{
+          console.error(err);
+
+        }
+      )
+
+    },[])
     return (
         <Grid container spacing={3} >
         <Grid item xs={12}>
@@ -63,7 +84,7 @@ function Summary(props) {
                     alignItems="center"
                   >
                     <Typography variant="h4" color="primary">
-                      4454
+                      {state.profs}
                     </Typography>
                   </Box>
                 </Box>
@@ -105,7 +126,7 @@ function Summary(props) {
                     alignItems="center"
                   >
                     <Typography variant="h4" color="primary">
-                      4454
+                      {state.eleves}
                     </Typography>
                   </Box>
                 </Box>
@@ -146,7 +167,7 @@ function Summary(props) {
                     alignItems="center"
                   >
                     <Typography variant="h4" color="primary">
-                      4454
+                      {state.abonnements}
                     </Typography>
                   </Box>
                 </Box>

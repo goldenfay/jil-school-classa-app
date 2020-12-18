@@ -50,12 +50,10 @@ export default function Dashboard(props) {
                     res.classes.forEach((classe) => {
                         rows[classe.cycle-1].children.push( {codeCl: classe.codeCl,description: classe.description});
                     });
-                    console.log(rows);
                     setDataRows(rows)
                     setisLoading(false);
               },
               (err) => {
-                console.log(err)
                 setisLoading(false);
               }
           )

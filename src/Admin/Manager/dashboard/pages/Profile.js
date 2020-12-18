@@ -221,7 +221,7 @@ export const Profile = ({ className, cardProps, ...props }) => {
       changes.oldPassword=data.currentpassword;
       changes.newPassword=data.newpassword;
     }
-    console.log(changes);
+    // console.log(changes);
 
   
     

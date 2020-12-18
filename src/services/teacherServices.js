@@ -43,6 +43,36 @@ const register = (data) => {
     handleResponse
   );
 };
+
+
+/**
+ * Delete prof.
+ * @param {*} data 
+ */
+const deleteProf = (data,optionalOpts) => {
+  if (checkRoleAutorizationFail(data))
+    return Promise.reject({
+      message:
+        "Non autorisé! Uniquement l'enseignant qui peut supprimer un cours",
+    });
+  if(!data.id)
+    return Promise.reject({
+      message:
+        "Paramètres manquants",
+    });
+  
+  const requestOptions = {
+    method: "DELETE",
+    headers: {...authHeader(),'Content-Type':'application/json'},
+    body: JSON.stringify(data),
+   
+  };
+  return fetch(`${managerConfig.API_URL}/cours/${data.id}`, requestOptions).then(
+    handleResponse
+  );
+};
+
+
 /**
  * Update teacher profile.
  * @param {*} data 
@@ -192,7 +222,6 @@ function addNewCourse(data){
     fd.append('cartesAnswers',qst.answerImg.file)
   })
   fd.append("adminType",data["adminType"])
-  console.log(data["adminType"])
   // fd.append('cartes',data.questionsList.map(qst=>qst.questionImg).filter(el=> el && el!==null))
   const requestOptions = {
     method: "POST",

@@ -306,7 +306,6 @@ export default function AddEnseignant(props) {
               .filter((classe) => typeof (classe.matieres.find(el=> el.id===event.target.value)) !=="undefined")
               .map((classe) => classe.cycle
               ))); 
-              console.log(event.target.value,'LABELS : ',labels)
               const filteredCycles=labels.map((codeCycle)=>({
                 key: codeCycle,
                 value: codeCycle,
@@ -366,8 +365,6 @@ export default function AddEnseignant(props) {
    * @param {*} data the data returned from Formik
    */
   const handleSubmit = (data) => {
-    console.log(data);
-    console.log(state.formState);
     const {username,nom,prenom,email,phone,wilaya,commune,matiere,classes}=state.formState;
    
     

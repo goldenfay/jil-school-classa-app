@@ -37,6 +37,24 @@ const login =(username,password,adminType)=>{
 
 
 
+/**
+ * get Database general counts
+ * 
+ */
+const getGeneralStatistics = () => {
+  
+  const requestOptions = {
+    method: "GET",
+    headers: {'Content-Type':'application/json'}
+  };
+
+  return fetch(`${managerConfig.STATS_API_URL}/counts`, requestOptions).then(
+    handleResponse
+  );
+};
+
+
+
 
 
 
@@ -70,14 +88,9 @@ function handleResponse (response) {
     return response.text().then(text => {
       const data = text && JSON.parse(text)
       if (!response.ok) {
-        if (response.status === 401) {
-          // auto logout if 401 response returned from api
-        //   logout()
-          // window.location.reload()
-
-        }
+       
   
-        const error = (data && data.message) || response.statusText
+        const error = (data && data.message) || (response.status>=500?"Impossible de contacter le serveur":response.statusText)
         return Promise.reject(error)
       }
   
@@ -86,4 +99,4 @@ function handleResponse (response) {
   }
 
 
-export {handleResponse,login,authHeader,checkRoleAutorizationFail}  
+export {handleResponse,login,authHeader,checkRoleAutorizationFail,getGeneralStatistics}  

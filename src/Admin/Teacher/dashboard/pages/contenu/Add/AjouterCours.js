@@ -104,9 +104,9 @@ function AjouterCours(props) {
     
     const validateStep=(step)=>{
         if(step===2 && stepsPassed.filter(el=> el===true).length===3){
-            console.log('Sending cours ...');
+            // console.log('Sending cours ...');
             
-            console.log("Questions List : ",globalState.questionsList);
+            // console.log("Questions List : ",globalState.questionsList);
             TeacherService.addNewCourse({
                 adminType: "enseignant",
                 ...globalState,

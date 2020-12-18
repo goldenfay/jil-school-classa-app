@@ -103,8 +103,7 @@ export function SignIn(props) {
       }
     },
       err=> {
-        console.log("Erreur d'authentification")
-        console.log(err)
+       
       }
     );
 
