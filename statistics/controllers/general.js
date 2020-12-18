@@ -7,24 +7,6 @@ const Eleve = require("../../user/models/eleve");
 const codeAbonnement = require("../../user/models/codeAbonnement");
 
 const getCounts = async (req, res, next) => {
-  const managerId = req.adminData.id;
-  let manager;
-  try {
-    manager = await Manager.findById(managerId);
-  } catch (error) {
-    return next(
-      new HttpError(
-        "Une erreur s'est produite, Impossible d'effectuer les calculs",
-        500
-      )
-    );
-  }
-
-  if (!manager) {
-    return next(
-      new HttpError("Vous n'avez pas le droit de faire cette opération", 401)
-    );
-  }
   
 
   let eleves,abonnements,profs,cours,classes;
