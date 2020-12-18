@@ -36,6 +36,7 @@ server.use(corsConfig);
 
 server.use("/api/admin", adminRoutes);
 server.use("/api/user", userRoutes);
+server.use("/api/statistics", statisticsRoutes);
 
 // Pour les erreurs qui n'ont pas été traités
 server.use((error, req, res, next) => {

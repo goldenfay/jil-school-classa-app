@@ -192,8 +192,47 @@ const deletePub = async (req, res, next) => {
   });
 };
 
+
+const getCountBySponsor = async (req, res, next) => {
+  
+
+  let pubs;
+  try {
+    pubs = await Pub.aggregate([
+      {
+        $group: {
+          _id: "$sponsor",
+          count: { $sum: 1 },
+          avg: { $avg: 1 },
+        },
+      },
+      
+    ]);
+  } catch (error) {
+    console.log("Error: Could not aggregate eleves counts : ", error);
+    return next(
+      new HttpError(
+        "Une Erreur s'est produite, Impossible d'effectuer les calculs'",
+        500
+      )
+    );
+  }
+
+  res
+    .status(200)
+    // .json({ results: pubs.map((c) => c.toObject({ getters: true })) });
+    .json(pubs);
+};
+
 exports.previewAd = previewAd;
 exports.getAllPubs = getAllPubs;
 exports.addPub = addPub;
 exports.updatePub = updatePub;
 exports.deletePub = deletePub;
+
+
+
+
+exports.getCountBySponsor = getCountBySponsor;
+
+

@@ -207,11 +207,12 @@ const signinEleve = async (req, res, next) => {
       )
       
     );
-  const token = req.headers.authorization.split(" ")[1];
+  let token = req.headers.authorization;
 
   if (!token) {
-    throw Error("Token Not Found!");
+    throw Error("Paramètres d'authentification non valides");
   }
+  token=token.split(" ")[1];
   const decodedToken = await jwt.verify(
     token,
     process.env.USER_SECRET || "user_secret"
