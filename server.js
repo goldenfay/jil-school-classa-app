@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const URI =require('./config');
 const adminRoutes = require("./admin/routes/rAdmin");
 const userRoutes = require("./user/routes/rUser");
+const statisticsRoutes = require("./statistics/routes/");
 const multer = require("multer");
 
 const PORT = 5000;
