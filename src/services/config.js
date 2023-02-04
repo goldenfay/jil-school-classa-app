@@ -1,12 +1,13 @@
-const USERS_API_URL="https://agile-stream-82857.herokuapp.com/api/user";
-const STATS_API_URL="https://agile-stream-82857.herokuapp.com/api/statistics";
+const BASE_URL=process.env.REACT_APP_API_URL || "localhost:5000/api"
+const USERS_API_URL=BASE_URL+"/user";
+const STATS_API_URL=BASE_URL"/statistics";
 const teacherConfig={
-    API_URL: "https://agile-stream-82857.herokuapp.com/api/admin/enseignants",
+    API_URL: BASE_URL+"/admin/enseignants",
     USERS_API_URL,
     STATS_API_URL
 }
 const managerConfig={
-    API_URL: "https://agile-stream-82857.herokuapp.com/api/admin",
+    API_URL: BASE_URL+"/admin",
     USERS_API_URL,
     STATS_API_URL
 
